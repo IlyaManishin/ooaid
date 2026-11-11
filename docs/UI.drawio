@@ -1,0 +1,400 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.0.3 Chrome/140.0.7339.249 Electron/38.7.0 Safari/537.36" version="29.0.3">
+  <diagram name="base" id="vI9fM2m-eKTJCavrNlA9">
+    <mxGraphModel dx="1041" dy="624" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-2" value="ЭКРАН 1: Главная (Dashboard / Текущий цикл и расписание)" style="swimlane;whiteSpace=wrap;html=1;startSize=32;fillColor=#f8f9fa;strokeColor=#343a40;fontStyle=1;fontSize=13;rounded=1;arcSize=2;" vertex="1" parent="1">
+          <mxGeometry x="150" y="330" width="880" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-3" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e9ecef;strokeColor=#adb5bd;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-2">
+          <mxGeometry y="32" width="230" height="528" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-4" value="🏠 Главная (Текущий цикл)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;align=left;spacingLeft=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-2">
+          <mxGeometry x="15" y="50" width="200" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-5" value="📋 Список программ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ced4da;align=left;spacingLeft=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-2">
+          <mxGeometry x="15" y="96" width="200" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-6" value="👤 Профиль и рекорды" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ced4da;align=left;spacingLeft=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-2">
+          <mxGeometry x="15" y="142" width="200" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-7" value="&lt;b&gt;Виртуальный тренер (Статика)&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:10px&#39;&gt;Флаг «Трудолюбие»: ВЫКЛ (0 полных сегодня)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;spacing=8;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-2">
+          <mxGeometry x="15" y="200" width="200" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-8" value="Аватар&lt;br&gt;Тренера" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-2">
+          <mxGeometry x="75" y="250" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-9" value="«Привет! По графику сегодня &lt;b&gt;день отдыха&lt;/b&gt;, но ты всё равно можешь потренироваться сейчас при желании! За тобой также числится долг по Тренировке #1.»" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;fillColor=#ffffff;strokeColor=#d6b656;position2=0;size=15;position=0.2;align=left;spacingLeft=8;fontSize=11;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-2">
+          <mxGeometry x="25" y="345" width="180" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-10" value="&lt;b&gt;Активная программа:&lt;/b&gt; «Базовый Сплит»  |  &lt;b&gt;Цикл #2:&lt;/b&gt; Идёт  |  &lt;b&gt;Следующий авто-старт:&lt;/b&gt; Завтра в 18:00 (Сегодня день отдыха)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#adb5bd;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-2">
+          <mxGeometry x="250" y="48" width="610" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-11" value="Завершить цикл вручную&#xa;(Игнорирует Hot)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=11;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-2">
+          <mxGeometry x="690" y="54" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-12" value="&lt;b&gt;БЛИЖАЙШАЯ ТРЕНИРОВКА ПО ПОРЯДКУ: День 2 — Сила и Баланс&lt;/b&gt;&lt;br&gt;• Статус: &lt;b&gt;«Не начато»&lt;/b&gt; (Блокирует авто-завершение цикла)&lt;br&gt;• Расписание: Сегодня день отдыха (Авто-старт не срабатывает, но &lt;b&gt;ручной старт разрешён в любой день!&lt;/b&gt;)&lt;br&gt;• Упражнений: 5 шт. | Настроенный дедлайн (таймер): 90 мин. | Отдых после: 1 день" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-2">
+          <mxGeometry x="250" y="115" width="610" height="155" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-13" value="▶ Начать тренировку сейчас (вручную)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=12;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-2">
+          <mxGeometry x="270" y="215" width="310" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-14" value="&lt;font style=&#39;font-size:10px;color:#555&#39;&gt;При ручном старте и завершении сегодня&lt;br&gt;дата следующего авто-старта пересчитается от сегодня&lt;/font&gt;" style="text;html=1;align=left;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-2">
+          <mxGeometry x="595" y="215" width="255" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-15" value="&lt;b&gt;Все тренировочные дни текущего цикла (Прогресс и Долги):&lt;/b&gt;" style="text;html=1;align=left;fontSize=12;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-2">
+          <mxGeometry x="250" y="285" width="610" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-16" value="&lt;b&gt;День 1: Кардио + Кор&lt;/b&gt; — Статус: &lt;b&gt;«Не завершено»&lt;/b&gt; (2/4 упр. отмечено)&lt;br&gt;&lt;font style=&#39;font-size:11px&#39;&gt;Не блокирует цикл сам по себе, но удерживается системным флагом Hot (таймер: 59:59, идёт пока нет активной).&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-2">
+          <mxGeometry x="250" y="315" width="610" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-17" value="🔒 Системный Hot: 59:59 (Скрыт от юзера)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-2">
+          <mxGeometry x="465" y="322" width="215" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-18" value="↩ Вернуться к долгу (2/4)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=11;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-2">
+          <mxGeometry x="690" y="328" width="155" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-19" value="&lt;b&gt;День 2: Сила и Баланс&lt;/b&gt; — Статус: &lt;b&gt;«Не начато»&lt;/b&gt; (0/5 упр.) — &lt;i&gt;Выбрана как следующая по очереди&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#adb5bd;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-2">
+          <mxGeometry x="250" y="395" width="610" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-20" value="&lt;b&gt;День 3: Гибкость и Растяжка&lt;/b&gt; — Статус: &lt;b&gt;«Отложено»&lt;/b&gt; (0/3 упр., прервана без отметок — блокирует цикл)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#adb5bd;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-2">
+          <mxGeometry x="250" y="450" width="610" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-21" value="▶ Начать / Возобновить" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-2">
+          <mxGeometry x="690" y="456" width="155" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-22" value="&lt;i&gt;Состояние после завершения цикла:&lt;/i&gt; Все дни сбрасываются в «Не начато», программа остаётся активной. Появляется кнопка: &lt;b&gt;[ 🔄 Начать новый цикл ]&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e2e3e5;strokeColor=#6c757d;fontSize=11;align=left;spacingLeft=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-2">
+          <mxGeometry x="250" y="505" width="610" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-23" value="ЭКРАН 2: Список программ тренировок (Управление активностью)" style="swimlane;whiteSpace=wrap;html=1;startSize=32;fillColor=#f8f9fa;strokeColor=#343a40;fontStyle=1;fontSize=13;rounded=1;arcSize=2;" vertex="1" parent="1">
+          <mxGeometry x="1230" y="330" width="880" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-24" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e9ecef;strokeColor=#adb5bd;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-23">
+          <mxGeometry y="32" width="230" height="528" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-25" value="🏠 Главная (Текущий цикл)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ced4da;align=left;spacingLeft=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-23">
+          <mxGeometry x="15" y="50" width="200" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-26" value="📋 Список программ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;align=left;spacingLeft=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-23">
+          <mxGeometry x="15" y="96" width="200" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-27" value="👤 Профиль и рекорды" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ced4da;align=left;spacingLeft=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-23">
+          <mxGeometry x="15" y="142" width="200" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-28" value="&lt;b&gt;Виртуальный тренер&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;spacing=8;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-23">
+          <mxGeometry x="15" y="200" width="200" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-29" value="Аватар&lt;br&gt;Тренера" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-23">
+          <mxGeometry x="75" y="235" width="70" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-30" value="«Активной может быть только &lt;b&gt;одна программа&lt;/b&gt;. Пока программа активна, её редактирование заблокировано!»" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;fillColor=#ffffff;strokeColor=#d6b656;position2=0;size=15;position=0.2;align=left;spacingLeft=8;fontSize=11;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-23">
+          <mxGeometry x="25" y="320" width="180" height="125" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-31" value="➕ Создать новую программу (Фиксированная кнопка)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=12;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-23">
+          <mxGeometry x="600" y="46" width="260" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-32" value="&lt;b&gt;Мои программы тренировок&lt;/b&gt; (Макс. 1 активная)" style="text;html=1;align=left;fontSize=14;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-23">
+          <mxGeometry x="250" y="52" width="340" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-33" value="&lt;b&gt;⭐ Программа 1: «Базовый Сплит» — [ АКТИВНАЯ ПРОГРАММА ]&lt;/b&gt;&lt;br&gt;• Тренировочных дней: 3 дня (Кардио+Кор, Сила+Баланс, Гибкость)&lt;br&gt;• Всего упражнений: 12 шт. | Текущий статус: Цикл #2 выполняется (1 не завершено, 1 не начато, 1 отложено)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-23">
+          <mxGeometry x="250" y="105" width="610" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-34" value="🔒 Редактировать (Недоступно: активна)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e9ecef;strokeColor=#adb5bd;fontColor=#868e96;fontStyle=2;fontSize=11;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-23">
+          <mxGeometry x="270" y="195" width="260" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-35" value="⏹ Завершить программу" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=11;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-23">
+          <mxGeometry x="550" y="195" width="290" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-36" value="&lt;b&gt;Программа 2: «Утренняя Гимнастика и Мобильность» — [ НЕАКТИВНА ]&lt;/b&gt;&lt;br&gt;• Тренировочных дней: 4 дня | Типы упражнений: Гибкость, Баланс, Кардио&lt;br&gt;• Всего упражнений: 16 шт. | Отдых между днями: 0–1 дн.&lt;br&gt;• &lt;i&gt;Доступно полное редактирование дней, порядка и упражнений.&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#adb5bd;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-23">
+          <mxGeometry x="250" y="270" width="610" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-37" value="✏️ Редактировать программу" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-23">
+          <mxGeometry x="270" y="350" width="220" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-38" value="🚀 Начать программу (Сделать активной)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=12;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-23">
+          <mxGeometry x="510" y="350" width="330" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-39" value="&lt;b&gt;Программа 3: «Интенсив Сила + Выносливость» — [ НЕАКТИВНА ]&lt;/b&gt;&lt;br&gt;• Тренировочных дней: 2 дня | Упражнений: 10 шт. | Отдых между днями: 2 дня" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#adb5bd;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-23">
+          <mxGeometry x="250" y="415" width="610" height="115" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-40" value="✏️ Редактировать программу" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-23">
+          <mxGeometry x="270" y="480" width="220" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-41" value="🚀 Начать программу (Сделать активной)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=12;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-23">
+          <mxGeometry x="510" y="480" width="330" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-42" value="ЭКРАН 3: Создание / Редактирование программы (Только для неактивных программ)" style="swimlane;whiteSpace=wrap;html=1;startSize=32;fillColor=#f8f9fa;strokeColor=#343a40;fontStyle=1;fontSize=13;rounded=1;arcSize=2;" vertex="1" parent="1">
+          <mxGeometry x="2310" y="330" width="880" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-43" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#adb5bd;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-42">
+          <mxGeometry x="20" y="45" width="840" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-44" value="⬅ Отмена / В список" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ced4da;align=left;spacingLeft=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-42">
+          <mxGeometry x="30" y="52" width="150" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-45" value="💾 Сохранить программу" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=12;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-42">
+          <mxGeometry x="670" y="52" width="175" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-46" value="⚠️ &lt;b&gt;Ограничения валидации по спецификации:&lt;/b&gt; 1) Нельзя сохранить программу без тренировочных дней (мин. 1 день). 2) Нельзя сохранить тренировку без упражнений ($n \ge 1$). 3) Расписание относительное (задаются дни отдыха, а не дни недели)." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;spacing=8;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-42">
+          <mxGeometry x="20" y="105" width="840" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-47" value="&lt;b&gt;1. Тренировочные дни (Порядок в цикле)&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#adb5bd;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-42">
+          <mxGeometry x="20" y="165" width="290" height="375" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-48" value="1. День 1: Разминка и Кор (4 упр.) [▲][▼]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;align=left;spacingLeft=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-42">
+          <mxGeometry x="35" y="205" width="260" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-49" value="2. День 2: Силовая база (5 упр.) [▲][▼]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ced4da;align=left;spacingLeft=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-42">
+          <mxGeometry x="35" y="255" width="260" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-50" value="3. День 3: Баланс и Йога (3 упр.) [▲][▼]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ced4da;align=left;spacingLeft=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-42">
+          <mxGeometry x="35" y="305" width="260" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-51" value="➕ Добавить тренировочный день" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-42">
+          <mxGeometry x="35" y="480" width="260" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-52" value="&lt;b&gt;2. Настройки выбранного дня («День 1: Разминка и Кор»)&lt;/b&gt;&lt;br&gt;&lt;br&gt;• &lt;b&gt;Продолжительность (Жёсткий дедлайн таймера, обяз.):&lt;/b&gt; [ 90 мин. ] &lt;i&gt;(рек. запас +30–60 мин)&lt;/i&gt;&lt;br&gt;• &lt;b&gt;Количество дней отдыха после тренировки (обяз.):&lt;/b&gt; [ 1 день ] &lt;i&gt;(Относительное расписание до след. авто-старта)&lt;/i&gt;&lt;br&gt;• &lt;b&gt;Время авто-старта по расписанию (опционально):&lt;/b&gt; [ 18:30 ] &lt;i&gt;(Если пусто — без push об опоздании и ночных итогов)&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#adb5bd;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-42">
+          <mxGeometry x="325" y="165" width="535" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-53" value="&lt;b&gt;3. Список упражнений дня (Обязательно $n \ge 1$, пустые тренировки запрещены)&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#adb5bd;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-42">
+          <mxGeometry x="325" y="320" width="535" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-54" value="1. Планка на предплечьях  —  Тип: &lt;b&gt;[ Сила ]&lt;/b&gt;  |  Цель: 3 подхода × 60 сек   [🗑]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ced4da;align=left;spacingLeft=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-42">
+          <mxGeometry x="340" y="355" width="505" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-55" value="2. Берпи в темпе  —  Тип: &lt;b&gt;[ Кардио ]&lt;/b&gt;  |  Цель: 3 подхода × 15 повт.   [🗑]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ced4da;align=left;spacingLeft=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-42">
+          <mxGeometry x="340" y="393" width="505" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-56" value="3. Ласточка на одной ноге  —  Тип: &lt;b&gt;[ Баланс ]&lt;/b&gt;  |  Цель: 2 × 45 сек   [🗑]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ced4da;align=left;spacingLeft=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-42">
+          <mxGeometry x="340" y="431" width="505" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-57" value="4. Наклоны к стопам сидя  —  Тип: &lt;b&gt;[ Гибкость ]&lt;/b&gt;  |  Цель: 3 мин   [🗑]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ced4da;align=left;spacingLeft=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-42">
+          <mxGeometry x="340" y="469" width="505" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-58" value="➕ Добавить упражнение (Сила / Гибкость / Баланс / Кардио)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=12;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-42">
+          <mxGeometry x="340" y="506" width="505" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-59" value="ЭКРАН 4: Активная тренировка (Статус «Выполняется» — пошаговое выполнение)" style="swimlane;whiteSpace=wrap;html=1;startSize=32;fillColor=#f8f9fa;strokeColor=#343a40;fontStyle=1;fontSize=13;rounded=1;arcSize=2;" vertex="1" parent="1">
+          <mxGeometry x="150" y="1070" width="880" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-60" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e9ecef;strokeColor=#adb5bd;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-59">
+          <mxGeometry y="32" width="240" height="528" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-61" value="&lt;b&gt;Виртуальный тренер&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:10px&#39;&gt;Приоритет реплик: Старт / Возврат к долгу &gt; Случайная мотивация (макс. 1 раз за сессию, пауза ≥10 мин)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;spacing=8;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-59">
+          <mxGeometry x="12" y="45" width="216" height="245" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-62" value="Аватар&lt;br&gt;Тренера" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-59">
+          <mxGeometry x="80" y="120" width="70" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-63" value="«Отличный настрой! Начинаем тренировку. Выполняй упражнения и ставь отметки!»&lt;br&gt;&lt;i&gt;(Если возврат к долгу + Трудолюбие: «Решил ещё и от хвоста избавиться? Молодец!»)&lt;/i&gt;" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;fillColor=#ffffff;strokeColor=#d6b656;position2=0;size=15;position=0.2;align=left;spacingLeft=8;fontSize=11;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-59">
+          <mxGeometry x="20" y="194.5" width="200" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-64" value="&lt;b&gt;⚡ Прямое переключение&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:10px&#39;&gt;Переход на другую тренировку БЕЗ нажатия «Завершить»:&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#adb5bd;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-59">
+          <mxGeometry x="12" y="305" width="216" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-65" value="↪ Переключиться на День 1&#xa;(Статус: Не завершено, 2/4)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=11;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-59">
+          <mxGeometry x="22" y="370" width="196" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-66" value="↪ Переключиться на День 3&#xa;(Статус: Отложено, 0/3)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-59">
+          <mxGeometry x="22" y="418" width="196" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-67" value="&lt;font style=&quot;font-size: 9px;&quot;&gt;• Если 0 отметок → исходная &lt;b style=&quot;&quot;&gt;«Отложено»&lt;/b&gt;&lt;br&gt;• Если ≥1 отметки → исходная &lt;b style=&quot;&quot;&gt;«Не завершено»&lt;/b&gt;&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 9px;&quot;&gt;&lt;font style=&quot;&quot;&gt;(+ ставится &lt;b&gt;Hot&lt;/b&gt;,&amp;nbsp;&lt;/font&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;если в цикле больше нет&amp;nbsp;&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;font style=&quot;font-size: 9px;&quot;&gt;«Не начато»/«Отложено»)&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="text;html=1;align=left;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-59">
+          <mxGeometry x="20" y="460" width="200" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-68" value="&lt;b&gt;ВЫПОЛНЯЕТСЯ: День 2 — Сила и Баланс&lt;/b&gt;&lt;br&gt;• Дата след. авто-старта: &lt;code&gt;NULL&lt;/code&gt; (пока тренировка активна)  |  Системный таймер Hot: &lt;b&gt;ЗАМОРОЖЕН (01:00:00)&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-59">
+          <mxGeometry x="255" y="45" width="385" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-69" value="⏱ &lt;b&gt;Жёсткий дедлайн: 01:29:59&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:10px&#39;&gt;Всегда стартует с полных 90:00 при запуске/возврате! По истечении — авто-закрытие.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-59">
+          <mxGeometry x="650" y="45" width="215" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-70" value="&lt;b&gt;Чек-лист упражнений (Отметки сохраняются внутри текущего цикла при переключениях):&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#adb5bd;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-59">
+          <mxGeometry x="255" y="122" width="610" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-71" value="☑️ &lt;b&gt;1. Приседания со штангой&lt;/b&gt; [Сила] — &lt;i&gt;Выполнено (галочка сохранена)&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-59">
+          <mxGeometry x="275" y="160" width="570" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-72" value="☑️ &lt;b&gt;2. Выпады в движении&lt;/b&gt; [Сила] — &lt;i&gt;Выполнено (галочка сохранена)&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-59">
+          <mxGeometry x="275" y="218" width="570" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-73" value="⬜ &lt;b&gt;3. Стойка на балансировочной подушке&lt;/b&gt; [Баланс] — &lt;i&gt;Нажмите, чтобы отметить выполнение&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#adb5bd;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-59">
+          <mxGeometry x="275" y="276" width="570" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-74" value="⬜ &lt;b&gt;4. Подтягивания широким хватом&lt;/b&gt; [Сила] — &lt;i&gt;Ожидает выполнения&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#adb5bd;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-59">
+          <mxGeometry x="275" y="334" width="570" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-75" value="⬜ &lt;b&gt;5. Заминка и растяжка спины&lt;/b&gt; [Гибкость] — &lt;i&gt;Ожидает выполнения&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#adb5bd;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-59">
+          <mxGeometry x="275" y="392" width="570" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-76" value="⏹ Завершить тренировку (При 0 отметок → Диалог)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=11;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-59">
+          <mxGeometry x="255" y="478" width="295" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-77" value="✅ Завершить тренировку (При 1..n отметок → Итог)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=12;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-59">
+          <mxGeometry x="565" y="478" width="300" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-78" value="ЭКРАН 5: Особые сценарии выхода (Завершение с 0 отметок VS Прямое переключение и Hot)" style="swimlane;whiteSpace=wrap;html=1;startSize=32;fillColor=#f8f9fa;strokeColor=#343a40;fontStyle=1;fontSize=13;rounded=1;arcSize=2;" vertex="1" parent="1">
+          <mxGeometry x="1230" y="1070" width="880" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-79" value="&lt;b&gt;СЦЕНАРИЙ А: Нажата кнопка «Завершить тренировку» при 0 отмеченных упражнений&lt;/b&gt;&lt;br&gt;&lt;br&gt;Вы не отметили ни одного упражнения в текущей тренировке. Как поступить?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#adb5bd;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-78">
+          <mxGeometry x="25" y="55" width="405" height="480" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-80" value="&lt;b&gt;Вариант 1: Перейти на другую доступную тренировку&lt;/b&gt;&lt;br&gt;• Выберите тренировку («Не начато», «Отложено» или «Не завершено»):&lt;br&gt;  [ День 1: Кардио (Не завершено) ]  /  [ День 3: Гибкость (Отложено) ]&lt;br&gt;• &lt;b&gt;Итог для исходной:&lt;/b&gt; получает статус &lt;b&gt;«Отложено»&lt;/b&gt; (блокирует цикл, дату авто-старта НЕ пересчитывает)." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-78">
+          <mxGeometry x="45" y="145" width="365" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-81" value="↪ Перейти на выбранную (Исходная → «Отложено»)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=11;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-78">
+          <mxGeometry x="60" y="250" width="335" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-82" value="&lt;b&gt;Вариант 2: Завершить тренировку без перехода&lt;/b&gt;&lt;br&gt;• Вы просто закрываете текущую сессию.&lt;br&gt;• &lt;b&gt;Итог для исходной:&lt;/b&gt; получает конечный статус &lt;b&gt;«Пропущено»&lt;/b&gt;.&lt;br&gt;• Запускает пересчёт даты след. авто-старта по дням отдыха этой тренировки." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#adb5bd;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-78">
+          <mxGeometry x="45" y="325" width="365" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-83" value="⏹ Завершить без перехода (Исходная → «Пропущено»)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=11;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-78">
+          <mxGeometry x="60" y="445" width="335" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-84" value="&lt;b&gt;СЦЕНАРИЙ Б: Прямое переключение (Во время выполнения выбрана другая тренировка)&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#adb5bd;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-78">
+          <mxGeometry x="450" y="55" width="405" height="480" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-85" value="&lt;b&gt;1. Статус исходной тренировки при прямом переключении:&lt;/b&gt;&lt;br&gt;• Если &lt;b&gt;0 отметок&lt;/b&gt; → получает &lt;b&gt;«Отложено»&lt;/b&gt; (само по себе блокирует цикл, Hot не нужен).&lt;br&gt;• Если &lt;b&gt;от 1 до $n-1$ отметок&lt;/b&gt; → получает &lt;b&gt;«Не завершено»&lt;/b&gt;.&lt;br&gt;&lt;br&gt;&lt;b&gt;2. Условие установки / переноса флага Hot (Таймер 1 час):&lt;/b&gt;&lt;br&gt;• Оценивается состояние ПОСЛЕ переключения.&lt;br&gt;• Если после завершения целевой тренировки в цикле &lt;b&gt;не останется других блокирующих тренировок («Не начато» или «Отложено»)&lt;/b&gt;, на исходную тренировку со статусом «Не завершено» вешается &lt;b&gt;Hot&lt;/b&gt;.&lt;br&gt;• Если переключились НА тренировку с Hot — с неё Hot снимается и может перейти на исходную по тому же правилу.&lt;br&gt;• Пока идёт любая тренировка, таймер Hot (1 ч) &lt;b&gt;заморожен&lt;/b&gt;." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;spacing=8;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-78">
+          <mxGeometry x="470" y="105" width="365" height="255" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-86" value="&lt;b&gt;Реплика тренера при прямом переключении:&lt;/b&gt;&lt;br&gt;• Обычный итог исходной и обычный старт целевой &lt;b&gt;НЕ показываются&lt;/b&gt;.&lt;br&gt;• Отдельная похвала за «Трудолюбие» &lt;b&gt;НЕ произносится&lt;/b&gt;.&lt;br&gt;• Если установился/перенёсся Hot → Реплика &lt;b&gt;«Напоминание о Hot-долге»&lt;/b&gt;:&lt;br&gt;  &lt;i&gt;«Переключаешься? Только помни: за тобой сегодня остаётся незавершённый долг (День 2)!»&lt;/i&gt;&lt;br&gt;• Если Hot не нужен → Стандартная реплика о переключении." style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;fillColor=#ffffff;strokeColor=#d6b656;position2=0;size=15;position=0.2;align=left;spacingLeft=8;fontSize=11;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-78">
+          <mxGeometry x="470" y="375" width="365" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-87" value="ЭКРАН 6: Завершение тренировки / Вычисление итога цикла и пересчёт расписания" style="swimlane;whiteSpace=wrap;html=1;startSize=32;fillColor=#f8f9fa;strokeColor=#343a40;fontStyle=1;fontSize=13;rounded=1;arcSize=2;" vertex="1" parent="1">
+          <mxGeometry x="2310" y="1070" width="880" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-88" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;spacing=8;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-87">
+          <mxGeometry x="20" y="50" width="380" height="490" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-89" value="Аватар&lt;br&gt;Тренера" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-87">
+          <mxGeometry x="165" y="95" width="85" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-90" value="&lt;b&gt;Реплика тренера (Зависит от контекста):&lt;/b&gt;&lt;br&gt;&lt;br&gt;1) &lt;b&gt;Если одновременно завершился Цикл:&lt;/b&gt;&lt;br&gt;Приоритет у &lt;b&gt;Итога цикла&lt;/b&gt; (реплика отдельной тренировки подавляется!). Варианты: Полный успех / Частичный успех / Полный провал.&lt;br&gt;&lt;br&gt;2) &lt;b&gt;Если завершена только отдельная тренировка:&lt;/b&gt;&lt;br&gt;• &lt;i&gt;Все $n$ упр. («Завершено»):&lt;/i&gt; Похвала + включает флаг &lt;b&gt;«Трудолюбие»&lt;/b&gt; на сегодня!&lt;br&gt;• &lt;i&gt;От $1$ до $n-1$ («Не завершено»):&lt;/i&gt; Частичный успех (мягче, если уже есть «Трудолюбие»).&lt;br&gt;• &lt;i&gt;0 упр. («Пропущено»):&lt;/i&gt; Реплика о пропуске." style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;fillColor=#ffffff;strokeColor=#d6b656;position2=0;size=15;position=0.2;align=left;spacingLeft=8;fontSize=11;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-87">
+          <mxGeometry x="35" y="195" width="350" height="325" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-91" value="&lt;b&gt;1. Фиксация результата тренировки и контекста дня:&lt;/b&gt;&lt;br&gt;• Выполнено упражнений: &lt;b&gt;5 из 5&lt;/b&gt; → Статус: &lt;b&gt;«Завершено»&lt;/b&gt; (или 1..n-1 → «Не завершено», 0 → «Пропущено»).&lt;br&gt;• Флаг &lt;b&gt;«Трудолюбие»&lt;/b&gt;: Устанавливается в &lt;code&gt;TRUE&lt;/code&gt; до конца локальных суток после первой полностью завершённой тренировки (не сбрасывается при завершении цикла!).&lt;br&gt;• Дата след. авто-старта пересчитывается от сегодняшней даты + &lt;b&gt;дни отдыха этой последней завершённой за день тренировки&lt;/b&gt;." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-87">
+          <mxGeometry x="420" y="50" width="440" height="155" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-92" value="&lt;b&gt;2. Алгоритм выбора следующей тренировки и проверка завершения цикла:&lt;/b&gt;&lt;br&gt;• &lt;b&gt;Шаг 1 (Поиск следующей):&lt;/b&gt; Циклический перебор со следующей по порядку. Ищется первая со статусом &lt;b&gt;«Не начато»&lt;/b&gt; или &lt;b&gt;«Отложено»&lt;/b&gt; (статус «Не завершено» в авто-поиске НЕ участвует!).&lt;br&gt;• &lt;b&gt;Шаг 2 (Проверка авто-завершения цикла):&lt;/b&gt; Если тренировок «Выполняется», «Не начато», «Отложено» больше нет &lt;b&gt;И отсутствует активный флаг Hot&lt;/b&gt; (или истёк его 1 час) → &lt;b&gt;Цикл автоматически завершается!&lt;/b&gt;&lt;br&gt;• &lt;b&gt;Единая атомарная операция закрытия цикла:&lt;/b&gt; Вычислить итог цикла ДО сброса → показать реплику итога цикла → сбросить все статусы в «Не начато» → очистить Hot → сделать следующей 1-ю тренировку." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#adb5bd;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-87">
+          <mxGeometry x="420" y="220" width="440" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-93" value="🏠 На Главную (К обновлённому расписанию)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-87">
+          <mxGeometry x="420" y="460" width="215" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-94" value="▶ Отдельно начать следующую тренировку&#xa;(Сначала итог этой → затем реплика старта новой)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=12;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-87">
+          <mxGeometry x="645" y="460" width="215" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-109" value="&lt;b style=&quot;forced-color-adjust: none; font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;Реакция виртуального тренера и приоритет&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;fontColor=default;labelBackgroundColor=none;" vertex="1" parent="DR7aE4fDn-D8mJDxJg3N-87">
+          <mxGeometry x="35" y="60" width="335" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-95" value="1. Переход в «Список программ»" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fontSize=11;fontStyle=1;strokeColor=#0066cc;" edge="1" parent="1" source="DR7aE4fDn-D8mJDxJg3N-5" target="DR7aE4fDn-D8mJDxJg3N-23">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="220" y="290" />
+              <mxPoint x="1170" y="290" />
+              <mxPoint x="1170" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-96" value="2а. Кнопка «Создать новую программу»" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fontSize=11;fontStyle=1;strokeColor=#2b8a3e;" edge="1" parent="1" source="DR7aE4fDn-D8mJDxJg3N-31" target="DR7aE4fDn-D8mJDxJg3N-42">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2190" y="398" />
+              <mxPoint x="2190" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-97" value="2б. «Редактировать» (Только если НЕАКТИВНА)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fontSize=11;fontStyle=1;strokeColor=#0066cc;" edge="1" parent="1" source="DR7aE4fDn-D8mJDxJg3N-37" target="DR7aE4fDn-D8mJDxJg3N-42">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1610" y="740" />
+              <mxPoint x="2190" y="740" />
+              <mxPoint x="2190" y="570" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-98" value="3. Сохранить (Если ≥1 дня и в каждом дне ≥1 упр.)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fontSize=11;fontStyle=1;strokeColor=#2b8a3e;dashed=1;" edge="1" parent="1" source="DR7aE4fDn-D8mJDxJg3N-45" target="DR7aE4fDn-D8mJDxJg3N-23">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2820" y="280" />
+              <mxPoint x="1670" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-99" value="4. «Начать программу» (Делает активной) / На Главную" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fontSize=11;fontStyle=1;strokeColor=#2b8a3e;" edge="1" parent="1" source="DR7aE4fDn-D8mJDxJg3N-38" target="DR7aE4fDn-D8mJDxJg3N-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1745" y="930" />
+              <mxPoint x="590" y="930" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-100" value="5а. Начать вручную (Даже в день отдыха!)&#xa;Таймер = полная длина, Авто-дата = NULL" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fontSize=11;fontStyle=1;strokeColor=#2b8a3e;" edge="1" parent="1" source="DR7aE4fDn-D8mJDxJg3N-13" target="DR7aE4fDn-D8mJDxJg3N-59">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="495" y="990" />
+              <mxPoint x="420" y="990" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-101" value="5б. Вернуться к долгу (Реплика «Возвращение к долгу»&#xa;или «Долг после успеха», галочки сохранены)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fontSize=11;fontStyle=1;strokeColor=#d79b00;" edge="1" parent="1" source="DR7aE4fDn-D8mJDxJg3N-18" target="DR7aE4fDn-D8mJDxJg3N-59">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="837" y="990" />
+              <mxPoint x="720" y="990" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-102" value="6а. «Завершить» при 0 отметок" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fontSize=11;fontStyle=1;strokeColor=#b85450;" edge="1" parent="1" source="DR7aE4fDn-D8mJDxJg3N-76" target="DR7aE4fDn-D8mJDxJg3N-79">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1110" y="1575" />
+              <mxPoint x="1110" y="1270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-103" value="6б. Прямое переключение (Проверка и перенос Hot)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fontSize=11;fontStyle=1;strokeColor=#d79b00;" edge="1" parent="1" source="DR7aE4fDn-D8mJDxJg3N-64" target="DR7aE4fDn-D8mJDxJg3N-84">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="260" y="1680" />
+              <mxPoint x="1720" y="1680" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-104" value="7а. Запуск целевой тренировки&#xa;(Таймер заново, Hot заморожен)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fontSize=11;fontStyle=1;strokeColor=#0066cc;dashed=1;" edge="1" parent="1" source="DR7aE4fDn-D8mJDxJg3N-84" target="DR7aE4fDn-D8mJDxJg3N-59">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1920" y="1020" />
+              <mxPoint x="590" y="1020" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-105" value="7б. Завершить без перехода → Статус «Пропущено»" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fontSize=11;fontStyle=1;strokeColor=#b85450;" edge="1" parent="1" source="DR7aE4fDn-D8mJDxJg3N-83" target="DR7aE4fDn-D8mJDxJg3N-87">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1457" y="1710" />
+              <mxPoint x="2520" y="1710" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-106" value="8. Завершить тренировку (1..n отметок) ИЛИ Истёк жёсткий дедлайн таймера" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fontSize=11;fontStyle=1;strokeColor=#2b8a3e;" edge="1" parent="1" source="DR7aE4fDn-D8mJDxJg3N-77" target="DR7aE4fDn-D8mJDxJg3N-87">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="785" y="1740" />
+              <mxPoint x="2750" y="1740" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DR7aE4fDn-D8mJDxJg3N-107" value="9. Возврат на Главную (Пересчитана дата авто-старта / Статус цикла)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fontSize=11;fontStyle=1;strokeColor=#0066cc;" edge="1" parent="1" source="DR7aE4fDn-D8mJDxJg3N-93" target="DR7aE4fDn-D8mJDxJg3N-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2837" y="1610" />
+              <mxPoint x="3270" y="1610" />
+              <mxPoint x="3270" y="960" />
+              <mxPoint x="950" y="960" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

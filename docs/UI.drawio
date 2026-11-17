@@ -1,10 +1,10 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.0.3 Chrome/140.0.7339.249 Electron/38.7.0 Safari/537.36" version="29.0.3" pages="3">
-  <diagram name="1. Базовый экран и навигация" id="pP8ljPHCICLd30sShoIN">
-    <mxGraphModel dx="2316" dy="1387" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2100" pageHeight="1500" math="0" shadow="0">
+  <diagram name="1. Базовый экран и навигация" id="sAD5mib363n01EOF_IPU">
+    <mxGraphModel dx="1226" dy="734" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2100" pageHeight="1500" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="p1-title" value="&lt;b&gt;ЛИСТ 1: БАЗОВЫЙ ЭКРАН, ВЫБОР ПРОГРАММЫ, ТРЕНЕРЫ И ПРОФИЛЬ&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#475569&#39;&gt;Вертикальная мобильная компоновка • Нижняя панель навигации • Логика остановки и запуска программы с чистого листа&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#94a3b8;align=left;spacingLeft=16;fontSize=13;" parent="1" vertex="1">
+        <mxCell id="p1-title" value="&lt;b&gt;ЛИСТ 1: БАЗОВЫЙ ЭКРАН, ВЫБОР ПРОГРАММЫ, ТРЕНЕРЫ И ПРОФИЛЬ&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#475569&#39;&gt;Вертикальная мобильная компоновка • Угловой виджет виртуального тренера с облачком реплик • Запуск программы с чистого листа&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#94a3b8;align=left;spacingLeft=16;fontSize=13;" parent="1" vertex="1">
           <mxGeometry x="60" y="30" width="1940" height="54" as="geometry" />
         </mxCell>
         <mxCell id="p1-s1a" value="1А. Главная (Активная программа)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#f8fafc;strokeColor=#334155;fontStyle=1;fontSize=12;rounded=1;arcSize=4;" parent="1" vertex="1">
@@ -16,41 +16,74 @@
         <mxCell id="p1-s1a-stop" value="⏹ Остановить" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fee2e2;strokeColor=#ef4444;fontColor=#b91c1c;fontStyle=1;fontSize=11;" parent="p1-s1a" vertex="1">
           <mxGeometry x="260" y="38" width="106" height="32" as="geometry" />
         </mxCell>
-        <mxCell id="p1-s1a-coach" value="&lt;b&gt;Chloe (Ваш тренер)&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#334155&#39;&gt;«Сегодня &lt;b&gt;Работа 2&lt;/b&gt; по расписанию! Автостарт в &lt;b&gt;18:30&lt;/b&gt;, но можешь начать прямо сейчас.»&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef9c3;strokeColor=#eab308;align=left;verticalAlign=top;spacing=10;spacingLeft=68;" parent="p1-s1a" vertex="1">
-          <mxGeometry x="16" y="92" width="348" height="84" as="geometry" />
-        </mxCell>
-        <mxCell id="p1-s1a-ava" value="Chloe" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fce7f3;strokeColor=#ec4899;fontStyle=1;fontSize=11;" parent="p1-s1a" vertex="1">
-          <mxGeometry x="26" y="109" width="48" height="48" as="geometry" />
-        </mxCell>
         <mxCell id="p1-s1a-clbl" value="&lt;b&gt;Календарь цикла «Сила и масса»&lt;/b&gt; &lt;font style=&#39;font-size:10px;color:#64748b&#39;&gt;(1 день = 1 сутки)&lt;/font&gt;" style="text;html=1;align=left;fontSize=11;" parent="p1-s1a" vertex="1">
-          <mxGeometry x="16" y="188" width="348" height="22" as="geometry" />
+          <mxGeometry x="16" y="88" width="348" height="22" as="geometry" />
         </mxCell>
         <mxCell id="p1-s1a-d1" value="&lt;b&gt;16.11&lt;/b&gt;&lt;br&gt;Работа 1&lt;br&gt;✅" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e2e8f0;strokeColor=#94a3b8;fontSize=10;" parent="p1-s1a" vertex="1">
-          <mxGeometry x="16" y="214" width="80" height="60" as="geometry" />
+          <mxGeometry x="16" y="114" width="80" height="58" as="geometry" />
         </mxCell>
         <mxCell id="p1-s1a-d2" value="&lt;b&gt;17.11&lt;/b&gt;&lt;br&gt;Работа 2&lt;br&gt;&lt;b&gt;🟢 Сегодня&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;strokeWidth=2;fontSize=10;" parent="p1-s1a" vertex="1">
-          <mxGeometry x="105" y="214" width="82" height="60" as="geometry" />
+          <mxGeometry x="105" y="114" width="82" height="58" as="geometry" />
         </mxCell>
-        <mxCell id="p1-s1a-d3" value="&lt;b&gt;18.11&lt;/b&gt;&lt;br&gt;Отдых 1&lt;br&gt;🔒" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#cbd5e1;fontColor=#64748b;fontSize=10;" parent="p1-s1a" vertex="1">
-          <mxGeometry x="196" y="214" width="80" height="60" as="geometry" />
+        <mxCell id="p1-s1a-d3" value="&lt;b&gt;18.11&lt;/b&gt;&lt;br&gt;День отдыха&lt;br&gt;🔒" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#cbd5e1;fontColor=#64748b;fontSize=10;" parent="p1-s1a" vertex="1">
+          <mxGeometry x="196" y="114" width="80" height="58" as="geometry" />
         </mxCell>
         <mxCell id="p1-s1a-d4" value="&lt;b&gt;19.11&lt;/b&gt;&lt;br&gt;Работа 3&lt;br&gt;🔒" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#cbd5e1;fontColor=#64748b;fontSize=10;" parent="p1-s1a" vertex="1">
-          <mxGeometry x="284" y="214" width="80" height="60" as="geometry" />
+          <mxGeometry x="284" y="114" width="80" height="58" as="geometry" />
         </mxCell>
         <mxCell id="p1-s1a-cnote" value="&lt;font style=&#39;font-size:10px;color:#64748b&#39;&gt;Перескакивать между днями запрещено — каждый день привязан к дате.&lt;/font&gt;" style="text;html=1;align=left;" parent="p1-s1a" vertex="1">
-          <mxGeometry x="16" y="278" width="348" height="24" as="geometry" />
+          <mxGeometry x="16" y="176" width="348" height="22" as="geometry" />
         </mxCell>
         <mxCell id="p1-s1a-card" value="&lt;b&gt;СЕГОДНЯ: Работа 2 — Верх тела&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#475569&#39;&gt;• Статус: &lt;b&gt;Не начато&lt;/b&gt; (или Выполняется при автостарте)&lt;br&gt;• Упражнений: &lt;b&gt;4 шт.&lt;/b&gt; (Сила, Кардио, Баланс, Гибкость)&lt;br&gt;• Длительность: &lt;b&gt;90 мин&lt;/b&gt; (жёсткий дедлайн)&lt;br&gt;• Автостарт по расписанию: &lt;b&gt;18:30&lt;/b&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#22c55e;strokeWidth=2;align=left;verticalAlign=top;spacing=12;" parent="p1-s1a" vertex="1">
-          <mxGeometry x="16" y="312" width="348" height="196" as="geometry" />
+          <mxGeometry x="16" y="206" width="348" height="194" as="geometry" />
         </mxCell>
         <mxCell id="p1-s1a-start" value="▶ Начать / Продолжить тренировку" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#16a34a;fontColor=#ffffff;strokeColor=#15803d;fontStyle=1;fontSize=12;" parent="p1-s1a" vertex="1">
-          <mxGeometry x="32" y="448" width="316" height="44" as="geometry" />
+          <mxGeometry x="32" y="342" width="316" height="44" as="geometry" />
         </mxCell>
-        <mxCell id="p1-s1a-rest" value="&lt;b&gt;Если сегодня «День отдыха»:&lt;/b&gt; кнопка старта скрыта, тренер рекомендует восстановление. Новый день откроется в 00:00." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#cbd5e1;align=left;verticalAlign=top;spacing=10;fontSize=11;" parent="p1-s1a" vertex="1">
-          <mxGeometry x="16" y="522" width="348" height="72" as="geometry" />
+        <mxCell id="p1-s1a-rest" value="&lt;b&gt;Если сегодня «День отдыха»:&lt;/b&gt; кнопка старта скрыта, новый день откроется в 00:00." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#cbd5e1;align=left;verticalAlign=middle;spacingLeft=10;spacingRight=10;fontSize=10;" parent="p1-s1a" vertex="1">
+          <mxGeometry x="16" y="410" width="348" height="46" as="geometry" />
         </mxCell>
         <mxCell id="p1-s1a-progs" value="📋 Мои программы (Смена доступна после остановки)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e2e8f0;strokeColor=#94a3b8;fontColor=#475569;fontStyle=1;fontSize=11;" parent="p1-s1a" vertex="1">
-          <mxGeometry x="16" y="608" width="348" height="42" as="geometry" />
+          <mxGeometry x="16" y="466" width="348" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-s1a-coach-zone" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#cbd5e1;dashed=1;" parent="p1-s1a" vertex="1">
+          <mxGeometry x="12" y="516" width="356" height="168" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-s1a-coach-zlbl" value="&lt;font style=&#39;font-size:9px;color:#64748b&#39;&gt;УГЛОВОЙ ВИДЖЕТ ТРЕНЕРА (Свёрнут в иконку, раскрывается при реплике или тапе)&lt;/font&gt;" style="text;html=1;align=left;spacingLeft=6;" parent="p1-s1a" vertex="1">
+          <mxGeometry x="14" y="518" width="350" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-s1a-bubble" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#f472b6;strokeWidth=1.5;arcSize=16;shadow=1;" parent="p1-s1a" vertex="1">
+          <mxGeometry x="20" y="542" width="260" height="106" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-s1a-bubble-hdr" value="&lt;b&gt;Chloe&lt;/b&gt;" style="text;html=1;align=left;fontSize=11;fontColor=#0f172a;" parent="p1-s1a" vertex="1">
+          <mxGeometry x="30" y="546" width="50" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-s1a-bubble-tag" value="Cute" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce7f3;strokeColor=none;fontColor=#be185d;fontStyle=1;fontSize=9;arcSize=50;" parent="p1-s1a" vertex="1">
+          <mxGeometry x="74" y="548" width="38" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-s1a-bubble-min" value="▾" style="text;html=1;align=center;fontSize=11;fontColor=#94a3b8;" parent="p1-s1a" vertex="1">
+          <mxGeometry x="254" y="545" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-s1a-bubble-txt" value="&lt;font style=&#39;font-size:11px;color:#334155&#39;&gt;«Приветик! Сегодня &lt;b&gt;Работа 2&lt;/b&gt; по плану. Автостарт в &lt;b&gt;18:30&lt;/b&gt;, но можешь начать прямо сейчас!»&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=top;spacingLeft=2;spacingRight=4;" parent="p1-s1a" vertex="1">
+          <mxGeometry x="28" y="568" width="244" height="74" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-s1a-tail" value="" style="triangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#f472b6;strokeWidth=1.5;" parent="p1-s1a" vertex="1">
+          <mxGeometry x="279" y="592" width="10" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-s1a-ava-card" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fdf2f8;strokeColor=#ec4899;strokeWidth=2;arcSize=20;shadow=1;" parent="p1-s1a" vertex="1">
+          <mxGeometry x="290" y="548" width="70" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-s1a-ava" value="👩🏼&lt;br&gt;&lt;font style=&#39;font-size:9px;color:#be185d&#39;&gt;Аватар&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce7f3;strokeColor=none;fontStyle=1;fontSize=16;arcSize=16;" parent="p1-s1a" vertex="1">
+          <mxGeometry x="297" y="555" width="56" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-s1a-ava-dot" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#22c55e;strokeColor=#ffffff;strokeWidth=1.5;" parent="p1-s1a" vertex="1">
+          <mxGeometry x="349" y="544" width="12" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-s1a-ava-name" value="&lt;b&gt;Chloe&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ec4899;fontColor=#ffffff;strokeColor=none;fontSize=10;arcSize=50;" parent="p1-s1a" vertex="1">
+          <mxGeometry x="298" y="616" width="54" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-s1a-coach-hint" value="&lt;font style=&#39;font-size:9.5px;color:#475569&#39;&gt;Тап по аватару: свернуть/развернуть реплику • Долгий тап: настройки тренера&lt;/font&gt;" style="text;html=1;align=left;spacingLeft=6;" parent="p1-s1a" vertex="1">
+          <mxGeometry x="16" y="654" width="348" height="26" as="geometry" />
         </mxCell>
         <mxCell id="p1-s1a-nav" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;" parent="p1-s1a" vertex="1">
           <mxGeometry y="696" width="380" height="64" as="geometry" />
@@ -75,6 +108,21 @@
         </mxCell>
         <mxCell id="p1-s1b-btn" value="📋 Выбрать программу" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#16a34a;fontColor=#ffffff;strokeColor=#15803d;fontStyle=1;fontSize=13;" parent="p1-s1b" vertex="1">
           <mxGeometry x="40" y="248" width="300" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-s1h" value="1З. Поведение углового виджета тренера (Состояния)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#f8fafc;strokeColor=#334155;fontStyle=1;fontSize=12;rounded=1;arcSize=4;" parent="1" vertex="1">
+          <mxGeometry x="570" y="510" width="380" height="360" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-s1h-st1" value="&lt;b&gt;1. Состояние покоя (Реплик нет)&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:10px;color:#475569&#39;&gt;Облачко скрыто. В правом углу остаётся компактный аватар (56×56 px), не перекрывающий кнопки и карточки.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;align=left;spacingLeft=12;spacingRight=76;" parent="p1-s1h" vertex="1">
+          <mxGeometry x="16" y="44" width="348" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-s1h-st1-ic" value="👩🏼&lt;br&gt;&lt;font style=&#39;font-size:8px&#39;&gt;Chloe&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce7f3;strokeColor=#ec4899;strokeWidth=1.5;fontSize=14;arcSize=20;" parent="p1-s1h" vertex="1">
+          <mxGeometry x="300" y="57" width="52" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-s1h-st2" value="&lt;b&gt;2. Новое событие / Реплика тренера&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:10px;color:#475569&#39;&gt;Слева от аватара выезжает облачко с хвостиком, именем и бейджем характера (&lt;i&gt;Cute / Bully / Flirtatious&lt;/i&gt;).&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#f472b6;align=left;spacingLeft=12;" parent="p1-s1h" vertex="1">
+          <mxGeometry x="16" y="138" width="348" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-s1h-st3" value="&lt;b&gt;3. Адаптация под выбранного тренера&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:10px;color:#475569&#39;&gt;Акцентная рамка и бейдж меняются под персонажа:&lt;br&gt;• &lt;b&gt;Chloe&lt;/b&gt; — розовый (&lt;font style=&#39;color:#be185d&#39;&gt;Cute&lt;/font&gt;)  • &lt;b&gt;Raven&lt;/b&gt; — фиолетовый (&lt;font style=&#39;color:#7e22ce&#39;&gt;Bully&lt;/font&gt;)&lt;br&gt;• &lt;b&gt;Amelie&lt;/b&gt; — лавандовый (&lt;font style=&#39;color:#6d28d9&#39;&gt;Flirtatious&lt;/font&gt;)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#cbd5e1;align=left;spacingLeft=12;" parent="p1-s1h" vertex="1">
+          <mxGeometry x="16" y="236" width="348" height="104" as="geometry" />
         </mxCell>
         <mxCell id="p1-s1c" value="1В. Выбор программы («Мои программы»)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#f8fafc;strokeColor=#334155;fontStyle=1;fontSize=12;rounded=1;arcSize=4;" parent="1" vertex="1">
           <mxGeometry x="1030" y="110" width="380" height="760" as="geometry" />
@@ -136,7 +184,7 @@
         <mxCell id="p1-s1d-o2" value="🟢 День 2: Работа 2 — Верх тела (Выбрано)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;fontStyle=1;align=left;spacingLeft=12;fontSize=11;" parent="p1-s1d" vertex="1">
           <mxGeometry x="20" y="138" width="340" height="38" as="geometry" />
         </mxCell>
-        <mxCell id="p1-s1d-o3" value="⚪ День 3: Отдых 1 (Восстановление)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;align=left;spacingLeft=12;fontSize=11;" parent="p1-s1d" vertex="1">
+        <mxCell id="p1-s1d-o3" value="⚪ День 3: День отдыха (Восстановление)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;align=left;spacingLeft=12;fontSize=11;" parent="p1-s1d" vertex="1">
           <mxGeometry x="20" y="184" width="340" height="38" as="geometry" />
         </mxCell>
         <mxCell id="p1-s1d-go" value="🚀 Начать программу с чистого листа" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#16a34a;fontColor=#ffffff;strokeColor=#15803d;fontStyle=1;fontSize=12;" parent="p1-s1d" vertex="1">
@@ -235,7 +283,9 @@
         <mxCell id="p1-e2" value="2. Нажата «📋 Выбрать программу»" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;strokeColor=#16a34a;fontColor=#15803d;fontStyle=1;fontSize=11;" parent="1" source="p1-s1b-btn" target="p1-s1c" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="760" y="540" />
+              <mxPoint x="760" y="490" />
+              <mxPoint x="980" y="490" />
+              <mxPoint x="980" y="490" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -298,8 +348,8 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram name="2. Создание программы" id="4XUPBXPRGL32uoksWuH4">
-    <mxGraphModel dx="1226" dy="734" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2100" pageHeight="1300" math="0" shadow="0">
+  <diagram name="2. Создание программы" id="Gatyr3Pi9hBGUp1D7LOv">
+    <mxGraphModel dx="1489" dy="891" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2100" pageHeight="1300" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -494,124 +544,165 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram name="3. Процесс тренировки" id="zyMqF5yXR5ECEmjf2kPa">
-    <mxGraphModel dx="2200" dy="1500" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2100" pageHeight="1350" math="0" shadow="0">
+  <diagram name="3. Процесс тренировки" id="Jts_rpnkNX8CPgADhM1m">
+    <mxGraphModel dx="1226" dy="734" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2100" pageHeight="1350" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <!-- Заголовок листа 3 -->
-        <mxCell id="p3-title" value="&lt;b&gt;ЛИСТ 3: ПРОЦЕСС ТРЕНИРОВКИ, ФИКСАЦИЯ УПРАЖНЕНИЙ И ЗАВЕРШЕНИЕ ЦИКЛА&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#475569&#39;&gt;Ручной и автоматический старт • Блокировка выполненных упражнений серым цветом • Проверка окончания полного цикла и смена программы&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#94a3b8;align=left;spacingLeft=16;fontSize=13;" vertex="1" parent="1">
+        <mxCell id="p3-title" value="&lt;b&gt;ЛИСТ 3: ПРОЦЕСС ТРЕНИРОВКИ, ФИКСАЦИЯ УПРАЖНЕНИЙ И ЗАВЕРШЕНИЕ ЦИКЛА&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#475569&#39;&gt;Ручной и автоматический старт • Блокировка выполненных упражнений серым • Угловой виджет тренера и финальные реплики&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#94a3b8;align=left;spacingLeft=16;fontSize=13;" parent="1" vertex="1">
           <mxGeometry x="60" y="30" width="1940" height="54" as="geometry" />
         </mxCell>
-        <!-- ЭКРАН 3А: ТОЧКИ ВХОДА В ТРЕНИРОВКУ -->
-        <mxCell id="p3-s3a" value="3А. Вход в тренировку (Лист 1 → Лист 3)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#f8fafc;strokeColor=#334155;fontStyle=1;fontSize=12;rounded=1;arcSize=4;" vertex="1" parent="1">
+        <mxCell id="p3-s3a" value="3А. Вход в тренировку (Лист 1 → Лист 3)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#f8fafc;strokeColor=#334155;fontStyle=1;fontSize=12;rounded=1;arcSize=4;" parent="1" vertex="1">
           <mxGeometry x="60" y="110" width="360" height="560" as="geometry" />
         </mxCell>
-        <mxCell id="p3-s3a-m1" value="&lt;b&gt;Вариант 1: Ручной запуск с Главной (1А)&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#475569&#39;&gt;• Пользователь нажимает &lt;b&gt;«▶ Начать / Продолжить»&lt;/b&gt; на карточке сегодняшнего рабочего дня.&lt;br&gt;• Статус дня переходит в &lt;b&gt;«Выполняется»&lt;/b&gt;.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#22c55e;strokeWidth=1.5;align=left;verticalAlign=top;spacing=12;" vertex="1" parent="p3-s3a">
+        <mxCell id="p3-s3a-m1" value="&lt;b&gt;Вариант 1: Ручной запуск с Главной (1А)&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#475569&#39;&gt;• Пользователь нажимает &lt;b&gt;«▶ Начать / Продолжить»&lt;/b&gt; на карточке сегодняшнего рабочего дня.&lt;br&gt;• Статус дня переходит в &lt;b&gt;«Выполняется»&lt;/b&gt;.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#22c55e;strokeWidth=1.5;align=left;verticalAlign=top;spacing=12;" parent="p3-s3a" vertex="1">
           <mxGeometry x="16" y="46" width="328" height="130" as="geometry" />
         </mxCell>
-        <mxCell id="p3-s3a-m2" value="&lt;b&gt;Вариант 2: Автостарт по расписанию&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#475569&#39;&gt;• Если в настройках дня указано время (например, &lt;b&gt;18:30&lt;/b&gt;), сессия запускается автоматически.&lt;br&gt;• Если приложение закрыто → Push: &lt;i&gt;«Ты опаздываешь? Я подожду!»&lt;/i&gt;&lt;br&gt;• При входе тренер показывает спец-приветствие автостарта.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef9c3;strokeColor=#eab308;align=left;verticalAlign=top;spacing=12;" vertex="1" parent="p3-s3a">
+        <mxCell id="p3-s3a-m2" value="&lt;b&gt;Вариант 2: Автостарт по расписанию&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#475569&#39;&gt;• Если в настройках дня указано время (например, &lt;b&gt;18:30&lt;/b&gt;), сессия запускается автоматически.&lt;br&gt;• Если приложение закрыто → Push: &lt;i&gt;«Ты опаздываешь? Я подожду!»&lt;/i&gt;&lt;br&gt;• При входе тренер показывает спец-приветствие автостарта.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef9c3;strokeColor=#eab308;align=left;verticalAlign=top;spacing=12;" parent="p3-s3a" vertex="1">
           <mxGeometry x="16" y="192" width="328" height="164" as="geometry" />
         </mxCell>
-        <mxCell id="p3-s3a-m3" value="&lt;b&gt;Календарные ограничения:&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#475569&#39;&gt;• Запустить можно &lt;b&gt;только сегодняшний день&lt;/b&gt;.&lt;br&gt;• Переключаться на другие дни запрещено.&lt;br&gt;• Если пользователь вышел на Главную без завершения сессии, таймер дедлайна продолжает идти до окончания или до 00:00.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#cbd5e1;align=left;verticalAlign=top;spacing=12;" vertex="1" parent="p3-s3a">
+        <mxCell id="p3-s3a-m3" value="&lt;b&gt;Календарные ограничения:&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#475569&#39;&gt;• Запустить можно &lt;b&gt;только сегодняшний день&lt;/b&gt;.&lt;br&gt;• Переключаться на другие дни запрещено.&lt;br&gt;• Если пользователь вышел на Главную без завершения сессии, таймер дедлайна продолжает идти до окончания или до 00:00.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#cbd5e1;align=left;verticalAlign=top;spacing=12;" parent="p3-s3a" vertex="1">
           <mxGeometry x="16" y="372" width="328" height="160" as="geometry" />
         </mxCell>
-        <!-- ЭКРАН 3Б: АКТИВНАЯ ТРЕНИРОВКА -->
-        <mxCell id="p3-s3b" value="3Б. Экран активной тренировки («Выполняется»)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#f8fafc;strokeColor=#334155;fontStyle=1;fontSize=12;rounded=1;arcSize=4;" vertex="1" parent="1">
+        <mxCell id="p3-s3b" value="3Б. Экран активной тренировки («Выполняется»)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#f8fafc;strokeColor=#334155;fontStyle=1;fontSize=12;rounded=1;arcSize=4;" parent="1" vertex="1">
           <mxGeometry x="520" y="110" width="400" height="820" as="geometry" />
         </mxCell>
-        <mxCell id="p3-s3b-hdr" value="&lt;b&gt;← Работа 2 — Верх тела&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#16a34a&#39;&gt;● Идёт тренировка (2 из 4 выполнено)&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#e2e8f0;align=left;spacingLeft=14;fontSize=13;" vertex="1" parent="p3-s3b">
+        <mxCell id="p3-s3b-hdr" value="&lt;b&gt;← Работа 2 — Верх тела&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#16a34a&#39;&gt;● Идёт тренировка (2 из 4 выполнено)&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#e2e8f0;align=left;spacingLeft=14;fontSize=13;" parent="p3-s3b" vertex="1">
           <mxGeometry y="30" width="400" height="54" as="geometry" />
         </mxCell>
-        <!-- Таймер дедлайна -->
-        <mxCell id="p3-s3b-tmr" value="⏱  Осталось до дедлайна:  &lt;b&gt;01:14:32&lt;/b&gt;  &lt;font style=&#39;font-size:10px&#39;&gt;(из 90 мин)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fee2e2;strokeColor=#fca5a5;fontColor=#991b1b;fontSize=12;" vertex="1" parent="p3-s3b">
+        <mxCell id="p3-s3b-tmr" value="⏱  Осталось до дедлайна:  &lt;b&gt;01:14:32&lt;/b&gt;  &lt;font style=&#39;font-size:10px&#39;&gt;(из 90 мин)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fee2e2;strokeColor=#fca5a5;fontColor=#991b1b;fontSize=12;" parent="p3-s3b" vertex="1">
           <mxGeometry x="16" y="96" width="368" height="40" as="geometry" />
         </mxCell>
-        <!-- Реплика тренера -->
-        <mxCell id="p3-s3b-coach" value="&lt;b&gt;Chloe:&lt;/b&gt; &lt;font style=&#39;font-size:11px;color:#334155&#39;&gt;«Отличный темп! Отмечай упражнения по мере выполнения.»&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef9c3;strokeColor=#eab308;align=left;spacingLeft=54;fontSize=11;" vertex="1" parent="p3-s3b">
-          <mxGeometry x="16" y="146" width="368" height="54" as="geometry" />
+        <mxCell id="p3-s3b-ex1" value="☑️  &lt;b&gt;&lt;font style=&#39;color:#64748b&#39;&gt;Жим штанги лёжа&lt;/font&gt;&lt;/b&gt;  &lt;font style=&#39;font-size:10px;color:#94a3b8&#39;&gt;[Зафиксировано]&lt;/font&gt;&lt;br&gt;&lt;font style=&#39;font-size:10px;color:#94a3b8&#39;&gt;3 подхода, 8–10 повторений • Нажатие заблокировано&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e2e8f0;strokeColor=#cbd5e1;align=left;spacingLeft=14;" parent="p3-s3b" vertex="1">
+          <mxGeometry x="16" y="148" width="368" height="68" as="geometry" />
         </mxCell>
-        <mxCell id="p3-s3b-ava" value="Chloe" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fce7f3;strokeColor=#ec4899;fontStyle=1;fontSize=10;" vertex="1" parent="p3-s3b">
-          <mxGeometry x="24" y="154" width="38" height="38" as="geometry" />
+        <mxCell id="p3-s3b-ex2" value="☑️  &lt;b&gt;&lt;font style=&#39;color:#64748b&#39;&gt;Беговая дорожка&lt;/font&gt;&lt;/b&gt;  &lt;font style=&#39;font-size:10px;color:#94a3b8&#39;&gt;[Зафиксировано]&lt;/font&gt;&lt;br&gt;&lt;font style=&#39;font-size:10px;color:#94a3b8&#39;&gt;20 минут, пульс до 140 • Нажатие заблокировано&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e2e8f0;strokeColor=#cbd5e1;align=left;spacingLeft=14;" parent="p3-s3b" vertex="1">
+          <mxGeometry x="16" y="226" width="368" height="68" as="geometry" />
         </mxCell>
-        <!-- Выполненное упражнение 1 (СЕРОЕ, ЗАБЛОКИРОВАННОЕ) -->
-        <mxCell id="p3-s3b-ex1" value="☑️  &lt;b&gt;&lt;font style=&#39;color:#64748b&#39;&gt;Жим штанги лёжа&lt;/font&gt;&lt;/b&gt;  &lt;font style=&#39;font-size:10px;color:#94a3b8&#39;&gt;[Зафиксировано]&lt;/font&gt;&lt;br&gt;&lt;font style=&#39;font-size:10px;color:#94a3b8&#39;&gt;3 подхода, 8–10 повторений • Нажатие заблокировано&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e2e8f0;strokeColor=#cbd5e1;align=left;spacingLeft=14;" vertex="1" parent="p3-s3b">
-          <mxGeometry x="16" y="214" width="368" height="74" as="geometry" />
+        <mxCell id="p3-s3b-ex3" value="⬜  &lt;b&gt;Планка&lt;/b&gt;   &lt;font style=&#39;color:#6d28d9;font-size:10px&#39;&gt;[Balance]&lt;/font&gt;&lt;br&gt;&lt;font style=&#39;font-size:10px;color:#475569&#39;&gt;3 подхода по 1 минуте • Нажмите, чтобы отметить&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#22c55e;strokeWidth=1.5;align=left;spacingLeft=14;" parent="p3-s3b" vertex="1">
+          <mxGeometry x="16" y="304" width="368" height="68" as="geometry" />
         </mxCell>
-        <!-- Выполненное упражнение 2 (СЕРОЕ, ЗАБЛОКИРОВАННОЕ) -->
-        <mxCell id="p3-s3b-ex2" value="☑️  &lt;b&gt;&lt;font style=&#39;color:#64748b&#39;&gt;Беговая дорожка&lt;/font&gt;&lt;/b&gt;  &lt;font style=&#39;font-size:10px;color:#94a3b8&#39;&gt;[Зафиксировано]&lt;/font&gt;&lt;br&gt;&lt;font style=&#39;font-size:10px;color:#94a3b8&#39;&gt;20 минут, пульс до 140 • Нажатие заблокировано&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e2e8f0;strokeColor=#cbd5e1;align=left;spacingLeft=14;" vertex="1" parent="p3-s3b">
-          <mxGeometry x="16" y="300" width="368" height="74" as="geometry" />
+        <mxCell id="p3-s3b-ex4" value="⬜  &lt;b&gt;Растяжка плеч&lt;/b&gt;   &lt;font style=&#39;color:#0369a1;font-size:10px&#39;&gt;[Stretch]&lt;/font&gt;&lt;br&gt;&lt;font style=&#39;font-size:10px;color:#475569&#39;&gt;5 минут спокойно • Нажмите, чтобы отметить&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;align=left;spacingLeft=14;" parent="p3-s3b" vertex="1">
+          <mxGeometry x="16" y="382" width="368" height="68" as="geometry" />
         </mxCell>
-        <!-- Активное упражнение 3 -->
-        <mxCell id="p3-s3b-ex3" value="⬜  &lt;b&gt;Планка&lt;/b&gt;   &lt;font style=&#39;color:#6d28d9;font-size:10px&#39;&gt;[Balance]&lt;/font&gt;&lt;br&gt;&lt;font style=&#39;font-size:10px;color:#475569&#39;&gt;3 подхода по 1 минуте • Нажмите, чтобы отметить&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#22c55e;strokeWidth=1.5;align=left;spacingLeft=14;" vertex="1" parent="p3-s3b">
-          <mxGeometry x="16" y="388" width="368" height="74" as="geometry" />
+        <mxCell id="p3-s3b-lock" value="&lt;font style=&#39;font-size:10px;color:#475569&#39;&gt;ℹ️ Отмеченное упражнение помечается серым цветом и блокируется от снятия галочки.&lt;/font&gt;" style="text;html=1;align=left;spacingLeft=16;" parent="p3-s3b" vertex="1">
+          <mxGeometry y="456" width="400" height="28" as="geometry" />
         </mxCell>
-        <!-- Активное упражнение 4 -->
-        <mxCell id="p3-s3b-ex4" value="⬜  &lt;b&gt;Растяжка плеч&lt;/b&gt;   &lt;font style=&#39;color:#0369a1;font-size:10px&#39;&gt;[Stretch]&lt;/font&gt;&lt;br&gt;&lt;font style=&#39;font-size:10px;color:#475569&#39;&gt;5 минут спокойно • Нажмите, чтобы отметить&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;align=left;spacingLeft=14;" vertex="1" parent="p3-s3b">
-          <mxGeometry x="16" y="474" width="368" height="74" as="geometry" />
+        <mxCell id="p3-s3b-bubble" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#f472b6;strokeWidth=1.5;arcSize=16;shadow=1;" parent="p3-s3b" vertex="1">
+          <mxGeometry x="16" y="492" width="286" height="92" as="geometry" />
         </mxCell>
-        <!-- Правило блокировки -->
-        <mxCell id="p3-s3b-lock" value="&lt;font style=&#39;font-size:10px;color:#475569&#39;&gt;ℹ️ Отмеченное упражнение сразу помечается серым цветом и блокируется от снятия галочки.&lt;/font&gt;" style="text;html=1;align=left;spacingLeft=16;" vertex="1" parent="p3-s3b">
-          <mxGeometry y="558" width="400" height="32" as="geometry" />
+        <mxCell id="p3-s3b-bubble-hdr" value="&lt;b&gt;Chloe&lt;/b&gt;" style="text;html=1;align=left;fontSize=11;fontColor=#0f172a;" parent="p3-s3b" vertex="1">
+          <mxGeometry x="26" y="496" width="46" height="18" as="geometry" />
         </mxCell>
-        <!-- Кнопка завершения -->
-        <mxCell id="p3-s3b-fin" value="⏹ Завершить тренировку" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1e293b;fontColor=#ffffff;strokeColor=#0f172a;fontStyle=1;fontSize=13;" vertex="1" parent="p3-s3b">
+        <mxCell id="p3-s3b-bubble-tag" value="Cute" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce7f3;strokeColor=none;fontColor=#be185d;fontStyle=1;fontSize=9;arcSize=50;" parent="p3-s3b" vertex="1">
+          <mxGeometry x="70" y="497" width="38" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-s3b-bubble-rule" value="&lt;font style=&#39;font-size:9px;color:#94a3b8&#39;&gt;Старт / 1 раз в 10 мин&lt;/font&gt;" style="text;html=1;align=right;fontSize=9;" parent="p3-s3b" vertex="1">
+          <mxGeometry x="176" y="496" width="118" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-s3b-bubble-txt" value="&lt;font style=&#39;font-size:11px;color:#334155&#39;&gt;«Отличный темп! Осталось всего 2 упражнения — держи спину ровно на планке.»&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=top;spacingLeft=2;spacingRight=4;" parent="p3-s3b" vertex="1">
+          <mxGeometry x="24" y="518" width="270" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-s3b-tail" value="" style="triangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#f472b6;strokeWidth=1.5;" parent="p3-s3b" vertex="1">
+          <mxGeometry x="301" y="534" width="10" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-s3b-ava-card" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fdf2f8;strokeColor=#ec4899;strokeWidth=2;arcSize=20;shadow=1;" parent="p3-s3b" vertex="1">
+          <mxGeometry x="312" y="492" width="72" height="92" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-s3b-ava" value="👩🏼" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce7f3;strokeColor=none;fontSize=22;arcSize=16;" parent="p3-s3b" vertex="1">
+          <mxGeometry x="320" y="499" width="56" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-s3b-ava-name" value="&lt;b&gt;Chloe&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ec4899;fontColor=#ffffff;strokeColor=none;fontSize=10;arcSize=50;" parent="p3-s3b" vertex="1">
+          <mxGeometry x="321" y="556" width="54" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-s3b-fin" value="⏹ Завершить тренировку" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1e293b;fontColor=#ffffff;strokeColor=#0f172a;fontStyle=1;fontSize=13;" parent="p3-s3b" vertex="1">
           <mxGeometry x="16" y="604" width="368" height="50" as="geometry" />
         </mxCell>
-        <!-- Триггеры автозавершения -->
-        <mxCell id="p3-s3b-auto" value="&lt;b&gt;Автоматическое закрытие сессии происходит:&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#475569&#39;&gt;• При обнулении таймера длительности.&lt;br&gt;• В &lt;b&gt;00:00&lt;/b&gt; следующих календарных суток (тихий режим без ночного push).&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#cbd5e1;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="p3-s3b">
+        <mxCell id="p3-s3b-auto" value="&lt;b&gt;Автоматическое закрытие сессии происходит:&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#475569&#39;&gt;• При обнулении таймера длительности.&lt;br&gt;• В &lt;b&gt;00:00&lt;/b&gt; следующих календарных суток (тихий режим без ночного push).&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#cbd5e1;align=left;verticalAlign=top;spacing=10;" parent="p3-s3b" vertex="1">
           <mxGeometry x="16" y="672" width="368" height="106" as="geometry" />
         </mxCell>
-        <!-- ЭКРАН 3В: ВЫЧИСЛЕНИЕ СТАТУСА И ПРОВЕРКА КОНЦА ЦИКЛА -->
-        <mxCell id="p3-s3c" value="3В. Фиксация результата и проверка цикла" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#f8fafc;strokeColor=#334155;fontStyle=1;fontSize=12;rounded=1;arcSize=4;" vertex="1" parent="1">
+        <mxCell id="p3-s3c" value="3В. Фиксация результата и проверка цикла" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#f8fafc;strokeColor=#334155;fontStyle=1;fontSize=12;rounded=1;arcSize=4;" parent="1" vertex="1">
           <mxGeometry x="1020" y="110" width="380" height="440" as="geometry" />
         </mxCell>
-        <mxCell id="p3-s3c-st" value="&lt;b&gt;1. Присвоение статуса рабочему дню:&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#334155&#39;&gt;• Выполнены все $n$ из $n$ упр. → &lt;b&gt;«Завершено»&lt;/b&gt;&lt;br&gt;• Выполнено от $1$ до $n-1$ упр. → &lt;b&gt;«Не завершено»&lt;/b&gt;&lt;br&gt;• Выполнено $0$ упр. → &lt;b&gt;«Пропущено»&lt;/b&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;align=left;verticalAlign=top;spacing=12;" vertex="1" parent="p3-s3c">
+        <mxCell id="p3-s3c-st" value="&lt;b&gt;1. Присвоение статуса рабочему дню:&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#334155&#39;&gt;• Выполнены все $n$ из $n$ упр. → &lt;b&gt;«Завершено»&lt;/b&gt;&lt;br&gt;• Выполнено от $1$ до $n-1$ упр. → &lt;b&gt;«Не завершено»&lt;/b&gt;&lt;br&gt;• Выполнено $0$ упр. → &lt;b&gt;«Пропущено»&lt;/b&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;align=left;verticalAlign=top;spacing=12;" parent="p3-s3c" vertex="1">
           <mxGeometry x="16" y="46" width="348" height="114" as="geometry" />
         </mxCell>
-        <mxCell id="p3-s3c-chk" value="&lt;b&gt;2. Пройдены ли ВСЕ дни цикла?&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#334155&#39;&gt;Учитывается полный оборот цикла от выбранного стартового дня (не просто конец списка дней!).&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#3b82f6;align=left;verticalAlign=top;spacing=12;" vertex="1" parent="p3-s3c">
+        <mxCell id="p3-s3c-chk" value="&lt;b&gt;2. Пройдены ли ВСЕ дни цикла?&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#334155&#39;&gt;Учитывается полный оборот цикла от выбранного стартового дня (не просто конец списка дней!).&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#3b82f6;align=left;verticalAlign=top;spacing=12;" parent="p3-s3c" vertex="1">
           <mxGeometry x="16" y="176" width="348" height="106" as="geometry" />
         </mxCell>
-        <mxCell id="p3-s3c-no" value="НЕТ (В цикле ещё остались дни) → Экран 3Г" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;fontColor=#15803d;fontStyle=1;fontSize=11;" vertex="1" parent="p3-s3c">
+        <mxCell id="p3-s3c-no" value="НЕТ (В цикле ещё остались дни) → Экран 3Г" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;fontColor=#15803d;fontStyle=1;fontSize=11;" parent="p3-s3c" vertex="1">
           <mxGeometry x="16" y="302" width="348" height="44" as="geometry" />
         </mxCell>
-        <mxCell id="p3-s3c-yes" value="ДА (Все дни цикла пройдены) → Экран 3Д" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef9c3;strokeColor=#eab308;fontColor=#854d0e;fontStyle=1;fontSize=11;" vertex="1" parent="p3-s3c">
+        <mxCell id="p3-s3c-yes" value="ДА (Все дни цикла пройдены) → Экран 3Д" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef9c3;strokeColor=#eab308;fontColor=#854d0e;fontStyle=1;fontSize=11;" parent="p3-s3c" vertex="1">
           <mxGeometry x="16" y="362" width="348" height="44" as="geometry" />
         </mxCell>
-        <!-- ЭКРАН 3Г: ИТОГ ОБЫЧНОЙ ТРЕНИРОВКИ -->
-        <mxCell id="p3-s3d" value="3Г. Итог тренировки (Цикл продолжается)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#f8fafc;strokeColor=#334155;fontStyle=1;fontSize=12;rounded=1;arcSize=4;" vertex="1" parent="1">
-          <mxGeometry x="1500" y="110" width="380" height="360" as="geometry" />
+        <mxCell id="p3-s3d" value="3Г. Итог тренировки (Цикл продолжается)" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#f8fafc;strokeColor=#334155;fontStyle=1;fontSize=12;rounded=1;arcSize=4;" parent="1" vertex="1">
+          <mxGeometry x="1500" y="110" width="380" height="390" as="geometry" />
         </mxCell>
-        <mxCell id="p3-s3d-res" value="&lt;b&gt;Тренировка завершена!&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#475569&#39;&gt;Статус дня: &lt;b&gt;«Завершено»&lt;/b&gt; (4 из 4 упр.)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;align=center;spacing=10;" vertex="1" parent="p3-s3d">
-          <mxGeometry x="16" y="46" width="348" height="68" as="geometry" />
+        <mxCell id="p3-s3d-res" value="&lt;b&gt;Тренировка завершена!&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#475569&#39;&gt;Статус дня: &lt;b&gt;«Завершено»&lt;/b&gt; (4 из 4 упр.) • Флаг «Трудолюбие»: &lt;b&gt;ВКЛ&lt;/b&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;align=center;spacing=8;" parent="p3-s3d" vertex="1">
+          <mxGeometry x="16" y="44" width="348" height="66" as="geometry" />
         </mxCell>
-        <mxCell id="p3-s3d-tr" value="&lt;b&gt;Реакция тренера (Chloe):&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#334155&#39;&gt;«Умница! Все упражнения выполнены. Завтра по плану Отдых 1 — восстанавливай силы!»&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef9c3;strokeColor=#eab308;align=left;verticalAlign=top;spacing=10;" vertex="1" parent="p3-s3d">
-          <mxGeometry x="16" y="128" width="348" height="106" as="geometry" />
+        <mxCell id="p3-s3d-bubble" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#f472b6;strokeWidth=1.5;arcSize=16;shadow=1;" parent="p3-s3d" vertex="1">
+          <mxGeometry x="16" y="126" width="268" height="122" as="geometry" />
         </mxCell>
-        <mxCell id="p3-s3d-home" value="🏠 Вернуться на Главную (1А)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#16a34a;fontColor=#ffffff;strokeColor=#15803d;fontStyle=1;fontSize=12;" vertex="1" parent="p3-s3d">
-          <mxGeometry x="16" y="256" width="348" height="48" as="geometry" />
+        <mxCell id="p3-s3d-bhdr" value="&lt;b&gt;Chloe&lt;/b&gt;  &lt;font style=&#39;color:#be185d;font-size:9px&#39;&gt;[Cute]&lt;/font&gt;" style="text;html=1;align=left;fontSize=11;" parent="p3-s3d" vertex="1">
+          <mxGeometry x="26" y="132" width="120" height="18" as="geometry" />
         </mxCell>
-        <!-- ЭКРАН 3Д: ФИНАЛ ЦИКЛА И ПРЕДЛОЖЕНИЕ СМЕНИТЬ ПРОГРАММУ -->
-        <mxCell id="p3-s3e" value="3Д. Окончание цикла и смена программы" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#f8fafc;strokeColor=#334155;fontStyle=1;fontSize=12;rounded=1;arcSize=4;" vertex="1" parent="1">
-          <mxGeometry x="1500" y="540" width="380" height="440" as="geometry" />
+        <mxCell id="p3-s3d-btxt" value="&lt;font style=&#39;font-size:11px;color:#334155&#39;&gt;«Умница! Все 4 упражнения выполнены чисто. Завтра по графику &lt;b&gt;День отдыха&lt;/b&gt; — восстанавливай силы!»&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=top;" parent="p3-s3d" vertex="1">
+          <mxGeometry x="26" y="154" width="248" height="84" as="geometry" />
         </mxCell>
-        <mxCell id="p3-s3e-sum" value="&lt;b&gt;🏆 Цикл #1 завершён!&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#334155&#39;&gt;• Итог цикла: &lt;b&gt;Полный успех&lt;/b&gt; (или Частичный / Провал).&lt;br&gt;• Индивидуальная реплика тренировки подавлена — тренер подводит общий итог цикла.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef9c3;strokeColor=#eab308;align=left;verticalAlign=top;spacing=12;" vertex="1" parent="p3-s3e">
-          <mxGeometry x="16" y="46" width="348" height="124" as="geometry" />
+        <mxCell id="p3-s3d-tail" value="" style="triangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#f472b6;strokeWidth=1.5;" parent="p3-s3d" vertex="1">
+          <mxGeometry x="283" y="182" width="10" height="14" as="geometry" />
         </mxCell>
-        <mxCell id="p3-s3e-ask" value="&lt;b&gt;Хотите сменить программу тренировок?&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#64748b&#39;&gt;Вы прошли все дни текущего цикла.&lt;/font&gt;" style="text;html=1;align=center;" vertex="1" parent="p3-s3e">
-          <mxGeometry x="16" y="184" width="348" height="44" as="geometry" />
+        <mxCell id="p3-s3d-ava-card" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fdf2f8;strokeColor=#ec4899;strokeWidth=2;arcSize=20;shadow=1;" parent="p3-s3d" vertex="1">
+          <mxGeometry x="294" y="140" width="70" height="94" as="geometry" />
         </mxCell>
-        <mxCell id="p3-s3e-sw" value="📋 Да, сменить программу&#xa;(Очистить результат → Список программ 1В)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1e293b;fontColor=#ffffff;strokeColor=#0f172a;fontStyle=1;fontSize=11;" vertex="1" parent="p3-s3e">
-          <mxGeometry x="16" y="242" width="348" height="58" as="geometry" />
+        <mxCell id="p3-s3d-ava" value="👩🏼" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce7f3;strokeColor=none;fontSize=22;arcSize=16;" parent="p3-s3d" vertex="1">
+          <mxGeometry x="301" y="147" width="56" height="54" as="geometry" />
         </mxCell>
-        <mxCell id="p3-s3e-cont" value="🔄 Нет, начать новый цикл этой программы&#xa;(Сбросить статусы → Главная 1А)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;fontColor=#15803d;fontStyle=1;fontSize=11;" vertex="1" parent="p3-s3e">
-          <mxGeometry x="16" y="316" width="348" height="58" as="geometry" />
+        <mxCell id="p3-s3d-ava-name" value="&lt;b&gt;Chloe&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ec4899;fontColor=#ffffff;strokeColor=none;fontSize=10;arcSize=50;" parent="p3-s3d" vertex="1">
+          <mxGeometry x="302" y="206" width="54" height="20" as="geometry" />
         </mxCell>
-        <!-- ПЕРЕХОДЫ НА ЛИСТЕ 3 -->
-        <mxCell id="p3-e1" value="Старт вручную или по таймеру" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;strokeColor=#16a34a;fontColor=#15803d;fontStyle=1;fontSize=11;" edge="1" parent="1" source="p3-s3a" target="p3-s3b">
+        <mxCell id="p3-s3d-home" value="🏠 Вернуться на Главную (1А)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#16a34a;fontColor=#ffffff;strokeColor=#15803d;fontStyle=1;fontSize=12;" parent="p3-s3d" vertex="1">
+          <mxGeometry x="16" y="272" width="348" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-s3e" value="3Д. Окончание цикла и смена программы" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#f8fafc;strokeColor=#334155;fontStyle=1;fontSize=12;rounded=1;arcSize=4;" parent="1" vertex="1">
+          <mxGeometry x="1500" y="540" width="380" height="460" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-s3e-sum" value="&lt;b&gt;🏆 Цикл #1 завершён!&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#334155&#39;&gt;Итог цикла: &lt;b&gt;Полный успех&lt;/b&gt; (Частичный / Провал)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef9c3;strokeColor=#eab308;align=center;spacing=8;" parent="p3-s3e" vertex="1">
+          <mxGeometry x="16" y="44" width="348" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-s3e-bubble" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#f472b6;strokeWidth=1.5;arcSize=16;shadow=1;" parent="p3-s3e" vertex="1">
+          <mxGeometry x="16" y="114" width="268" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-s3e-btxt" value="&lt;b&gt;Chloe:&lt;/b&gt; &lt;font style=&#39;font-size:11px;color:#334155&#39;&gt;«Невероятно! Весь цикл пройден на 100%! Продолжим эту программу или попробуешь новую?»&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=top;" parent="p3-s3e" vertex="1">
+          <mxGeometry x="26" y="124" width="248" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-s3e-tail" value="" style="triangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#f472b6;strokeWidth=1.5;" parent="p3-s3e" vertex="1">
+          <mxGeometry x="283" y="160" width="10" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-s3e-ava-card" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fdf2f8;strokeColor=#ec4899;strokeWidth=2;arcSize=20;shadow=1;" parent="p3-s3e" vertex="1">
+          <mxGeometry x="294" y="120" width="70" height="92" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-s3e-ava" value="👩🏼" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce7f3;strokeColor=none;fontSize=22;arcSize=16;" parent="p3-s3e" vertex="1">
+          <mxGeometry x="301" y="127" width="56" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-s3e-ava-name" value="&lt;b&gt;Chloe&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ec4899;fontColor=#ffffff;strokeColor=none;fontSize=10;arcSize=50;" parent="p3-s3e" vertex="1">
+          <mxGeometry x="302" y="184" width="54" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-s3e-ask" value="&lt;b&gt;Хотите сменить программу тренировок?&lt;/b&gt;&lt;br&gt;&lt;font style=&#39;font-size:11px;color:#64748b&#39;&gt;Вы прошли все дни текущего цикла.&lt;/font&gt;" style="text;html=1;align=center;" parent="p3-s3e" vertex="1">
+          <mxGeometry x="16" y="230" width="348" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-s3e-sw" value="📋 Да, сменить программу&#xa;(Очистить результат → Список программ 1В)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1e293b;fontColor=#ffffff;strokeColor=#0f172a;fontStyle=1;fontSize=11;" parent="p3-s3e" vertex="1">
+          <mxGeometry x="16" y="282" width="348" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-s3e-cont" value="🔄 Нет, начать новый цикл этой программы&#xa;(Сбросить статусы → Главная 1А)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;fontColor=#15803d;fontStyle=1;fontSize=11;" parent="p3-s3e" vertex="1">
+          <mxGeometry x="16" y="352" width="348" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="p3-e1" value="Старт вручную или по таймеру" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;strokeColor=#16a34a;fontColor=#15803d;fontStyle=1;fontSize=11;" parent="1" source="p3-s3a" target="p3-s3b" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="p3-e2" value="Завершить вручную / Дедлайн / 00:00" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;strokeColor=#2563eb;fontColor=#1d4ed8;fontStyle=1;fontSize=11;" edge="1" parent="1" source="p3-s3b-fin" target="p3-s3c">
+        <mxCell id="p3-e2" value="Завершить вручную / Дедлайн / 00:00" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;strokeColor=#2563eb;fontColor=#1d4ed8;fontStyle=1;fontSize=11;" parent="1" source="p3-s3b-fin" target="p3-s3c" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="960" y="739" />
@@ -619,7 +710,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="p3-e3" value="Цикл не окончен" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;strokeColor=#16a34a;fontColor=#15803d;fontStyle=1;fontSize=11;" edge="1" parent="1" source="p3-s3c-no" target="p3-s3d">
+        <mxCell id="p3-e3" value="Цикл не окончен" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;strokeColor=#16a34a;fontColor=#15803d;fontStyle=1;fontSize=11;" parent="1" source="p3-s3c-no" target="p3-s3d" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1450" y="434" />
@@ -627,7 +718,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="p3-e4" value="Пройдены все дни цикла" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;strokeColor=#eab308;fontColor=#854d0e;fontStyle=1;fontSize=11;" edge="1" parent="1" source="p3-s3c-yes" target="p3-s3e">
+        <mxCell id="p3-e4" value="Пройдены все дни цикла" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;strokeColor=#eab308;fontColor=#854d0e;fontStyle=1;fontSize=11;" parent="1" source="p3-s3c-yes" target="p3-s3e" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1450" y="494" />

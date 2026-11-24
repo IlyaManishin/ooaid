@@ -13,7 +13,16 @@ android {
     buildToolsVersion = libs.versions.build.tools.get()
 
     defaultConfig {
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": file("schemas").path]
+            }
+        }
         minSdk = libs.versions.min.sdk.get().toInteger()
+    }
+
+    testOptions {
+        unitTests.includeAndroidResources = true
     }
 
     compileOptions {
@@ -24,4 +33,8 @@ android {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
+    testImplementation(libs.junit)
+    testImplementation(libs.robolectric)
 }

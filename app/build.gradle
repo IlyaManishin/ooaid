@@ -26,7 +26,15 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    buildTypes {
+        debug {
+            buildConfigField "boolean", "SEED_EXAMPLES",
+                    (providers.gradleProperty("trackfit.seedExamples").orElse("false").get() == "true").toString()
+        }
+    }
+
     buildFeatures {
+        buildConfig = true
         viewBinding = true
     }
 }

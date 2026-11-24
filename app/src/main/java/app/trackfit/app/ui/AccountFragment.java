@@ -289,8 +289,7 @@ public final class AccountFragment extends Fragment {
     }
 
     private void backAndTitle(int title) {
-        action(content, R.string.nav_back, this::back);
-        heading(title);
+        ScreenHeader.addTo(content, getString(title), this::back);
     }
 
     private void heading(int title) { text(content, getString(title), true); }

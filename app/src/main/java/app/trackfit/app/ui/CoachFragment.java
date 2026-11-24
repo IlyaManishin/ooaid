@@ -29,8 +29,8 @@ public final class CoachFragment extends Fragment {
         String selected = getArguments() == null ? null : getArguments().getString(COACH);
         model.state().observe(getViewLifecycleOwner(), state -> {
             content.removeAllViews();
-            text(content, getString(R.string.coach_title), true);
             if (selected == null) {
+                text(content, getString(R.string.coach_title), true);
                 text(content, getString(R.string.coach_subtitle), false);
                 for (var card : state.cards()) {
                     String label = card.selected() ? getString(R.string.coach_selected, card.name()) : card.name();
@@ -48,7 +48,8 @@ public final class CoachFragment extends Fragment {
             } else {
                 for (var card : state.cards()) {
                     if (!card.id().equals(selected)) continue;
-                    action(content, getString(R.string.nav_back), () -> NavHostFragment.findNavController(this).popBackStack());
+                    ScreenHeader.addTo(content, getString(R.string.coach_title),
+                            () -> NavHostFragment.findNavController(this).popBackStack());
                     LinearLayout bar = new LinearLayout(requireContext());
                     CoachBar.render(bar, new CoachViewModel.State(state.cards(), card, null, false), () -> {});
                     content.addView(bar);

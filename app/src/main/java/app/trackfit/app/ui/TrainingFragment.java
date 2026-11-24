@@ -198,8 +198,7 @@ public final class TrainingFragment extends Fragment {
 
     private void showPrograms() {
         LinearLayout panel = binding.trainingContent;
-        button(panel, R.string.nav_back, this::back);
-        heading(panel, getString(R.string.programs_title));
+        ScreenHeader.addTo(panel, getString(R.string.programs_title), this::back);
         line(panel, getString(R.string.programs_description));
         for (var program : model.catalog()) {
             LinearLayout card = card(panel);
@@ -242,8 +241,7 @@ public final class TrainingFragment extends Fragment {
             return;
         }
         LinearLayout panel = binding.trainingContent;
-        button(panel, R.string.nav_back, this::discardAndBack);
-        heading(panel, getString(R.string.programs_title));
+        ScreenHeader.addTo(panel, getString(R.string.programs_title), this::discardAndBack);
         nameField = field(panel, getString(R.string.program_name), draft.name(), InputType.TYPE_CLASS_TEXT);
         heading(panel, getString(R.string.program_days));
         for (int i = 0; i < draft.days().size(); i++) {
@@ -309,8 +307,7 @@ public final class TrainingFragment extends Fragment {
         DayCard day = draft.days().get(dayIndex);
         autoStart = day.autoStart();
         LinearLayout panel = binding.trainingContent;
-        button(panel, R.string.nav_back, this::discardAndBack);
-        heading(panel, day.name());
+        ScreenHeader.addTo(panel, day.name(), this::discardAndBack);
         line(panel, getString(R.string.day_edit_description));
         heading(panel, getString(R.string.day_settings));
         nameField = field(panel, getString(R.string.day_name), day.name(), InputType.TYPE_CLASS_TEXT);
@@ -430,8 +427,7 @@ public final class TrainingFragment extends Fragment {
             return;
         }
         LinearLayout panel = binding.trainingContent;
-        button(panel, R.string.nav_back, this::goHome);
-        heading(panel, home.day().name());
+        ScreenHeader.addTo(panel, home.day().name(), this::goHome);
         line(panel, getString(R.string.workout_running, home.checked(), home.day().exercises().size()));
         countdown(panel, home.deadline());
         for (var exercise : home.day().exercises()) {

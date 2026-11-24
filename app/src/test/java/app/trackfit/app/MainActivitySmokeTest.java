@@ -1,6 +1,7 @@
 package app.trackfit.app;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import android.Manifest;
@@ -45,7 +46,11 @@ public class MainActivitySmokeTest {
             tabs.setSelectedItemId(R.id.profile_tab);
             click(activity, activity.getString(R.string.profile_records));
             waitFor(activity, activity.getString(R.string.record_add));
-            activity.getOnBackPressedDispatcher().onBackPressed();
+            String back = activity.getString(R.string.nav_back);
+            View navigationIcon = waitFor(activity, back);
+            assertTrue(navigationIcon instanceof android.widget.ImageButton);
+            assertTrue(navigationIcon.getWidth() < tabs.getWidth() / 2);
+            navigationIcon.performClick();
             click(activity, activity.getString(R.string.profile_settings));
             waitFor(activity, activity.getString(R.string.profile_push));
             click(activity, activity.getString(R.string.tab_coach));
@@ -149,7 +154,9 @@ public class MainActivitySmokeTest {
     }
 
     private static View findText(View view, String label) {
-        if (view instanceof TextView text && label.contentEquals(text.getText()) && view.isShown()) return view;
+        if (view == null || !view.isShown()) return null;
+        if (view instanceof TextView text && label.contentEquals(text.getText())) return view;
+        if (view.getContentDescription() != null && label.contentEquals(view.getContentDescription())) return view;
         if (view instanceof ViewGroup group) {
             for (int i = 0; i < group.getChildCount(); i++) {
                 View match = findText(group.getChildAt(i), label);

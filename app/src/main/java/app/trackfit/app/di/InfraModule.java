@@ -2,6 +2,7 @@ package app.trackfit.app.di;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import app.trackfit.domain.ports.CoachMemoryStore;
 import app.trackfit.domain.ports.ProgramRepository;
 import app.trackfit.domain.ports.SettingsRepository;
 import app.trackfit.domain.ports.TimeSource;
@@ -28,6 +29,7 @@ public final class InfraModule {
         return RoomTrackFitStore.open(context);
     }
 
+    @Provides static CoachMemoryStore provideCoachMemory(RoomTrackFitStore store) { return store; }
     @Provides static ProgramRepository providePrograms(RoomTrackFitStore store) { return store; }
     @Provides static TrainingStateStore provideTraining(RoomTrackFitStore store) { return store; }
     @Provides static TransactionRunner provideTransactions(RoomTrackFitStore store) { return store; }

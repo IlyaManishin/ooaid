@@ -108,4 +108,11 @@
     <!-- TODO(content) Replace the daily reminder when final copy is supplied. -->
     <string name="notif_daily_reminder">Сегодня тренировочный день. Начните занятие, когда будете готовы.</string>
     <string name="notif_autostart_late">Ты опаздываешь? Я подожду!</string>
+    <string name="coach_title">Выбор тренера</string>
+    <string name="coach_subtitle">У каждого из них свой стиль и своя мотивация</string>
+    <string name="coach_selected">%1$s · Выбран</string>
+    <string name="coach_character">Характер</string>
+    <string name="coach_bio">О себе</string>
+    <string name="coach_choose">Выбрать тренера</string>
+    <string name="coach_fallback">Продолжай в удобном темпе.</string>
 </resources>

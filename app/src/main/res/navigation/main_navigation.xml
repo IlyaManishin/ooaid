@@ -56,12 +56,13 @@
         app:startDestination="@id/coach_screen">
         <fragment
             android:id="@+id/coach_screen"
-            android:name="app.trackfit.app.ui.TabFragment"
-            android:label="@string/tab_coach">
-            <argument
-                android:name="title"
-                android:defaultValue="@string/tab_coach"
-                app:argType="reference" />
+            android:name="app.trackfit.app.ui.CoachFragment"
+            android:label="@string/tab_coach" />
+        <fragment
+            android:id="@+id/coach_card_screen"
+            android:name="app.trackfit.app.ui.CoachFragment"
+            android:label="@string/coach_title">
+            <argument android:name="coach" app:argType="string" />
         </fragment>
     </navigation>
     <navigation

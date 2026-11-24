@@ -46,6 +46,11 @@ public interface TrackFitDao {
     @Query("SELECT * FROM workout_log ORDER BY closed_at, id")
     List<Rows.LogRow> log();
 
+    @Query("SELECT * FROM coach_memory WHERE id = 1")
+    Rows.CoachMemoryRow coachMemory();
+
+    @Upsert void saveCoachMemory(Rows.CoachMemoryRow memory);
+
     @Query("SELECT COUNT(*) FROM workout_log WHERE date = :date AND result = 'COMPLETED'")
     int fullCompletionsOn(String date);
 }

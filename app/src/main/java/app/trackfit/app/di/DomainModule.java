@@ -1,6 +1,12 @@
 package app.trackfit.app.di;
 
+import android.content.Context;
+import app.trackfit.app.R;
+import app.trackfit.domain.controller.CoachController;
 import app.trackfit.domain.controller.DomainEvents;
+import app.trackfit.domain.ports.CoachMemoryStore;
+import app.trackfit.domain.ports.SettingsRepository;
+import app.trackfit.infra.assets.CoachAssets;
 import app.trackfit.domain.controller.ProgramController;
 import app.trackfit.domain.controller.TrainingController;
 import app.trackfit.domain.ports.ProgramRepository;
@@ -12,6 +18,7 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import javax.inject.Singleton;
@@ -29,6 +36,13 @@ public final class DomainModule {
     @Provides @Singleton
     static DomainEvents provideEvents() {
         return new DomainEvents();
+    }
+
+    @Provides @Singleton
+    static CoachController provideCoach(@ApplicationContext Context context, CoachMemoryStore store,
+                                       SettingsRepository settings, TimeSource time, Executor writer) {
+        return new CoachController(() -> CoachAssets.load(context.getAssets(), context.getString(R.string.coach_fallback)),
+                store, settings, time, writer);
     }
 
     @Provides @Singleton

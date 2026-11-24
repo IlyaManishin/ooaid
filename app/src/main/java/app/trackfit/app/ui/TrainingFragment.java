@@ -26,6 +26,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import app.trackfit.app.MainActivity;
 import app.trackfit.app.R;
 import app.trackfit.app.databinding.FragmentTrainingBinding;
+import app.trackfit.app.presentation.CoachViewModel;
 import app.trackfit.app.presentation.TrainingViewModel;
 import app.trackfit.app.presentation.TrainingViewModel.DayCard;
 import app.trackfit.app.presentation.TrainingViewModel.DraftState;
@@ -52,11 +53,14 @@ public final class TrainingFragment extends Fragment {
     private final Handler timer = new Handler(Looper.getMainLooper());
     private final Runnable tick = this::tickCountdown;
     private TrainingViewModel model;
+    private CoachViewModel coach;
+    private LinearLayout coachBar;
     private FragmentTrainingBinding binding;
     private String page;
     private TextView remaining;
     private Instant deadline;
     private AlertDialog reportDialog;
+    private String reportMessage;
     private java.util.UUID reportId;
     private EditText nameField;
     private EditText minutesField;
@@ -67,10 +71,20 @@ public final class TrainingFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle state) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedState) {
         binding = FragmentTrainingBinding.bind(view);
         page = requireArguments().getString(PAGE);
         model = new ViewModelProvider(requireActivity()).get(TrainingViewModel.class);
+        if ("home".equals(page)) {
+            coach = new ViewModelProvider(requireActivity()).get(CoachViewModel.class);
+            coach.state().observe(getViewLifecycleOwner(), state -> {
+                if (coachBar != null) CoachBar.render(coachBar, state, coach::dismiss);
+                if (reportDialog != null) {
+                    String message = state.resultLine() ? reportMessage + "\n\n" + state.line() : reportMessage;
+                    reportDialog.setMessage(message);
+                }
+            });
+        }
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),
                 new OnBackPressedCallback(isEditor()) {
                     @Override public void handleOnBackPressed() { discardAndBack(); }
@@ -86,12 +100,14 @@ public final class TrainingFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (coach != null) coach.homeVisible(true);
         model.refresh();
         if (!isEditor()) render();
     }
 
     @Override
     public void onPause() {
+        if (coach != null) coach.homeVisible(false);
         timer.removeCallbacks(tick);
         detachReport();
         super.onPause();
@@ -103,6 +119,7 @@ public final class TrainingFragment extends Fragment {
         nameField = null;
         minutesField = null;
         remaining = null;
+        coachBar = null;
         super.onDestroyView();
     }
 
@@ -172,6 +189,10 @@ public final class TrainingFragment extends Fragment {
             }
         }
         button(panel, R.string.programs_title, () -> navigateFrom(R.id.home_screen, R.id.programs_screen));
+        if (coach != null) {
+            coachBar = card(panel);
+            CoachBar.render(coachBar, coach.state().getValue(), coach::dismiss);
+        }
         showReport();
     }
 
@@ -451,6 +472,7 @@ public final class TrainingFragment extends Fragment {
         if (report.id().equals(reportId)) return;
         detachReport();
         reportId = report.id();
+        reportMessage = report.message();
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext()).setMessage(report.message());
         if (report.cycle()) {
             builder.setCancelable(false)
@@ -463,6 +485,7 @@ public final class TrainingFragment extends Fragment {
                     .setOnCancelListener(dialog -> model.dismissReport(report.id(), this::reportError));
         }
         reportDialog = builder.show();
+        if (coach != null) coach.reportPresented(report.id());
     }
 
     private void reportError(String message) {

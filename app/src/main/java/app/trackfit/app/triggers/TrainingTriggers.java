@@ -9,6 +9,7 @@ import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
 import app.trackfit.app.R;
+import app.trackfit.domain.controller.CoachController;
 import app.trackfit.domain.controller.TrainingController;
 import app.trackfit.domain.engine.NotificationPlanner;
 import app.trackfit.domain.model.TrainingState;
@@ -27,6 +28,7 @@ import javax.inject.Singleton;
 @Singleton
 public final class TrainingTriggers implements DefaultLifecycleObserver, AppPresence {
     private final TrainingController training;
+    private final CoachController coach;
     private final SettingsRepository settings;
     private final TimeSource time;
     private final Executor writer;
@@ -38,9 +40,10 @@ public final class TrainingTriggers implements DefaultLifecycleObserver, AppPres
     private volatile TrainingState current = TrainingState.empty();
 
     @Inject
-    public TrainingTriggers(@ApplicationContext Context context, TrainingController training,
+    public TrainingTriggers(@ApplicationContext Context context, TrainingController training, CoachController coach,
                              SettingsRepository settings, TimeSource time, Executor writer) {
         this.training = training;
+        this.coach = coach;
         this.settings = settings;
         this.time = time;
         this.writer = writer;
@@ -63,7 +66,12 @@ public final class TrainingTriggers implements DefaultLifecycleObserver, AppPres
     @Override
     public void onStart(@NonNull LifecycleOwner owner) {
         foreground = true;
-        reconcile();
+        training.reconcile().thenAccept(result -> {
+            if (result.succeeded()) {
+                coach.appEntered(result.value());
+                reschedule();
+            }
+        });
     }
 
     @Override

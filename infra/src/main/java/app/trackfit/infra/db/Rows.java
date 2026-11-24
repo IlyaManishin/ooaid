@@ -51,6 +51,13 @@ public final class Rows {
         public String side;
     }
 
+    @Entity(tableName = "coach_memory")
+    public static class CoachMemoryRow {
+        @PrimaryKey public int id = 1;
+        @ColumnInfo(name = "last_line_at") public String lastLineAt;
+        @ColumnInfo(name = "motivated_session") public String motivatedSession;
+    }
+
     @Entity(tableName = "training_state")
     public static class TrainingRow {
         @PrimaryKey public int id = 1;

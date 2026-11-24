@@ -1,0 +1,27 @@
+plugins {
+    alias(libs.plugins.android.library)
+}
+
+android {
+    enableKotlin = false
+    namespace = "app.trackfit.infra"
+    compileSdk {
+        version = release(libs.versions.compile.sdk.get().toInteger()) {
+            minorApiLevel = libs.versions.compile.minor.get().toInteger()
+        }
+    }
+    buildToolsVersion = libs.versions.build.tools.get()
+
+    defaultConfig {
+        minSdk = libs.versions.min.sdk.get().toInteger()
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation(project(":domain"))
+}

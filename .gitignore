@@ -45,3 +45,13 @@ htmlcov/
 *.gz
 *.bz2
 *.bkp
+
+# Android / Gradle
+.gradle/
+local.properties
+.idea/
+*.iml
+*.apk
+*.aab
+*.keystore
+*.jks

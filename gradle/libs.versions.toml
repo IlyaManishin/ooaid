@@ -1,0 +1,22 @@
+[versions]
+agp = "9.5.1"
+hilt = "2.60.1"
+compile-sdk = "37"
+compile-minor = "2"
+target-sdk = "37"
+min-sdk = "26"
+build-tools = "36.0.0"
+material = "1.14.0"
+navigation = "2.10.2"
+
+[libraries]
+material = { module = "com.google.android.material:material", version.ref = "material" }
+navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "navigation" }
+navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "navigation" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+
+[plugins]
+android-app = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }

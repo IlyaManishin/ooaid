@@ -1,0 +1,44 @@
+plugins {
+    alias(libs.plugins.android.app)
+    alias(libs.plugins.hilt)
+}
+
+android {
+    enableKotlin = false
+    namespace = "app.trackfit.app"
+    compileSdk {
+        version = release(libs.versions.compile.sdk.get().toInteger()) {
+            minorApiLevel = libs.versions.compile.minor.get().toInteger()
+        }
+    }
+    buildToolsVersion = libs.versions.build.tools.get()
+
+    defaultConfig {
+        applicationId = "app.trackfit"
+        minSdk = libs.versions.min.sdk.get().toInteger()
+        targetSdk = libs.versions.target.sdk.get().toInteger()
+        versionCode = 1
+        versionName = "1.0"
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        viewBinding = true
+    }
+}
+
+dependencies {
+    implementation(project(":domain"))
+    implementation(project(":infra"))
+
+    implementation(libs.material)
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
+
+    implementation(libs.hilt.android)
+    annotationProcessor(libs.hilt.compiler)
+}

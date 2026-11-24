@@ -54,9 +54,9 @@ echo 'export PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/pl
 ```bash
 sdkmanager --licenses            # принять все (y)
 sdkmanager --list | head -n 60   # посмотреть актуальные версии
-sdkmanager "platform-tools" "platforms;android-<API>" "build-tools;<API>.0.0"
+sdkmanager "platform-tools" "platforms;android-37.2" "build-tools;36.0.0"
 ```
-`<API>` — последний стабильный уровень API из `sdkmanager --list` (именно его использовать как `compileSdk`/`targetSdk`). `build-tools` — последняя стабильная версия.
+Версии для M0 зафиксированы в `gradle/libs.versions.toml`. В `compileSdk` используется полный уровень 37.2, а в `targetSdk` — основной уровень 37.
 
 ## 4. Привязка проекта к SDK
 

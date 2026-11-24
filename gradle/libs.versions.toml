@@ -8,12 +8,14 @@ min-sdk = "26"
 build-tools = "36.0.0"
 material = "1.14.0"
 navigation = "2.10.2"
+lifecycle = "2.11.1"
 junit = "4.13.2"
 jacoco = "0.8.16"
 room = "2.8.5"
 robolectric = "4.18.1"
 
 [libraries]
+lifecycle-process = { module = "androidx.lifecycle:lifecycle-process", version.ref = "lifecycle" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }

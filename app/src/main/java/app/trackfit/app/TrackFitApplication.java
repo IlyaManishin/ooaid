@@ -2,9 +2,9 @@ package app.trackfit.app;
 
 import android.app.Application;
 import app.trackfit.domain.controller.ProgramController;
-import app.trackfit.domain.controller.TrainingController;
 import app.trackfit.domain.ports.ProgramRepository;
 import app.trackfit.domain.ports.TransactionRunner;
+import app.trackfit.app.triggers.TrainingTriggers;
 import dagger.hilt.android.HiltAndroidApp;
 import java.util.concurrent.Executor;
 import javax.inject.Inject;
@@ -15,13 +15,13 @@ public final class TrackFitApplication extends Application {
     @Inject ProgramRepository programs;
     @Inject TransactionRunner transactions;
     @Inject ProgramController programController;
-    @Inject TrainingController trainingController;
+    @Inject TrainingTriggers triggers;
 
     @Override
     public void onCreate() {
         super.onCreate();
         StartupSeeder.schedule(this, writer, programs, transactions);
-        trainingController.reconcile();
+        triggers.initialize();
         programController.refresh();
     }
 }

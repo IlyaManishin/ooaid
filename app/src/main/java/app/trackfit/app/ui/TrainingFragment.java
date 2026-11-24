@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import app.trackfit.app.MainActivity;
 import app.trackfit.app.R;
 import app.trackfit.app.databinding.FragmentTrainingBinding;
 import app.trackfit.app.presentation.TrainingViewModel;
@@ -204,7 +205,11 @@ public final class TrainingFragment extends Fragment {
                     .setSingleChoiceItems(days.toArray(new String[0]), 0, (dialog, index) -> selected[0] = index)
                     .setNegativeButton(R.string.cancel, null)
                     .setPositiveButton(R.string.program_start, (dialog, ignored) ->
-                            model.startProgram(program, selected[0], this::goHome, this::error))
+                            model.startProgram(program, selected[0], () -> {
+                                if (!isResumed()) return;
+                                ((MainActivity) requireActivity()).offerNotificationPermission();
+                                goHome();
+                            }, this::error))
                     .show();
         }, this::error);
     }

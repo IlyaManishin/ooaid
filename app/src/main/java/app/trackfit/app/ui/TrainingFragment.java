@@ -1,11 +1,17 @@
 package app.trackfit.app.ui;
 
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.RippleDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.InputType;
+import android.text.Layout;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -19,6 +25,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -28,7 +35,9 @@ import app.trackfit.app.R;
 import app.trackfit.app.databinding.FragmentTrainingBinding;
 import app.trackfit.app.presentation.CoachViewModel;
 import app.trackfit.app.presentation.TrainingViewModel;
+import app.trackfit.app.presentation.TrainingViewModel.CalendarStatus;
 import app.trackfit.app.presentation.TrainingViewModel.DayCard;
+import app.trackfit.app.presentation.TrainingViewModel.ExerciseType;
 import app.trackfit.app.presentation.TrainingViewModel.DraftState;
 import app.trackfit.app.presentation.TrainingViewModel.FieldState;
 import app.trackfit.app.presentation.TrainingViewModel.HomeState;
@@ -43,6 +52,7 @@ import java.time.Instant;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -55,6 +65,8 @@ public final class TrainingFragment extends Fragment {
     private TrainingViewModel model;
     private CoachViewModel coach;
     private LinearLayout coachBar;
+    private CalendarAnchor calendarAnchor;
+    private int calendarScroll = -1;
     private FragmentTrainingBinding binding;
     private String page;
     private TextView remaining;
@@ -78,7 +90,7 @@ public final class TrainingFragment extends Fragment {
         if ("home".equals(page)) {
             coach = new ViewModelProvider(requireActivity()).get(CoachViewModel.class);
             coach.state().observe(getViewLifecycleOwner(), state -> {
-                if (coachBar != null) CoachBar.render(coachBar, state, coach::dismiss);
+                renderCoach(state);
                 if (reportDialog != null) {
                     String message = state.resultLine() ? reportMessage + "\n\n" + state.line() : reportMessage;
                     reportDialog.setMessage(message);
@@ -129,6 +141,7 @@ public final class TrainingFragment extends Fragment {
         remaining = null;
         deadline = null;
         binding.trainingContent.removeAllViews();
+        binding.screenFooter.removeAllViews();
         switch (Objects.requireNonNull(page)) {
             case "home" -> showHome();
             case "programs" -> showPrograms();
@@ -143,77 +156,232 @@ public final class TrainingFragment extends Fragment {
     private void showHome() {
         HomeState home = model.home();
         LinearLayout panel = binding.trainingContent;
-        if (home.mode() == TrainingViewModel.Mode.NO_PROGRAM) {
-            heading(panel, getString(R.string.program_no_active));
-            line(panel, getString(R.string.program_choose_hint));
-        } else {
-            heading(panel, home.program());
-            button(panel, R.string.program_stop, () -> model.stopProgram(this::error));
-            heading(panel, getString(R.string.cycle_calendar, home.program()));
-            HorizontalScrollView scroll = new HorizontalScrollView(requireContext());
-            LinearLayout calendar = new LinearLayout(requireContext());
-            calendar.setOrientation(LinearLayout.HORIZONTAL);
-            scroll.addView(calendar);
-            panel.addView(scroll);
-            for (var item : home.calendar()) {
-                LinearLayout card = card(calendar);
-                line(card, item.date() + " · " + item.day());
-                line(card, item.marker());
-            }
-            LinearLayout card = card(panel);
-            if (home.day() == null) {
-                line(card, getString(R.string.cycle_waiting));
-            } else {
-                heading(card, getString(R.string.day_today, home.day().name()));
-                if (!home.day().work()) {
-                    line(card, getString(R.string.day_rest_description));
-                } else {
-                    line(card, getString(R.string.day_status, home.status()));
-                    line(card, getString(R.string.day_count, home.day().exercises().size()));
-                    line(card, getString(R.string.day_duration_value, home.day().minutes()));
-                    if (home.day().autoStart() != null) {
-                        line(card, getString(R.string.day_autostart_value, clock(home.day().autoStart())));
-                    }
-                    if (home.mode() == TrainingViewModel.Mode.READY) {
-                        button(card, R.string.workout_start, () -> model.startWorkout(
-                                () -> navigateFrom(R.id.home_screen, R.id.workout_screen), this::error));
-                    } else if (home.mode() == TrainingViewModel.Mode.RUNNING) {
-                        line(card, getString(R.string.workout_checked, home.checked(), home.day().exercises().size()));
-                        countdown(card, home.deadline());
-                        button(card, R.string.workout_enter,
-                                () -> navigateFrom(R.id.home_screen, R.id.workout_screen));
-                    } else {
-                        line(card, getString(R.string.workout_checked, home.checked(), home.day().exercises().size()));
-                    }
-                }
-            }
-        }
-        button(panel, R.string.programs_title, () -> navigateFrom(R.id.home_screen, R.id.programs_screen));
         if (coach != null) {
-            coachBar = card(panel);
-            CoachBar.render(coachBar, coach.state().getValue(), coach::dismiss);
+            coachBar = Ui.row(requireContext());
+            Ui.block(panel, coachBar, 14);
+            renderCoach(coach.state().getValue());
         }
+        if (home.mode() == TrainingViewModel.Mode.NO_PROGRAM) {
+            LinearLayout empty = Ui.column(requireContext());
+            Ui.paper(empty, R.color.ui_card, 18, R.color.ui_border);
+            Ui.pad(empty, 16, 16);
+            empty.addView(Ui.badge(requireContext(), R.drawable.ic_ui_strength,
+                    R.color.ui_green, R.color.ui_mint, 44));
+            heading(empty, getString(R.string.program_no_active));
+            line(empty, getString(R.string.program_choose_hint));
+            Ui.block(panel, empty, 0);
+        } else {
+            LinearLayout header = Ui.row(requireContext());
+            TextView title = Ui.text(requireContext(), home.program(), 24, R.color.ui_text, true);
+            ViewCompat.setAccessibilityHeading(title, true);
+            Ui.weight(header, title, 12);
+            header.addView(Ui.button(requireContext(), R.string.program_stop, 0, R.color.ui_mint,
+                    R.color.ui_green, () -> model.stopProgram(this::error)));
+            Ui.block(panel, header, 12);
+
+            LinearLayout cycle = Ui.column(requireContext());
+            Ui.paper(cycle, R.color.ui_card, 18, R.color.ui_border);
+            Ui.pad(cycle, 12, 12);
+            TextView calendarTitle = Ui.text(requireContext(), getString(R.string.cycle_calendar, home.program()),
+                    14, R.color.ui_text, true);
+            ViewCompat.setAccessibilityHeading(calendarTitle, true);
+            Ui.block(cycle, calendarTitle, 8);
+            addCalendar(cycle, home.calendar(), home.program());
+
+            LinearLayout today = Ui.column(requireContext());
+            Ui.paper(today, R.color.ui_mint, 14, R.color.ui_green_border);
+            Ui.pad(today, 12, 10);
+            Ui.block(cycle, today, 0);
+            renderToday(today, home);
+            Ui.block(panel, cycle, 0);
+        }
+        setFooter(R.string.programs_title, () -> navigateFrom(R.id.home_screen, R.id.programs_screen));
         showReport();
     }
 
-    private void showPrograms() {
-        LinearLayout panel = binding.trainingContent;
-        ScreenHeader.addTo(panel, getString(R.string.programs_title), this::back);
-        line(panel, getString(R.string.programs_description));
-        for (var program : model.catalog()) {
-            LinearLayout card = card(panel);
-            heading(card, program.name());
-            LinearLayout row = row(card);
-            if (program.editEnabled()) {
-                button(row, R.string.edit, () -> model.editProgram(program.id(),
-                        () -> navigateFrom(R.id.programs_screen, R.id.program_editor_screen), this::error));
-            }
-            button(row, R.string.select, () -> pickStart(program.id())).setEnabled(program.startEnabled());
+    private void renderCoach(CoachViewModel.State state) {
+        if (coachBar != null) CoachBar.render(coachBar, state, coach::dismiss,
+                () -> ((MainActivity) requireActivity()).showCoachSelection());
+    }
+
+    private void setFooter(int label, Runnable action) {
+        LinearLayout footer = binding.screenFooter;
+        footer.setVisibility(View.VISIBLE);
+        Ui.block(footer, Ui.button(requireContext(), label, R.drawable.ic_ui_add, R.color.ui_neutral,
+                R.color.ui_green, action), 0);
+    }
+
+    private void addCalendar(LinearLayout parent, List<TrainingViewModel.CalendarCard> days, String program) {
+        HorizontalScrollView scroll = new HorizontalScrollView(requireContext());
+        scroll.setHorizontalScrollBarEnabled(false);
+        LinearLayout calendar = Ui.row(requireContext());
+        calendar.setGravity(Gravity.TOP);
+        scroll.addView(calendar);
+        int current = 0;
+        for (int index = 0; index < days.size(); index++) {
+            var item = days.get(index);
+            if (item.marker() == CalendarStatus.TODAY) current = index;
+            calendar.addView(calendarTile(item));
         }
-        button(panel, R.string.programs_add, () -> {
+        int firstVisibleDay = Math.max(0, current - 1);
+        var anchor = new CalendarAnchor(program, days.isEmpty() ? "" : days.get(current).date());
+        if (!anchor.equals(calendarAnchor)) {
+            calendarAnchor = anchor;
+            calendarScroll = -1;
+        }
+        int initialScroll = calendarScroll;
+        scroll.addOnLayoutChangeListener((view, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+            if (right - left == oldRight - oldLeft) return;
+            int gap = dp(6);
+            int width = Math.max(dp(70), (right - left - gap * 3) / 4);
+            for (int index = 0; index < calendar.getChildCount(); index++) {
+                View tile = calendar.getChildAt(index);
+                var params = new LinearLayout.LayoutParams(width, LinearLayout.LayoutParams.MATCH_PARENT);
+                if (index + 1 < calendar.getChildCount()) params.setMarginEnd(gap);
+                tile.setLayoutParams(params);
+            }
+            scroll.post(() -> {
+                scroll.scrollTo(initialScroll < 0 ? (width + gap) * firstVisibleDay : initialScroll, 0);
+                scroll.setOnScrollChangeListener((v, x, y, oldX, oldY) -> calendarScroll = x);
+            });
+        });
+        Ui.block(parent, scroll, 10);
+    }
+
+    private record CalendarAnchor(String program, String date) {}
+    private record CalendarAccent(int fill, int ink, int glyph) {}
+
+    private LinearLayout calendarTile(TrainingViewModel.CalendarCard item) {
+        Context context = requireContext();
+        CalendarStatus marker = item.marker();
+        CalendarAccent accent = switch (marker) {
+            case TODAY -> new CalendarAccent(R.color.ui_mint, R.color.ui_green, R.drawable.ic_ui_clock);
+            case COMPLETED -> new CalendarAccent(R.color.ui_mint, R.color.ui_green, R.drawable.ic_ui_check);
+            case INCOMPLETE -> new CalendarAccent(R.color.ui_lilac, R.color.ui_violet, R.drawable.ic_ui_info);
+            case SKIPPED -> new CalendarAccent(R.color.ui_pink, R.color.ui_rose, R.drawable.ic_ui_close);
+            case REST -> new CalendarAccent(R.color.ui_blue, R.color.ui_ocean, R.drawable.ic_ui_rest);
+            case RUNNING -> new CalendarAccent(R.color.ui_blue, R.color.ui_ocean, R.drawable.ic_ui_clock);
+            case LOCKED -> new CalendarAccent(R.color.ui_neutral, R.color.ui_muted, R.drawable.ic_ui_lock);
+            case PENDING -> new CalendarAccent(R.color.ui_neutral, R.color.ui_muted, R.drawable.ic_ui_info);
+        };
+        LinearLayout tile = Ui.column(context);
+        tile.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
+        Ui.pad(tile, 3, 8);
+        Ui.paper(tile, accent.fill(), 12, marker == CalendarStatus.TODAY ? R.color.ui_green_border : R.color.ui_border);
+        TextView date = Ui.text(context, item.date(), 13, accent.ink(), true);
+        date.setGravity(Gravity.CENTER);
+        TextView day = Ui.text(context, item.day(), 11, R.color.ui_text, false);
+        day.setGravity(Gravity.CENTER);
+        day.setBreakStrategy(Layout.BREAK_STRATEGY_SIMPLE);
+        day.setHyphenationFrequency(Layout.HYPHENATION_FREQUENCY_NONE);
+        day.setMaxLines(2);
+        day.setEllipsize(TextUtils.TruncateAt.END);
+        tile.addView(date);
+        tile.addView(day);
+        LinearLayout status = Ui.row(context);
+        status.setGravity(Gravity.CENTER);
+        status.addView(Ui.icon(context, accent.glyph(), accent.ink(), 14));
+        if (marker == CalendarStatus.TODAY) {
+            status.addView(Ui.text(context, getString(marker.label()), 11, accent.ink(), true));
+        }
+        tile.addView(status);
+        tile.setContentDescription(getString(R.string.ui_calendar_tile, item.date(), item.day(), getString(marker.label())));
+        tile.setTooltipText(getString(marker.label()));
+        ViewCompat.setScreenReaderFocusable(tile, true);
+        date.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+        day.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+        status.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS);
+        return tile;
+    }
+
+    private void renderToday(LinearLayout today, HomeState home) {
+        if (home.day() == null) {
+            line(today, getString(R.string.cycle_waiting));
+            return;
+        }
+        Context context = requireContext();
+        TextView title = Ui.text(context, getString(R.string.day_today, home.day().name()),
+                16, R.color.ui_green, true);
+        ViewCompat.setAccessibilityHeading(title, true);
+        Ui.block(today, title, 4);
+        if (!home.day().work()) {
+            today.addView(Ui.text(context, getString(R.string.day_rest_description), 14, R.color.ui_muted, false));
+            return;
+        }
+        today.addView(Ui.text(context, getString(R.string.day_status, home.status()), 14, R.color.ui_green, true));
+        line(today, getString(R.string.day_count, home.day().exercises().size()));
+        line(today, getString(R.string.day_duration_value, home.day().minutes()));
+        if (home.day().autoStart() != null) {
+            line(today, getString(R.string.day_autostart_value, clock(home.day().autoStart())));
+        }
+        if (home.mode() == TrainingViewModel.Mode.READY) {
+            button(today, R.string.workout_start, () -> model.startWorkout(
+                    () -> navigateFrom(R.id.home_screen, R.id.workout_screen), this::error));
+        } else {
+            line(today, getString(R.string.workout_checked, home.checked(), home.day().exercises().size()));
+            if (home.mode() == TrainingViewModel.Mode.RUNNING) {
+                countdown(today, home.deadline());
+                button(today, R.string.workout_enter,
+                        () -> navigateFrom(R.id.home_screen, R.id.workout_screen));
+            }
+        }
+    }
+
+    private void showPrograms() {
+        Context context = requireContext();
+        LinearLayout panel = binding.trainingContent;
+        Ui.brand(panel, () -> navigateFrom(R.id.programs_screen, R.id.program_settings_screen));
+        ScreenHeader.addTo(panel, getString(R.string.programs_title), this::back);
+        Ui.block(panel, Ui.text(context, getString(R.string.programs_description),
+                14, R.color.ui_muted, false), 12);
+        var catalog = model.catalog();
+        int[] fills = {R.color.ui_mint, R.color.ui_lilac, R.color.ui_blue, R.color.ui_pink};
+        int[] inks = {R.color.ui_green, R.color.ui_violet, R.color.ui_ocean, R.color.ui_rose};
+        for (int index = 0; index < catalog.size(); index++) {
+            var program = catalog.get(index);
+            int accent = index % fills.length;
+            LinearLayout surface = Ui.row(context);
+            Ui.pad(surface, 8, 8);
+            Ui.paper(surface, R.color.ui_card, 16, R.color.ui_border);
+
+            LinearLayout entry = Ui.row(context);
+            entry.addView(Ui.badge(context, R.drawable.ic_ui_strength, inks[accent], fills[accent], 46));
+            LinearLayout copy = Ui.column(context);
+            Ui.pad(copy, 8, 2);
+            copy.addView(Ui.text(context, program.name(), 17, R.color.ui_text, true));
+            int subtitle = !program.editEnabled() ? R.string.ui_program_current
+                    : program.startEnabled() ? R.string.ui_program_saved : R.string.ui_program_blocked;
+            copy.addView(Ui.text(context, getString(subtitle), 13, R.color.ui_muted, false));
+            Ui.weight(entry, copy, 0);
+            if (program.startEnabled()) {
+                entry.addView(Ui.icon(context, R.drawable.ic_ui_chevron, R.color.ui_muted, 18));
+                entry.setMinimumHeight(dp(48));
+                Ui.tap(entry, R.color.ui_card, 12, 0, () -> pickStart(program.id()));
+            }
+            Ui.weight(surface, entry, 4);
+            if (program.editEnabled()) {
+                surface.addView(Ui.iconButton(context, R.drawable.ic_ui_edit, R.string.edit,
+                        R.color.ui_muted, R.color.ui_neutral, () -> model.editProgram(program.id(),
+                                () -> navigateFrom(R.id.programs_screen, R.id.program_editor_screen), this::error)));
+            }
+            Ui.block(panel, surface, 8);
+        }
+        LinearLayout add = Ui.row(context);
+        add.setGravity(Gravity.CENTER);
+        Ui.pad(add, 12, 12);
+        Ui.tap(add, R.color.ui_mint, 14, 0, () -> {
             model.newProgram();
             navigateFrom(R.id.programs_screen, R.id.program_editor_screen);
         });
+        GradientDrawable outline = Ui.surface(context, R.color.ui_mint, 14, 0);
+        outline.setStroke(dp(1), Ui.color(context, R.color.ui_green_border), dp(5), dp(4));
+        add.setBackground(new RippleDrawable(ColorStateList.valueOf(0x245EA48B), outline, null));
+        add.setMinimumHeight(dp(48));
+        add.addView(Ui.icon(context, R.drawable.ic_ui_add, R.color.ui_green, 22));
+        TextView label = Ui.text(context, getString(R.string.programs_add), 14, R.color.ui_green, true);
+        Ui.pad(label, 8, 0);
+        add.addView(label);
+        Ui.block(panel, add, 0);
     }
 
     private void pickStart(String program) {
@@ -362,12 +530,64 @@ public final class TrainingFragment extends Fragment {
     }
 
     private void chooseExerciseType(int day) {
+        Context context = requireContext();
+        LinearLayout form = Ui.column(context);
+        Ui.pad(form, 14, 12);
+        ScrollView scroll = new ScrollView(context);
+        scroll.addView(form);
+        AlertDialog modal = Ui.formDialog(scroll);
+        Ui.dialogHeader(form, R.string.exercise_choose_type, modal::dismiss);
+        Ui.block(form, Ui.text(context, getString(R.string.ui_exercise_explanation),
+                14, R.color.ui_muted, false), 12);
+
         var types = model.exerciseTypes();
-        String[] labels = new String[types.size()];
-        for (int i = 0; i < labels.length; i++) labels[i] = getString(types.get(i).label());
-        new MaterialAlertDialogBuilder(requireContext()).setTitle(R.string.exercise_choose_type)
-                .setItems(labels, (dialog, index) -> editExercise(types.get(index).key(), day, -1))
-                .setNegativeButton(R.string.cancel, null).show();
+        for (int index = 0; index < types.size(); index += 2) {
+            LinearLayout row = Ui.row(context);
+            row.setGravity(Gravity.TOP);
+            for (int column = 0; column < 2 && index + column < types.size(); column++) {
+                var type = types.get(index + column);
+                LinearLayout card = exerciseTile(type, () -> {
+                    modal.dismiss();
+                    editExercise(type.key(), day, -1);
+                });
+                Ui.weight(row, card, column == 0 ? 8 : 0);
+            }
+            Ui.block(form, row, 8);
+        }
+        Ui.block(form, Ui.button(context, R.string.cancel, 0, R.color.ui_lilac, R.color.ui_text,
+                modal::dismiss), 0);
+        Ui.showFormDialog(modal);
+    }
+
+    private record ExerciseAccent(int icon, int fill, int ink, int description) {}
+
+    private LinearLayout exerciseTile(ExerciseType type, Runnable choose) {
+        ExerciseAccent accent = switch (type.key()) {
+            case "STRENGTH" -> new ExerciseAccent(R.drawable.ic_ui_strength,
+                    R.color.ui_mint, R.color.ui_green, R.string.ui_exercise_strength);
+            case "BALANCE" -> new ExerciseAccent(R.drawable.ic_ui_balance,
+                    R.color.ui_lilac, R.color.ui_violet, R.string.ui_exercise_balance);
+            case "STRETCH" -> new ExerciseAccent(R.drawable.ic_ui_stretch,
+                    R.color.ui_pink, R.color.ui_rose, R.string.ui_exercise_stretch);
+            case "CARDIO" -> new ExerciseAccent(R.drawable.ic_ui_cardio,
+                    R.color.ui_blue, R.color.ui_ocean, R.string.ui_exercise_cardio);
+            default -> throw new IllegalArgumentException("Unknown exercise type label");
+        };
+        Context context = requireContext();
+        LinearLayout tile = Ui.column(context);
+        tile.setGravity(Gravity.CENTER);
+        tile.setMinimumHeight(dp(116));
+        Ui.pad(tile, 8, 10);
+        Ui.tap(tile, accent.fill(), 14, 0, choose);
+        tile.addView(Ui.icon(context, accent.icon(), accent.ink(), 32));
+        TextView title = Ui.text(context, getString(type.label()), 16, R.color.ui_text, true);
+        Ui.pad(title, 0, 4);
+        title.setGravity(Gravity.CENTER);
+        tile.addView(title);
+        TextView hint = Ui.text(context, getString(accent.description()), 12, R.color.ui_muted, false);
+        hint.setGravity(Gravity.CENTER);
+        tile.addView(hint);
+        return tile;
     }
 
     private void editExercise(String type, int day, int index) {
@@ -377,7 +597,8 @@ public final class TrainingFragment extends Fragment {
         line(form, getString(R.string.exercise_editor));
         Map<String, Supplier<String>> inputs = new LinkedHashMap<>();
         for (FieldState field : model.exerciseFields(type, day, index)) {
-            String label = getString(field.label());
+            String label = getString(field.kind() == TrainingViewModel.InputKind.DURATION
+                    ? R.string.exercise_duration_input : field.label());
             if (field.required()) label = getString(R.string.field_required, label);
             if (field.kind() == TrainingViewModel.InputKind.SIDE) {
                 line(form, label);

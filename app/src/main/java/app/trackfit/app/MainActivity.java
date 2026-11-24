@@ -55,9 +55,11 @@ public final class MainActivity extends AppCompatActivity {
         ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (view, windowInsets) -> {
             Insets safeArea = windowInsets.getInsets(
                     WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
-            view.setPadding(0, safeArea.top, 0, 0);
-            binding.navHost.setPadding(safeArea.left, 0, safeArea.right, 0);
-            return windowInsets;
+            view.setPadding(safeArea.left, safeArea.top, safeArea.right, safeArea.bottom);
+            return new WindowInsetsCompat.Builder(windowInsets)
+                    .setInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout(),
+                            Insets.NONE)
+                    .build();
         });
 
         NavHostFragment host = (NavHostFragment) getSupportFragmentManager()

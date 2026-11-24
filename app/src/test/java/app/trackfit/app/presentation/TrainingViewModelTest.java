@@ -91,6 +91,20 @@ public class TrainingViewModelTest {
     }
 
     @Test
+    public void acceptsWholeMinutesAndPreservesExistingDurationFormat() {
+        model.newProgram();
+        int day = model.addWork();
+        assertTrue(model.saveExercise("CARDIO", day, -1, Map.of("NAME", "Run", "DURATION_SECONDS", "5")));
+        assertEquals("5:00", model.exerciseFields("CARDIO", day, 0).stream()
+                .filter(field -> field.kind() == TrainingViewModel.InputKind.DURATION)
+                .findFirst().orElseThrow().value());
+        for (String invalid : List.of("5:", "5:60", "5:05:00", "0", "-5", "35791395")) {
+            assertFalse(invalid, model.saveExercise("CARDIO", day, 0,
+                    Map.of("NAME", "Run", "DURATION_SECONDS", invalid)));
+        }
+    }
+
+    @Test
     public void backingOutOfNewDayRestoresPreviousDraft() {
         model.newProgram();
         model.addRest();

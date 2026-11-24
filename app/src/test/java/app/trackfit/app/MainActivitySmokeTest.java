@@ -86,7 +86,8 @@ public class MainActivitySmokeTest {
             clickDialog(activity.getString(R.string.save));
             click(activity, activity.getString(R.string.done));
             click(activity, activity.getString(R.string.save));
-            click(activity, activity.getString(R.string.select));
+            waitFor(activity, activity.getString(R.string.programs_description));
+            click(activity, "Cycle check");
             clickDialog(activity.getString(R.string.program_start));
             click(activity, activity.getString(R.string.workout_start));
             click(activity, "Squat");
@@ -118,7 +119,7 @@ public class MainActivitySmokeTest {
                             return;
                         }
                     }
-                    result.performClick();
+                    clickAction(result);
                     return;
                 }
             }
@@ -137,8 +138,18 @@ public class MainActivitySmokeTest {
     }
 
     private static void click(MainActivity activity, String label) throws InterruptedException {
-        View view = waitFor(activity, label);
-        view.performClick();
+        clickAction(waitFor(activity, label));
+    }
+
+    private static void clickAction(View view) {
+        for (View current = view; current != null;
+             current = current.getParent() instanceof View parent ? parent : null) {
+            if (current.isClickable()) {
+                current.performClick();
+                return;
+            }
+        }
+        fail("Missing clickable view for: " + view);
     }
 
     private static View waitFor(MainActivity activity, String label) throws InterruptedException {

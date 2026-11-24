@@ -50,7 +50,17 @@ public final class TrainingViewModel extends ViewModel {
     public enum Mode { NO_PROGRAM, REST, WAITING, READY, RUNNING, CLOSED }
 
     public record ProgramCard(String id, String name, boolean editEnabled, boolean startEnabled) {}
-    public record CalendarCard(String date, String day, String marker) {}
+    public enum CalendarStatus {
+        TODAY(R.string.cycle_today), LOCKED(R.string.cycle_locked), REST(R.string.day_rest),
+        PENDING(R.string.status_pending), RUNNING(R.string.status_running), COMPLETED(R.string.status_completed),
+        INCOMPLETE(R.string.status_incomplete), SKIPPED(R.string.status_skipped);
+
+        private final int label;
+        CalendarStatus(int label) { this.label = label; }
+        public int label() { return label; }
+    }
+
+    public record CalendarCard(String date, String day, CalendarStatus marker) {}
     public record HomeState(String program, List<CalendarCard> calendar, Mode mode, DayCard day,
                             String status, int checked, Instant deadline) {}
     public record ExerciseCard(String id, String name, String type, String parameters, String note, boolean checked) {}
@@ -128,9 +138,9 @@ public final class TrainingViewModel extends ViewModel {
         List<CalendarCard> calendar = new ArrayList<>();
         for (DaySlot slot : run.phase().slots()) {
             CycleDay day = run.program().days().get(slot.dayIndex());
-            String marker = slot.date().equals(today) ? text(R.string.cycle_today)
-                    : slot.date().isAfter(today) ? text(R.string.cycle_locked)
-                    : slot.work() == null ? text(R.string.day_rest) : text(statusLabel(slot.work().status()));
+            CalendarStatus marker = slot.date().equals(today) ? CalendarStatus.TODAY
+                    : slot.date().isAfter(today) ? CalendarStatus.LOCKED
+                    : slot.work() == null ? CalendarStatus.REST : calendarStatus(slot.work().status());
             calendar.add(new CalendarCard(slot.date().format(DateTimeFormatter.ofPattern("dd.MM")), name(day), marker));
             if (today.equals(slot.date())) current = slot;
         }
@@ -279,7 +289,8 @@ public final class TrainingViewModel extends ViewModel {
 
     public List<ExerciseType> exerciseTypes() {
         List<ExerciseType> result = new ArrayList<>();
-        for (Exercise.Type type : Exercise.Type.values()) {
+        for (Exercise.Type type : List.of(Exercise.Type.STRENGTH, Exercise.Type.BALANCE,
+                Exercise.Type.STRETCH, Exercise.Type.CARDIO)) {
             result.add(new ExerciseType(type.name(), typeLabel(type)));
         }
         return result;
@@ -389,9 +400,9 @@ public final class TrainingViewModel extends ViewModel {
     private static int seconds(String duration) {
         if (duration == null) return 0;
         String[] parts = duration.trim().split(":", -1);
-        if (parts.length != 2) return 0;
+        if (parts.length > 2) return 0;
         Integer minutes = integer(parts[0]);
-        Integer seconds = integer(parts[1]);
+        Integer seconds = parts.length == 1 ? Integer.valueOf(0) : integer(parts[1]);
         if (minutes == null || seconds == null || minutes < 0 || seconds < 0 || seconds >= 60) return 0;
         long total = minutes * 60L + seconds;
         return total > Integer.MAX_VALUE ? 0 : (int) total;
@@ -424,14 +435,18 @@ public final class TrainingViewModel extends ViewModel {
         };
     }
 
-    private static int statusLabel(WorkState.Status status) {
+    private static CalendarStatus calendarStatus(WorkState.Status status) {
         return switch (status) {
-            case NOT_STARTED -> R.string.status_pending;
-            case RUNNING -> R.string.status_running;
-            case COMPLETED -> R.string.status_completed;
-            case INCOMPLETE -> R.string.status_incomplete;
-            case SKIPPED -> R.string.status_skipped;
+            case NOT_STARTED -> CalendarStatus.PENDING;
+            case RUNNING -> CalendarStatus.RUNNING;
+            case COMPLETED -> CalendarStatus.COMPLETED;
+            case INCOMPLETE -> CalendarStatus.INCOMPLETE;
+            case SKIPPED -> CalendarStatus.SKIPPED;
         };
+    }
+
+    private static int statusLabel(WorkState.Status status) {
+        return calendarStatus(status).label();
     }
 
     private static int fieldLabel(ExerciseSpecs.Field field) {

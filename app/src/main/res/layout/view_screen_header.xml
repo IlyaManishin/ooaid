@@ -11,4 +11,4 @@
     app:navigationContentDescription="@string/nav_back"
     app:navigationIcon="@drawable/ic_arrow_back"
     app:navigationIconTint="?attr/colorOnSurface"
-    app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge" />
+    app:titleTextAppearance="@style/TextAppearance.TrackFit.ScreenTitle" />

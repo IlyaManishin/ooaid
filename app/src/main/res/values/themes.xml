@@ -8,6 +8,20 @@
         <item name="colorSecondaryContainer">#DDEFE6</item>
         <item name="colorOnSecondaryContainer">#0F392B</item>
         <item name="colorSurfaceContainer">#EEF5F2</item>
+        <item name="android:windowBackground">@color/ui_background</item>
         <item name="android:windowLightStatusBar">true</item>
+    </style>
+    <style name="TextAppearance.TrackFit.ScreenTitle" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/ui_text</item>
+    </style>
+    <style name="Widget.TrackFit.NavigationIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/ui_mint</item>
+    </style>
+    <style name="ThemeOverlay.TrackFit.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="colorSurface">@color/ui_card</item>
+        <item name="colorSurfaceContainerHigh">@color/ui_card</item>
+        <item name="backgroundInsetStart">12dp</item>
+        <item name="backgroundInsetEnd">12dp</item>
     </style>
 </resources>

@@ -1,41 +1,35 @@
 package app.trackfit.app.ui;
 
 import android.content.Context;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import app.trackfit.app.R;
 import app.trackfit.app.presentation.CoachViewModel;
 
 final class CoachBar {
     private CoachBar() {}
 
-    static void render(LinearLayout area, CoachViewModel.State state, Runnable dismiss) {
+    static void render(LinearLayout area, CoachViewModel.State state, Runnable dismiss, Runnable openCoaches) {
         area.removeAllViews();
-        if (state == null || state.selected() == null) return;
+        boolean selected = state != null && state.selected() != null;
+        area.setVisibility(selected ? View.VISIBLE : View.GONE);
+        if (!selected) return;
+
         Context context = area.getContext();
-        area.setOrientation(LinearLayout.HORIZONTAL);
-        area.setGravity(Gravity.CENTER_VERTICAL);
-        ImageView avatar = new ImageView(context);
-        avatar.setImageResource(R.drawable.ic_tab_coach);
-        int size = Math.round(48 * context.getResources().getDisplayMetrics().density);
-        area.addView(avatar, new LinearLayout.LayoutParams(size, size));
-        LinearLayout copy = new LinearLayout(context);
-        copy.setOrientation(LinearLayout.VERTICAL);
-        TextView name = new TextView(context);
-        name.setText(state.selected().name());
-        name.setTextAppearance(com.google.android.material.R.style.TextAppearance_Material3_TitleMedium);
-        copy.addView(name);
-        if (state.line() != null) {
-            TextView line = new TextView(context);
-            line.setText(state.line());
-            line.setMinHeight(size);
-            line.setGravity(Gravity.CENTER_VERTICAL);
-            line.setOnClickListener(view -> dismiss.run());
-            copy.addView(line);
+        boolean hasLine = state.line() != null;
+        Ui.pad(area, 10, 4);
+        Ui.tap(area, R.color.ui_card, 18, R.color.ui_border, openCoaches);
+        area.addView(CoachAvatar.create(context, state.selected(), 38, R.color.ui_violet, R.color.ui_lilac));
+        LinearLayout copy = Ui.column(context);
+        Ui.pad(copy, 10, 4);
+        copy.addView(Ui.text(context, state.selected().name(), 14, R.color.ui_text, true));
+        if (hasLine) copy.addView(Ui.text(context, state.line(), 13, R.color.ui_muted, false));
+        Ui.weight(area, copy, 0);
+        if (hasLine) {
+            area.addView(Ui.iconButton(context, R.drawable.ic_ui_close, R.string.close,
+                    R.color.ui_muted, R.color.ui_card, dismiss));
+        } else {
+            area.addView(Ui.icon(context, R.drawable.ic_ui_expand, R.color.ui_muted, 22));
         }
-        area.addView(copy, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
     }
 }

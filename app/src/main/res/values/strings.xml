@@ -80,7 +80,8 @@
     <string name="exercise_reps">Повторения</string>
     <string name="exercise_weight">Вес, кг</string>
     <string name="exercise_rest">Отдых между подходами, сек</string>
-    <string name="exercise_duration">Продолжительность, мм:сс</string>
+    <string name="exercise_duration">Продолжительность</string>
+    <string name="exercise_duration_input">Время, мин или мин:сек</string>
     <string name="exercise_intensity">Темп или интенсивность</string>
     <string name="exercise_pulse">Целевой пульс</string>
     <string name="exercise_side">Сторона выполнения</string>
@@ -110,6 +111,7 @@
     <string name="notif_autostart_late">Ты опаздываешь? Я подожду!</string>
     <string name="coach_title">Выбор тренера</string>
     <string name="coach_subtitle">У каждого из них свой стиль и своя мотивация</string>
+    <string name="coach_selected_badge">Выбран</string>
     <string name="coach_selected">%1$s · Выбран</string>
     <string name="coach_character">Характер</string>
     <string name="coach_bio">О себе</string>
@@ -151,4 +153,18 @@
     <string name="record_need_exercise">Введите название упражнения.</string>
     <string name="record_need_parameter">Заполните название и величину каждого параметра.</string>
     <string name="record_missing">Рекорд уже удалён.</string>
+    <string name="ui_program_current">Активная программа</string>
+    <string name="ui_program_saved">Сохранённая программа</string>
+    <string name="ui_program_blocked">Остановите текущую программу, чтобы начать другую</string>
+    <string name="ui_calendar_tile">%1$s, %2$s. %3$s</string>
+    <string name="ui_separator">" · "</string>
+    <string name="ui_exercise_explanation">От типа зависят доступные параметры упражнения.</string>
+    <string name="ui_exercise_strength">Работа с нагрузкой</string>
+    <string name="ui_exercise_balance">Устойчивость и контроль</string>
+    <string name="ui_exercise_stretch">Растяжка и мобильность</string>
+    <string name="ui_exercise_cardio">Выносливость и активность</string>
+    <string name="ui_profile_records_hint">Ваши лучшие результаты</string>
+    <string name="ui_profile_settings_hint">Параметры приложения</string>
+    <string name="ui_profile_no_coach">Тренер не выбран</string>
+    <string name="ui_records_empty">Добавьте свой первый рекорд, чтобы отслеживать результаты.</string>
 </resources>

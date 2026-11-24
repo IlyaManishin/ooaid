@@ -19,6 +19,12 @@
             <argument android:name="page" android:defaultValue="programs" app:argType="string" />
         </fragment>
         <fragment
+            android:id="@+id/program_settings_screen"
+            android:name="app.trackfit.app.ui.AccountFragment"
+            android:label="@string/profile_settings">
+            <argument android:name="page" android:defaultValue="settings" app:argType="string" />
+        </fragment>
+        <fragment
             android:id="@+id/program_editor_screen"
             android:name="app.trackfit.app.ui.TrainingFragment"
             android:label="@string/programs_title">

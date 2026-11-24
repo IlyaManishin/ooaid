@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/home_tab">
+    <navigation
+        android:id="@+id/home_tab"
+        app:startDestination="@id/home_screen">
+        <fragment
+            android:id="@+id/home_screen"
+            android:name="app.trackfit.app.ui.TrainingFragment"
+            android:label="@string/tab_home">
+            <argument android:name="page" android:defaultValue="home" app:argType="string" />
+        </fragment>
+        <fragment
+            android:id="@+id/programs_screen"
+            android:name="app.trackfit.app.ui.TrainingFragment"
+            android:label="@string/programs_title">
+            <argument android:name="page" android:defaultValue="programs" app:argType="string" />
+        </fragment>
+        <fragment
+            android:id="@+id/program_settings_screen"
+            android:name="app.trackfit.app.ui.AccountFragment"
+            android:label="@string/profile_settings">
+            <argument android:name="page" android:defaultValue="settings" app:argType="string" />
+        </fragment>
+        <fragment
+            android:id="@+id/program_editor_screen"
+            android:name="app.trackfit.app.ui.TrainingFragment"
+            android:label="@string/programs_title">
+            <argument android:name="page" android:defaultValue="program_editor" app:argType="string" />
+        </fragment>
+        <fragment
+            android:id="@+id/day_editor_screen"
+            android:name="app.trackfit.app.ui.TrainingFragment"
+            android:label="@string/day_settings">
+            <argument android:name="page" android:defaultValue="day_editor" app:argType="string" />
+            <argument android:name="dayIndex" app:argType="integer" />
+        </fragment>
+        <fragment
+            android:id="@+id/workout_screen"
+            android:name="app.trackfit.app.ui.TrainingFragment"
+            android:label="@string/day_work">
+            <argument android:name="page" android:defaultValue="workout" app:argType="string" />
+        </fragment>
+    </navigation>
+    <navigation
+        android:id="@+id/progress_tab"
+        app:startDestination="@id/progress_screen">
+        <fragment
+            android:id="@+id/progress_screen"
+            android:name="app.trackfit.app.ui.TabFragment"
+            android:label="@string/tab_progress">
+            <argument
+                android:name="title"
+                android:defaultValue="@string/tab_progress"
+                app:argType="reference" />
+        </fragment>
+    </navigation>
+    <navigation
+        android:id="@+id/coach_tab"
+        app:startDestination="@id/coach_screen">
+        <fragment
+            android:id="@+id/coach_screen"
+            android:name="app.trackfit.app.ui.CoachFragment"
+            android:label="@string/tab_coach" />
+        <fragment
+            android:id="@+id/coach_card_screen"
+            android:name="app.trackfit.app.ui.CoachFragment"
+            android:label="@string/coach_title">
+            <argument android:name="coach" app:argType="string" />
+        </fragment>
+    </navigation>
+    <navigation
+        android:id="@+id/profile_tab"
+        app:startDestination="@id/profile_screen">
+        <fragment
+            android:id="@+id/profile_screen"
+            android:name="app.trackfit.app.ui.AccountFragment"
+            android:label="@string/tab_profile">
+            <argument android:name="page" android:defaultValue="profile" app:argType="string" />
+        </fragment>
+        <fragment
+            android:id="@+id/profile_editor_screen"
+            android:name="app.trackfit.app.ui.AccountFragment"
+            android:label="@string/profile_edit_title">
+            <argument android:name="page" android:defaultValue="profile_editor" app:argType="string" />
+        </fragment>
+        <fragment
+            android:id="@+id/settings_screen"
+            android:name="app.trackfit.app.ui.AccountFragment"
+            android:label="@string/profile_settings">
+            <argument android:name="page" android:defaultValue="settings" app:argType="string" />
+        </fragment>
+        <fragment
+            android:id="@+id/records_screen"
+            android:name="app.trackfit.app.ui.AccountFragment"
+            android:label="@string/record_title">
+            <argument android:name="page" android:defaultValue="records" app:argType="string" />
+        </fragment>
+        <fragment
+            android:id="@+id/record_screen"
+            android:name="app.trackfit.app.ui.AccountFragment"
+            android:label="@string/record_title">
+            <argument android:name="page" android:defaultValue="record" app:argType="string" />
+            <argument android:name="recordId" app:argType="string" />
+        </fragment>
+    </navigation>
+</navigation>

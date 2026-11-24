@@ -1,0 +1,98 @@
+import javax.xml.XMLConstants
+import javax.xml.parsers.DocumentBuilderFactory
+
+plugins {
+    alias(libs.plugins.android.app) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.hilt) apply false
+}
+
+def sourceFiles = fileTree('.') {
+    include 'app/src/**/*.java', 'infra/src/**/*.java', 'domain/src/**/*.java',
+            'app/src/**/*.kt', 'infra/src/**/*.kt', 'domain/src/**/*.kt'
+}
+def layoutsAndMenus = fileTree('app/src/main/res') {
+    include 'layout*/**/*.xml', 'menu*/**/*.xml'
+}
+
+tasks.register('checkArchitecture') {
+    group = 'verification'
+    description = 'Checks Java-only sources, module boundaries, time access, and string resources'
+    inputs.files(sourceFiles, layoutsAndMenus)
+
+    doLast {
+        def imports = ~/(?m)^\h*import\h+(?:static\h+)?([\w.*]+)/
+        def timeAccess = ~/\b(?:(?:Instant|LocalDate|LocalDateTime|LocalTime)\s*\.\s*now|System\s*\.\s*currentTimeMillis|ZoneId\s*\.\s*systemDefault)\s*\(/
+        def commentsAndLiterals = ~/"""[\s\S]*?"""|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])'|\/\*[\s\S]*?\*\/|\/\/[^\r\n]*/
+        def cyrillic = ~/\p{IsCyrillic}/
+        def domainForbidden = ['android', 'androidx', 'dagger', 'hilt']
+        def uiForbidden = ['app.trackfit.domain.engine', 'app.trackfit.domain.controller',
+                           'app.trackfit.domain.ports', 'app.trackfit.infra']
+        // Add individually approved domain model types here when required by a screen.
+        def allowedUiModelImports = [] as Set
+        def errors = []
+
+        sourceFiles.each { source ->
+            def path = relativePath(source)
+            if (source.name.endsWith('.kt')) {
+                errors << "${path}: use Java for application and test sources"
+                return
+            }
+            def code = source.getText('UTF-8')
+            def appMain = path.startsWith('app/src/main/')
+            def codeOnly = code.replaceAll(commentsAndLiterals) { literal ->
+                if (appMain && literal.startsWith('"') && (literal =~ cyrillic).find()) {
+                    errors << "${path}: move Cyrillic text to Android string resources"
+                }
+                literal.replaceAll(/[^\r\n]/, ' ')
+            }
+            def ui = appMain && path.contains('/ui/')
+            def forbidden = []
+            if (path.startsWith('domain/src/')) forbidden = domainForbidden
+            if (path.startsWith('infra/src/')) forbidden = ['app.trackfit.app']
+            if (ui) forbidden = uiForbidden
+            (codeOnly =~ imports).each { match, name ->
+                def blockedModel = ui && name.startsWith('app.trackfit.domain.model.') &&
+                        !allowedUiModelImports.contains(name)
+                if (blockedModel || forbidden.any { name.startsWith(it + '.') }) {
+                    errors << "${path}: forbidden import ${name}"
+                }
+            }
+            if (path.startsWith('domain/src/main/') && (codeOnly =~ timeAccess).find()) {
+                errors << "${path}: read time through TimeSource"
+            }
+        }
+
+        def xml = DocumentBuilderFactory.newInstance()
+        xml.namespaceAware = true
+        xml.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, '')
+        xml.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, '')
+        xml.setFeature('http://apache.org/xml/features/disallow-doctype-decl', true)
+        def parser = xml.newDocumentBuilder()
+        def textAttributes = ['text', 'hint', 'title', 'titleCondensed', 'subtitle',
+                              'contentDescription', 'tooltipText', 'accessibilityPaneTitle',
+                              'label', 'summary', 'placeholderText', 'helperText', 'errorText',
+                              'prefixText', 'suffixText', 'contentDescriptionOn', 'contentDescriptionOff',
+                              'textOn', 'textOff', 'navigationContentDescription',
+                              'collapseContentDescription', 'endIconContentDescription',
+                              'startIconContentDescription', 'passwordToggleContentDescription'] as Set
+        layoutsAndMenus.each { source ->
+            def elements = parser.parse(source).getElementsByTagName('*')
+            for (int i = 0; i < elements.length; i++) {
+                def attributes = elements.item(i).attributes
+                for (int j = 0; j < attributes.length; j++) {
+                    def attr = attributes.item(j)
+                    if (attr.namespaceURI != 'http://schemas.android.com/tools' &&
+                            textAttributes.contains(attr.localName) &&
+                            !(attr.value ==~ /@(?:android:)?string\/[a-zA-Z_]\w*/)) {
+                        errors << "${relativePath(source)}: ${attr.name} must reference a string resource"
+                    }
+                }
+            }
+        }
+
+        if (!errors.isEmpty()) {
+            throw new GradleException(errors.unique().sort().join('\n'))
+        }
+    }
+}

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="seed_strength">Сила и масса</string>
+    <string name="seed_legs">Ноги и ягодицы</string>
+    <string name="seed_fitness">Фитнес и тонус</string>
+    <string name="seed_workout">Тренировка 1</string>
+    <string name="seed_exercise">Приседания</string>
+</resources>

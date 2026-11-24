@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ui_background">#F4F6FA</color>
+    <color name="ui_card">#FFFFFF</color>
+    <color name="ui_text">#182338</color>
+    <color name="ui_muted">#53627B</color>
+    <color name="ui_border">#E6EAF2</color>
+    <color name="ui_neutral">#EDF0F7</color>
+    <color name="ui_mint">#E3F6EE</color>
+    <color name="ui_green">#17684D</color>
+    <color name="ui_green_border">#5EA48B</color>
+    <color name="ui_lilac">#EEEBFA</color>
+    <color name="ui_violet">#65499F</color>
+    <color name="ui_pink">#FBE9F1</color>
+    <color name="ui_rose">#9D3E67</color>
+    <color name="ui_blue">#E6F1FC</color>
+    <color name="ui_ocean">#2E649A</color>
+</resources>

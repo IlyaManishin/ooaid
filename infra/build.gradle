@@ -1,0 +1,40 @@
+plugins {
+    alias(libs.plugins.android.library)
+}
+
+android {
+    enableKotlin = false
+    namespace = "app.trackfit.infra"
+    compileSdk {
+        version = release(libs.versions.compile.sdk.get().toInteger()) {
+            minorApiLevel = libs.versions.compile.minor.get().toInteger()
+        }
+    }
+    buildToolsVersion = libs.versions.build.tools.get()
+
+    defaultConfig {
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": file("schemas").path]
+            }
+        }
+        minSdk = libs.versions.min.sdk.get().toInteger()
+    }
+
+    testOptions {
+        unitTests.includeAndroidResources = true
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation(project(":domain"))
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
+    testImplementation(libs.junit)
+    testImplementation(libs.robolectric)
+}

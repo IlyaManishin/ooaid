@@ -1,0 +1,86 @@
+plugins {
+    alias(libs.plugins.android.app)
+    alias(libs.plugins.hilt)
+}
+
+def releaseCredentials = [
+    path: providers.environmentVariable('TRACKFIT_KEYSTORE_PATH'),
+    store: providers.environmentVariable('TRACKFIT_STORE_PASSWORD'),
+    alias: providers.environmentVariable('TRACKFIT_KEY_ALIAS'),
+    key: providers.environmentVariable('TRACKFIT_KEY_PASSWORD'),
+]
+def hasReleaseCredentials = releaseCredentials.values().every { it.isPresent() }
+
+android {
+    enableKotlin = false
+    namespace = "app.trackfit.app"
+    compileSdk {
+        version = release(libs.versions.compile.sdk.get().toInteger()) {
+            minorApiLevel = libs.versions.compile.minor.get().toInteger()
+        }
+    }
+    buildToolsVersion = libs.versions.build.tools.get()
+
+    defaultConfig {
+        applicationId = "app.trackfit"
+        minSdk = libs.versions.min.sdk.get().toInteger()
+        targetSdk = libs.versions.target.sdk.get().toInteger()
+        versionCode = 1
+        versionName = "1.0"
+    }
+
+    testOptions {
+        unitTests.includeAndroidResources = true
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    signingConfigs {
+        if (hasReleaseCredentials) {
+            production {
+                storeFile = file(releaseCredentials.path.get())
+                storePassword = releaseCredentials.store.get()
+                keyAlias = releaseCredentials.alias.get()
+                keyPassword = releaseCredentials.key.get()
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled = true
+            shrinkResources = true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            if (hasReleaseCredentials) {
+                signingConfig = signingConfigs.production
+            }
+        }
+        debug {
+            buildConfigField "boolean", "SEED_EXAMPLES",
+                    (providers.gradleProperty("trackfit.seedExamples").orElse("false").get() == "true").toString()
+        }
+    }
+
+    buildFeatures {
+        buildConfig = true
+        viewBinding = true
+    }
+}
+
+dependencies {
+    implementation(project(":domain"))
+    implementation(project(":infra"))
+
+    implementation(libs.material)
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
+    implementation(libs.lifecycle.process)
+
+    implementation(libs.hilt.android)
+    annotationProcessor(libs.hilt.compiler)
+    testImplementation(libs.junit)
+    testImplementation(libs.robolectric)
+}

@@ -2,7 +2,10 @@ package app.trackfit.app.di;
 
 import android.content.Context;
 import app.trackfit.app.R;
+import app.trackfit.domain.controller.AccountController;
 import app.trackfit.domain.controller.CoachController;
+import app.trackfit.domain.ports.ProfileRepository;
+import app.trackfit.domain.ports.RecordsRepository;
 import app.trackfit.domain.controller.DomainEvents;
 import app.trackfit.domain.ports.CoachMemoryStore;
 import app.trackfit.domain.ports.SettingsRepository;
@@ -50,6 +53,12 @@ public final class DomainModule {
             ProgramRepository programs, TransactionRunner transactions, TimeSource time, Executor writer,
             DomainEvents events) {
         return new TrainingController(store, log, programs, transactions, time, writer, events);
+    }
+
+    @Provides @Singleton
+    static AccountController provideAccount(ProfileRepository profiles, RecordsRepository records,
+            SettingsRepository settings, TransactionRunner transactions, TimeSource time, Executor writer) {
+        return new AccountController(profiles, records, settings, transactions, time, writer);
     }
 
     @Provides @Singleton

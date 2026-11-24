@@ -96,6 +96,56 @@ public class RoomTrackFitStoreTest {
         }
     }
 
+    @Test
+    public void migrationsPreserveCatalogAndOpenAccountTables() throws Exception {
+        Context context = RuntimeEnvironment.getApplication();
+        for (int oldVersion : List.of(1, 2)) {
+            String filename = "migration-" + oldVersion + ".db";
+            context.deleteDatabase(filename);
+            var path = context.getDatabasePath(filename);
+            path.getParentFile().mkdirs();
+            var schemaPath = java.nio.file.Path.of("schemas", TrackFitDatabase.class.getCanonicalName(),
+                    oldVersion + ".json");
+            var schema = new org.json.JSONObject(java.nio.file.Files.readString(schemaPath)).getJSONObject("database");
+            try (var sqlite = android.database.sqlite.SQLiteDatabase.openOrCreateDatabase(path, null)) {
+                var entities = schema.getJSONArray("entities");
+                for (int i = 0; i < entities.length(); i++) {
+                    var entity = entities.getJSONObject(i);
+                    sqlite.execSQL(entity.getString("createSql").replace("${TABLE_NAME}", entity.getString("tableName")));
+                    var indices = entity.optJSONArray("indices");
+                    if (indices == null) continue;
+                    for (int j = 0; j < indices.length(); j++) {
+                        sqlite.execSQL(indices.getJSONObject(j).getString("createSql")
+                                .replace("${TABLE_NAME}", entity.getString("tableName")));
+                    }
+                }
+                var setup = schema.getJSONArray("setupQueries");
+                for (int i = 0; i < setup.length(); i++) sqlite.execSQL(setup.getString(i));
+                sqlite.setVersion(oldVersion);
+                sqlite.execSQL("INSERT INTO program (id, name) VALUES (?, ?)",
+                        new Object[]{UUID.randomUUID().toString(), "Existing program"});
+            }
+            try (TrackFitDatabase database = Room.databaseBuilder(context, TrackFitDatabase.class, filename)
+                    .addMigrations(TrackFitDatabase.MIGRATE_1_2, TrackFitDatabase.MIGRATE_2_3)
+                    .allowMainThreadQueries().build()) {
+                var store = new RoomTrackFitStore(database);
+                assertEquals("Existing program", store.programs().get(0).name());
+                assertEquals(Profile.empty(), store.loadProfile());
+                var profile = new Profile("Alex", Profile.Sex.FEMALE, java.time.LocalDate.parse("2000-03-04"), null);
+                store.saveProfile(profile);
+                assertEquals(profile, store.loadProfile());
+                var record = new PersonalRecord(UUID.randomUUID(), "Row", java.time.LocalDate.parse("2026-11-24"),
+                        List.of(new PersonalRecord.Parameter("Weight", "15")));
+                store.saveRecord(record);
+                assertEquals(List.of(record), store.records());
+                store.deleteRecord(record.id());
+                assertEquals(0, database.dao().recordParameters(record.id().toString()).size());
+            } finally {
+                context.deleteDatabase(filename);
+            }
+        }
+    }
+
     private static TrackFitDatabase open(Context context, String filename) {
         return Room.databaseBuilder(context, TrackFitDatabase.class, filename).allowMainThreadQueries().build();
     }

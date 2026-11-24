@@ -51,6 +51,32 @@ public final class Rows {
         public String side;
     }
 
+    @Entity(tableName = "profile")
+    public static class ProfileRow {
+        @PrimaryKey public int id = 1;
+        @NonNull public String name = "";
+        @NonNull public String sex = "";
+        public String birthday;
+        public String avatar;
+    }
+
+    @Entity(tableName = "personal_record")
+    public static class RecordRow {
+        @PrimaryKey @NonNull public String id = "";
+        @NonNull public String exercise = "";
+        @NonNull public String date = "";
+    }
+
+    @Entity(tableName = "record_param", primaryKeys = {"record_id", "position"},
+            foreignKeys = @ForeignKey(entity = RecordRow.class, parentColumns = "id",
+                    childColumns = "record_id", onDelete = ForeignKey.CASCADE))
+    public static class ParameterRow {
+        @ColumnInfo(name = "record_id") @NonNull public String recordId = "";
+        public int position;
+        @NonNull public String name = "";
+        @NonNull public String value = "";
+    }
+
     @Entity(tableName = "coach_memory")
     public static class CoachMemoryRow {
         @PrimaryKey public int id = 1;

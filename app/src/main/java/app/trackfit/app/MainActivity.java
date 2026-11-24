@@ -19,8 +19,19 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public final class MainActivity extends AppCompatActivity {
+    private NavController navController;
+    private com.google.android.material.bottomnavigation.BottomNavigationView bottomNavigation;
+
     private final ActivityResultLauncher<String> notificationPermission = registerForActivityResult(
             new ActivityResultContracts.RequestPermission(), granted -> {});
+
+    public void showCoachSelection() {
+        bottomNavigation.setSelectedItemId(R.id.coach_tab);
+        if (navController.getCurrentDestination() != null
+                && navController.getCurrentDestination().getId() == R.id.coach_card_screen) {
+            navController.popBackStack(R.id.coach_screen, false);
+        }
+    }
 
     public void offerNotificationPermission() {
         if (Build.VERSION.SDK_INT < 33
@@ -54,7 +65,8 @@ public final class MainActivity extends AppCompatActivity {
         if (host == null) {
             throw new IllegalStateException("Missing navigation host");
         }
-        NavController navController = host.getNavController();
+        navController = host.getNavController();
+        bottomNavigation = binding.bottomNavigation;
         NavigationUI.setupWithNavController(binding.bottomNavigation, navController);
         binding.bottomNavigation.setOnItemReselectedListener(item -> {});
     }

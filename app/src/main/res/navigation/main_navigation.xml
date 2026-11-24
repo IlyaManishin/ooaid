@@ -70,12 +70,34 @@
         app:startDestination="@id/profile_screen">
         <fragment
             android:id="@+id/profile_screen"
-            android:name="app.trackfit.app.ui.TabFragment"
+            android:name="app.trackfit.app.ui.AccountFragment"
             android:label="@string/tab_profile">
-            <argument
-                android:name="title"
-                android:defaultValue="@string/tab_profile"
-                app:argType="reference" />
+            <argument android:name="page" android:defaultValue="profile" app:argType="string" />
+        </fragment>
+        <fragment
+            android:id="@+id/profile_editor_screen"
+            android:name="app.trackfit.app.ui.AccountFragment"
+            android:label="@string/profile_edit_title">
+            <argument android:name="page" android:defaultValue="profile_editor" app:argType="string" />
+        </fragment>
+        <fragment
+            android:id="@+id/settings_screen"
+            android:name="app.trackfit.app.ui.AccountFragment"
+            android:label="@string/profile_settings">
+            <argument android:name="page" android:defaultValue="settings" app:argType="string" />
+        </fragment>
+        <fragment
+            android:id="@+id/records_screen"
+            android:name="app.trackfit.app.ui.AccountFragment"
+            android:label="@string/record_title">
+            <argument android:name="page" android:defaultValue="records" app:argType="string" />
+        </fragment>
+        <fragment
+            android:id="@+id/record_screen"
+            android:name="app.trackfit.app.ui.AccountFragment"
+            android:label="@string/record_title">
+            <argument android:name="page" android:defaultValue="record" app:argType="string" />
+            <argument android:name="recordId" app:argType="string" />
         </fragment>
     </navigation>
 </navigation>

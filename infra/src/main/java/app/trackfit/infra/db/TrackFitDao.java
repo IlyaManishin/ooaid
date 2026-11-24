@@ -46,6 +46,30 @@ public interface TrackFitDao {
     @Query("SELECT * FROM workout_log ORDER BY closed_at, id")
     List<Rows.LogRow> log();
 
+    @Query("SELECT * FROM profile WHERE id = 1")
+    Rows.ProfileRow profile();
+
+    @Upsert void saveProfile(Rows.ProfileRow profile);
+
+    @Query("SELECT * FROM personal_record ORDER BY date DESC, id")
+    List<Rows.RecordRow> records();
+
+    @Query("SELECT * FROM personal_record WHERE id = :id")
+    Rows.RecordRow record(String id);
+
+    @Query("SELECT * FROM record_param WHERE record_id = :id ORDER BY position")
+    List<Rows.ParameterRow> recordParameters(String id);
+
+    @Upsert void saveRecord(Rows.RecordRow record);
+
+    @Query("DELETE FROM record_param WHERE record_id = :id")
+    void clearRecordParameters(String id);
+
+    @Insert void insertRecordParameters(List<Rows.ParameterRow> parameters);
+
+    @Query("DELETE FROM personal_record WHERE id = :id")
+    void deleteRecord(String id);
+
     @Query("SELECT * FROM coach_memory WHERE id = 1")
     Rows.CoachMemoryRow coachMemory();
 

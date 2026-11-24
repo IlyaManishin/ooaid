@@ -1,6 +1,6 @@
 # ТЗ: TrackFit (Android)
 
-Версия ТЗ: 1.0 (24.11.2026). Основание: `docs/trackfit.md` (правила, ред. 17.11.2026), `docs/UI.drawio` (3 листа).
+Версия ТЗ: 1.1 (24.11.2026). Основание: `docs/trackfit.md` (правила, ред. 17.11.2026), `docs/ui/UI.drawio` (3 листа).
 Архитектура — в `docs/ARCHITECTURE.md`. Решения по неясностям — в `docs/DECISIONS.md` (ссылки `D-xx`).
 
 ---
@@ -17,15 +17,15 @@
 
 ## 3. Платформа и стек
 
-- Kotlin, Android SDK, `minSdk 26`, single-Activity, портретная ориентация.
-- UI: Jetpack Compose + Material 3, Navigation Compose.
-- Асинхронность: Kotlin Coroutines + Flow.
-- DI: Hilt (KSP). Допускается ручной DI только при блокирующей несовместимости (записать в `DECISIONS.md`).
-- Хранение: Room (структурные данные) + DataStore Preferences (простые настройки).
-- Сериализация снапшотов: kotlinx.serialization (DTO в `:infra`, не в домене).
-- Время: `java.time` (доступно с API 26 без desugaring).
-- Тесты: JUnit, kotlin-test, Turbine (Flow), Robolectric (Room/репозитории на JVM). Mockito/MockK не нужны — используем фейки портов.
-- Сборка: Gradle Kotlin DSL, version catalog, Gradle wrapper в репозитории.
+- Java 17 для исходников и тестов во всех трёх модулях. Android SDK, `minSdk 26`, одна Activity, портретная ориентация.
+- UI — Android Views, XML-разметка, View Binding и Material Components с темой Material 3. Для переходов — Navigation Component с Fragment и XML-графами.
+- Команды выполняются последовательно на общем однопоточном Executor. Домен публикует состояния через Java-интерфейсы наблюдателей. ViewModel предоставляет экрану LiveData.
+- DI — Hilt с Java `annotationProcessor`. При блокирующей несовместимости допускается ручной DI с записью в `DECISIONS.md`.
+- Хранение — Room с Java DAO и `annotationProcessor` для структурных данных, SharedPreferences для простых настроек.
+- Снапшоты — JSON с явным маппингом Java DTO в `:infra` через `org.json`.
+- Время — `java.time` (API 26).
+- Тесты на Java — JUnit с фейками портов, Robolectric для Room/репозиториев на JVM.
+- Сборка — Gradle Groovy DSL (`build.gradle`, `settings.gradle`), version catalog и Gradle wrapper в репозитории.
 - Окружение: `docs/SETUP.md`.
 
 ## 4. Домен: термины (RU ↔ EN идентификаторы)
@@ -150,10 +150,10 @@
 
 | # | Название | Содержание | Приёмка |
 |---|---|---|---|
-| **M0** | Bootstrap | Окружение (SETUP.md), Gradle multi-module (`:domain`, `:infra`, `:app`), version catalog, Hilt, Compose, тема, каркас навигации с 4 вкладками и пустыми экранами, `checkArchitecture`, `PROGRESS.md`. | Гейт §7 AGENTS.md зелёный; приложение запускается и переключает вкладки. |
+| **M0** | Bootstrap | Окружение (SETUP.md), Gradle multi-module (`:domain`, `:infra`, `:app`), version catalog, Hilt, Java Activity, Fragment, XML-тема Material 3, каркас навигации с 4 вкладками и пустыми экранами, `checkArchitecture`, `PROGRESS.md`. | Гейт §7 AGENTS.md зелёный; приложение запускается и переключает вкладки. |
 | **M1** | Домен: программы | Модель `Program/CycleDay/Exercise`, `ProgramValidator`, `ExerciseSpecs`, черновики (`ProgramDraft` операции: добавить/удалить/переставить день, упражнение). | Тесты на все правила F-04…F-08; ≥90% веток в этих классах. |
 | **M2** | Домен: движок запуска | `ProgramRun`, `DaySlot`, `Session`, `TrainingEngine` (start/stop/startWorkout/check/finish/decideCycle/reconcile/nextTransitionAt), отчёты, итог цикла, лог. | Табличные тесты времени (ARCHITECTURE §14) зелёные: автостарт при закрытом приложении, дедлайн, полночь, многодневное отсутствие, конец цикла (рабочий/отдыха последний день), смена часового пояса, повторный успех в сутки. |
-| **M3** | Контроллеры + персистентность | Порты, контроллеры, Room, DataStore, DTO-мапперы, миграции, `TimeSource`, single-writer, `DebugSeeder`. | Round-trip тесты репозиториев (Robolectric); тест «процесс убит посреди» (повторная загрузка = то же состояние). |
+| **M3** | Контроллеры + персистентность | Порты, контроллеры, Room, SharedPreferences, DTO-мапперы, миграции, `TimeSource`, single-writer, `DebugSeeder`. | Round-trip тесты репозиториев (Robolectric); тест «процесс убит посреди» (повторная загрузка = то же состояние). |
 | **M4** | UI: программы и цикл | PROGRAMS, PROGRAM_EDITOR, DAY_EDITOR, модалки упражнений, START_DAY_PICKER, HOME (все состояния), WORKOUT, модалки итогов, очередь модалок. | Сквозной сценарий вручную: создать программу → запустить → пройти тренировку → итоги → новый цикл. ViewModel-тесты. |
 | **M5** | Уведомления и триггеры времени | `NotificationPlanner`, `AlarmManager`-планировщик, приёмники (alarm/boot/time-changed), каналы, разрешения, foreground-триггеры reconcile. | Юнит-тесты планировщика; ручная проверка push 12:00 и автостарта. |
 | **M6** | Тренер | `CoachEngine`, правила F-61, реестр, банки фраз (assets), COACH_LIST, COACH_CARD, виджет реплик. | Тесты правил/приоритетов/подавления/10-минутной тишины; добавление фиктивного правила и фиктивного тренера в тесте не требует правки движка/UI. |
@@ -166,11 +166,10 @@
 
 ```
 /AGENTS.md
-/docs/            trackfit.md, UI.drawio, UI_MAP.md, TZ.md, ARCHITECTURE.md, SETUP.md,
+/docs/            trackfit.md, ui/UI.drawio, UI_MAP.md, TZ.md, ARCHITECTURE.md, SETUP.md,
                   DECISIONS.md, QUESTIONS.md (создаёт агент), PROGRESS.md (создаёт агент),
-                  ui-dump/UI.dump.txt
-/tools/           drawio_dump.py
-/domain/          kotlin("jvm")
+                  UI.dump.txt, drawio_dump.py
+/domain/          java-library
 /infra/           com.android.library
 /app/             com.android.application
 /gradle/libs.versions.toml

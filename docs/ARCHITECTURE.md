@@ -6,39 +6,39 @@
 
 ## 1. Ключевые принципы
 
-1. **Бизнес-логика отдельно от View — физически.** Логика в Gradle-модуле `:domain` (чистый Kotlin/JVM). Android-классы туда не попадут на уровне компиляции.
+1. **Бизнес-логика отдельно от View — физически.** Логика в Gradle-модуле `:domain` (чистая Java 17). Android-классы туда не попадут на уровне компиляции.
 2. **MVC-вариация с пассивным View и однонаправленным потоком данных:** Model → Controller ← View (через ViewModel-адаптер). Подробно §3.
 3. **Время — входной параметр, а не окружение.** Вся логика — функции `(state, now, zone, command) → (state', events)`. Это делает автостарты, дедлайны, полночь и многодневное отсутствие тестируемыми без эмулятора.
 4. **Состояние выводится, а не «тикает».** Процесс Android может быть убит, будильники — задержаны. Поэтому истина — сохранённые факты + часы. Любое обращение к состоянию начинается с `reconcile(now)`, который «догоняет» всё, что должно было произойти за время отсутствия (идемпотентно).
-5. **Одна точка записи.** Команды сериализуются (Mutex), каждая — одна транзакция.
+5. **Одна точка записи.** Команды последовательно выполняет однопоточный Executor, каждая — одна транзакция.
 6. **Расширяемость тренера** — через композицию (правила, банки фраз, реестр), а не через ветвление.
-7. **UI заменяем.** Макеты будут меняться; Composable — тонкие, без логики; весь UI-специфичный код сосредоточен в `:app`.
+7. **UI заменяем.** Макеты будут меняться; Fragment и View отвечают за отображение и ввод; весь UI-специфичный код сосредоточен в `:app`.
 
 ## 2. Модули
 
 ```
           ┌───────────────────────────── :app ─────────────────────────────┐
-          │ Compose UI (screens, components, theme), ViewModels, navigation│
+          │ Android Views, XML, Fragments, ViewModels, navigation          │
           │ Hilt wiring, Activity, ModalHost, ForegroundTriggers            │
           └───────────────┬───────────────────────────┬────────────────────┘
                           │                           │
                           ▼                           │
           ┌──────────── :infra ────────────┐          │
-          │ Room, DataStore, DTO/mappers,  │          │
+          │ Room, SharedPreferences, DTO,  │          │
           │ AlarmManager scheduler,        │          │
           │ notifications, receivers,      │          │
           │ SystemTimeSource, assets loader│          │
           └───────────────┬────────────────┘          │
                           ▼                           ▼
-          ┌──────────────────────── :domain (kotlin jvm) ──────────────────┐
+          ┌──────────────────────── :domain (Java 17   ) ──────────────────┐
           │ model · engine (pure) · coach · controller · ports              │
           └──────────────────────────────────────────────────────────────────┘
 ```
 
 | Модуль | Плагин | Зависит от | Содержит |
 |---|---|---|---|
-| `:domain` | `kotlin("jvm")` | kotlinx-coroutines-core, `javax.inject` (опц.) | Модель, движок, тренер, контроллеры, порты. **Никаких** `android.*`/`androidx.*`. |
-| `:infra` | `com.android.library` | `:domain`, Room, DataStore, serialization | Реализации портов. Без UI. |
+| `:domain` | `java-library` | стандартная библиотека Java | Модель, движок, тренер, контроллеры, порты. **Никаких** `android.*`/`androidx.*`. |
+| `:infra` | `com.android.library` | `:domain`, Room, SharedPreferences, org.json | Реализации портов. Без UI. |
 | `:app` | `com.android.application` | `:domain`, `:infra` | UI, DI-сборка. |
 
 Правило импортов: `:app` не обращается к Room/DAO/DTO из `:infra` напрямую, только через порты/интерфейсы домена (DI собирает реализации).
@@ -48,120 +48,69 @@
 | Роль MVC | Где | Что делает | Чего **не** делает |
 |---|---|---|---|
 | **Model** | `domain.model`, `domain.engine`, `domain.coach`, `domain.ports` | Сущности, инварианты, правила (статусы, циклы, дедлайны, валидация, выбор реплик), чистые функции. | Не знает про Android, БД, UI. |
-| **Controller** | `domain.controller` | Принимает команды (от View), читает/пишет состояние через порты, вызывает движок, коммитит транзакцию, публикует события и `Flow` состояния. | Не форматирует строки/даты для экрана, не знает про Compose. |
-| **View** | `:app` — `ui.screens/*` (Composable) | Рисует `UiState`, отправляет `UiIntent`. Stateless. | Не содержит правил, не вызывает контроллеры, не читает время. |
-| **View-adapter** | `:app` — `*ViewModel`, `*UiMapper` | Подписывается на `Flow` контроллеров, мапит Model → `UiState` (форматирование, локализация через ресурсы), мапит `UiIntent` → вызов контроллера, держит эфемерное UI-состояние (какое поле в фокусе, открыт ли диалог). | Не принимает бизнес-решений (никаких «если статус X то…»). Допустимо лишь презентационное «если нет данных — показать заглушку». |
+| **Controller** | `domain.controller` | Принимает команды (от View), читает/пишет состояние через порты, вызывает движок, коммитит транзакцию, уведомляет Java-наблюдателей о событиях и состоянии. | Не форматирует строки/даты для экрана, независим от UI. |
+| **View** | `:app` — Fragment и XML-разметка | Рисует `UiState`, отправляет `UiIntent`. Stateless. | Не содержит правил, не вызывает контроллеры, не читает время. |
+| **View-adapter** | `:app` — `*ViewModel`, `*UiMapper` | Подписывается на обновления контроллеров через Java-интерфейсы, мапит Model → `UiState` (форматирование, локализация через ресурсы), мапит `UiIntent` → вызов контроллера, держит эфемерное UI-состояние (какое поле в фокусе, открыт ли диалог). | Не принимает бизнес-решений (никаких «если статус X то…»). Допустимо лишь презентационное «если нет данных — показать заглушку». |
 
-Поток: `View → UiIntent → ViewModel → Controller.command() → Engine → Store(commit) → Flow<State> → ViewModel(map) → UiState → View`.
+Поток: `View → UiIntent → ViewModel → Controller.command() → Engine → Store(commit) → наблюдатель состояния → ViewModel(map) → UiState → View`.
 
 **Тест «границы»:** если правило можно сформулировать словами из `trackfit.md` — оно в `:domain`. Если это про пиксели/форматирование/навигацию — в `:app`.
 
 ## 4. Доменная модель (эскиз)
 
-```kotlin
-// ids — value classes над String (UUID)
-@JvmInline value class ProgramId(val value: String)
-@JvmInline value class DayId(val value: String)
-@JvmInline value class ExerciseId(val value: String)
+Идентификаторы `ProgramId`, `DayId` и `ExerciseId` — отдельные неизменяемые типы Java со значением UUID. Модели реализуются неизменяемыми классами или Java records. Для вложенных коллекций создаются защитные копии, чтобы нельзя было изменить уже сохранённый снимок.
 
-data class Program(val id: ProgramId, val name: String, val days: List<CycleDay>)
+| Тип | Поля и ограничения |
+|---|---|
+| `Program` | Идентификатор, имя и упорядоченный список `CycleDay`. |
+| `CycleDay.Work` | Идентификатор, имя, обязательная длительность в минутах (≥1), необязательное время автостарта (`LocalTime`) и список упражнений (≥1). |
+| `CycleDay.Rest` | Только идентификатор. |
+| `Exercise` | Общие поля четырёх типов — идентификатор, имя и необязательная заметка. |
+| `Strength` | Обязательные подходы и повторы. Вес (кг) и отдых (секунды) опциональны. |
+| `Cardio` | Обязательная длительность в секундах. Интенсивность и целевой пульс опциональны. |
+| `Balance`, `Stretch` | Обязательная длительность в секундах. Подходы и сторона (`BodySide.LEFT`, `RIGHT`, `BOTH`) опциональны. |
 
-sealed interface CycleDay {
-    val id: DayId
-    data class Work(
-        override val id: DayId,
-        val name: String,
-        val durationMinutes: Int,          // >= 1, жёсткий дедлайн
-        val autoStart: LocalTime?,         // null = только ручной старт
-        val exercises: List<Exercise>,     // >= 1 (валидатор)
-    ) : CycleDay
-    data class Rest(override val id: DayId) : CycleDay   // без имени/настроек
-}
-
-sealed interface Exercise {
-    val id: ExerciseId; val name: String; val note: String?
-    data class Strength(…, val sets: Int, val reps: Int, val weightKg: Double?, val restSeconds: Int?) : Exercise
-    data class Cardio(…, val durationSeconds: Int, val intensity: String?, val targetPulse: Int?) : Exercise
-    data class Balance(…, val durationSeconds: Int, val sets: Int?, val side: BodySide?) : Exercise
-    data class Stretch(…, val durationSeconds: Int, val sets: Int?, val side: BodySide?) : Exercise
-}
-enum class BodySide { LEFT, RIGHT, BOTH }
-```
-
-`ExerciseSpecs` — метаданные типов (обязательные/опциональные поля; что показывать в списке). Валидатор и форма берут правила отсюда (единственный источник, соответствует таблице макета).
+`ExerciseSpecs` определяет обязательные и опциональные поля и состав строки упражнения по таблице макета. Эти метаданные используют и валидатор, и форма.
 
 ### Запуск и прогресс
 
-```kotlin
-data class ProgramRun(
-    val program: Program,              // СНАПШОТ на момент старта (программа неизменяема пока активна, но снапшот защищает движок и лог)
-    val startDayIndex: Int,            // выбранный стартовый день; новый цикл стартует с него же (D-08)
-    val cycleNumber: Int,              // 1, 2, …
-    val phase: CyclePhase,
-    val lastReconciledAt: Instant,     // монотонно растёт
-)
-
-sealed interface CyclePhase {
-    data class InProgress(val slots: List<DaySlot>) : CyclePhase          // slots.size == N, даты подряд
-    data class AwaitingDecision(val outcome: CycleOutcome, val slots: List<DaySlot>) : CyclePhase
-}
-
-data class DaySlot(val date: LocalDate, val dayIndex: Int, val work: WorkState?)   // work == null → день отдыха
-
-sealed interface WorkState {
-    val autoStartEnabled: Boolean                                          // false для первого слота, если время уже прошло (D-06)
-    data class NotStarted(override val autoStartEnabled: Boolean) : WorkState
-    data class Running(val session: Session, …) : WorkState
-    data class Closed(val result: DayResult, val session: Session?, …) : WorkState   // session == null → пропущен без запуска
-}
-
-data class Session(
-    val startedAt: Instant, val startKind: StartKind /* MANUAL|AUTO */,
-    val deadlineAt: Instant,                       // min(startedAt + duration, конец суток слота) (D-07)
-    val checked: Map<ExerciseId, Instant>,         // отметки, необратимы
-)
-enum class CloseReason { MANUAL, DEADLINE, MIDNIGHT }
-enum class WorkStatus { NOT_STARTED, RUNNING, COMPLETED, INCOMPLETE, SKIPPED }   // производный для UI/логики
-enum class CycleOutcome { FULL_SUCCESS, PARTIAL_SUCCESS, FULL_FAILURE }
-```
-
-Недопустимые состояния непредставимы: `Closed` не может быть «Выполняется»; `Running` всегда имеет `Session`.
+| Тип | Поля и ограничения |
+|---|---|
+| `ProgramRun` | Снимок программы на момент старта, `startDayIndex`, `cycleNumber` (от 1), фаза и монотонная отметка `lastReconciledAt` типа `Instant`. Новый цикл начинается с того же стартового дня (D-08). |
+| `CyclePhase` | `InProgress` содержит N слотов с последовательными датами. `AwaitingDecision` сохраняет слоты и вычисленный `CycleOutcome`. |
+| `DaySlot` | Локальная дата, индекс дня программы и состояние рабочего дня. У дня отдыха состояния тренировки нет. |
+| `WorkState` | Все варианты хранят `autoStartEnabled` (D-06). `NotStarted` ещё без сессии. `Running` всегда содержит `Session`. `Closed` содержит `DayResult` и завершённую сессию, если она стартовала. |
+| `Session` | `startedAt`, способ старта (`MANUAL` или `AUTO`), `deadlineAt` (ранняя из границ — конец длительности и полночь, D-07), необратимые отметки в `Map<ExerciseId, Instant>`. |
+| `CloseReason` | `MANUAL`, `DEADLINE`, `MIDNIGHT`. |
+| `WorkStatus` | Производный статус — `NOT_STARTED`, `RUNNING`, `COMPLETED`, `INCOMPLETE`, `SKIPPED`. |
+| `CycleOutcome` | `FULL_SUCCESS`, `PARTIAL_SUCCESS`, `FULL_FAILURE`. |
 
 ### Агрегат состояния, отчёты, лог
 
-```kotlin
-data class TrainingState(
-    val run: ProgramRun?,                 // null → программа не активна
-    val reports: List<Report>,            // очередь неотмеченных/непросмотренных
-)
-sealed interface Report { val id: ReportId; val createdAt: Instant; val viewed: Boolean
-    data class Day(…, val date: LocalDate, val dayName: String, val status: WorkStatus, val checked: Int, val total: Int) : Report
-    data class Cycle(…, val cycleNumber: Int, val outcome: CycleOutcome) : Report   // закрывается только решением
-}
-data class WorkoutLogEntry(/* date, programName, dayName, status, closeReason, startedAt, closedAt, cycleNumber, exercises: List<ExerciseResult(name,type,checked)> */)
-```
+`TrainingState` содержит активный запуск (может отсутствовать) и очередь отчётов. У каждого `Report` есть идентификатор, время создания и признак просмотра. `Report.Day` сохраняет дату, имя дня, статус, число отмеченных и общее число упражнений. `Report.Cycle` хранит номер и результат цикла и закрывается только решением пользователя.
 
-Лог — неизменяемая денормализованная запись (не ссылается на программу по ID); не очищается при остановке/смене программы (D-12).
+`WorkoutLogEntry` сохраняет дату, имена программы и дня, статус, причину закрытия, время старта (если был) и закрытия, номер цикла и результаты упражнений (имя, тип, отметка). Это самостоятельная неизменяемая запись истории, которая сохраняется при остановке или смене программы (D-12).
 
 ## 5. Модель времени: reconcile
 
 ### 5.1 Контракт
 
-```kotlin
-interface TimeSource { fun now(): Instant; fun zone(): ZoneId }   // порт; единственное место чтения часов
-
-object TrainingEngine {
-    fun reconcile(s: TrainingState, now: Instant, zone: ZoneId, log: LogFacts): EngineResult
-    fun startProgram(s, program, startDayIndex, now, zone): Outcome<EngineResult>
-    fun stopProgram(s, now, zone): Outcome<EngineResult>
-    fun startWorkout(s, now, zone): Outcome<EngineResult>
-    fun checkExercise(s, exerciseId, now, zone): Outcome<EngineResult>
-    fun finishWorkout(s, now, zone): Outcome<EngineResult>
-    fun decideCycle(s, decision: CycleDecision, now, zone): Outcome<EngineResult>
-    fun nextTransitionAt(s, zone): Instant?      // ближайший момент, когда reconcile что-то изменит
+```java
+interface TimeSource {
+    Instant now();
+    ZoneId zone();
 }
-data class EngineResult(val state: TrainingState, val logAppends: List<WorkoutLogEntry>, val events: List<DomainEvent>)
+
+record EngineResult(TrainingState state, List<WorkoutLogEntry> logAppends,
+                    List<DomainEvent> events) {}
+
+interface TrainingEngine {
+    EngineResult reconcile(TrainingState state, Instant now, ZoneId zone, LogFacts log);
+    Optional<Instant> nextTransitionAt(TrainingState state, ZoneId zone);
+}
 ```
+
+Команды `startProgram` (программа и стартовый индекс), `stopProgram`, `startWorkout`, `checkExercise` (идентификатор упражнения), `finishWorkout` и `decideCycle` (решение) получают текущее состояние, время, пояс и факты лога, нужные для reconcile. Результат включает обновлённое состояние, записи лога, события и типизированный исход запрошенного действия.
 
 Все команды **внутри** вызывают `reconcile(now)` первым шагом, затем применяют действие. Так команда «отметить упражнение» после просроченного дедлайна честно получит `SessionNotRunning`, даже если ни один таймер не сработал.
 
@@ -169,7 +118,7 @@ data class EngineResult(val state: TrainingState, val logAppends: List<WorkoutLo
 
 Идти по слотам в порядке дат, для каждого слота с `date ≤ today(now, zone)`:
 
-1. **Рабочий, `NotStarted`, `autoStartEnabled`, автостарт задан**: `startInstant = date.atTime(autoStart).in(zone)`. Если `now ≥ startInstant` → перейти в `Running` с `startedAt = startInstant` (а не `now`!), `startKind = AUTO`, `deadlineAt = min(startInstant + duration, конец суток date)`.
+1. **Рабочий, `NotStarted`, `autoStartEnabled`, автостарт задан**: `startInstant = date.atTime(autoStart).atZone(zone).toInstant()`. Если `now ≥ startInstant` → перейти в `Running` с `startedAt = startInstant` (а не `now`!), `startKind = AUTO`, `deadlineAt = min(startInstant + duration, конец суток date)`.
 2. **`Running`**: если `now ≥ deadlineAt` → закрыть в `deadlineAt` (причина `DEADLINE`, либо `MIDNIGHT`, если дедлайн совпал с границей суток). Статус по F-36.
 3. **Рабочий `NotStarted`, `date < today`** → закрыть как `Skipped`, причина `MIDNIGHT`, без сессии.
 4. **День отдыха** — без состояния; считается пройденным при `date < today`.
@@ -189,52 +138,42 @@ data class EngineResult(val state: TrainingState, val logAppends: List<WorkoutLo
 
 ### 5.4 `nextTransitionAt`
 
-Чистая функция: минимум из ближайших автостартов, дедлайнов, полуночей слотов. Её используют (а) foreground-триггер UI (один `delay` до следующего момента вместо опроса), (б) `NotificationPlanner`.
+Чистая функция: минимум из ближайших автостартов, дедлайнов, полуночей слотов. Её используют (а) foreground-триггер UI (один отложенный вызов до следующего момента вместо опроса), (б) `NotificationPlanner`.
 
 ### 5.5 Единый писатель
 
-```kotlin
-class TrainingController(private val store: TrainingStateStore, private val time: TimeSource,
-                         private val events: DomainEventBus, …) {
-    private val mutex = Mutex()
-    val state: Flow<TrainingState> = store.observe()
-    suspend fun <T> command(block: (TrainingState, Instant, ZoneId) -> Outcome<EngineResult, T>): Outcome<T> =
-        mutex.withLock {
-            val s = store.load(); val now = time.now(); val zone = time.zone()
-            val r = block(s, now, zone)                    // внутри — reconcile + действие
-            if (r is Success && r.result.changed) store.commit(r.result.state, r.result.logAppends)  // ОДНА транзакция
-            r.result.events.forEach(events::publish)       // после коммита
-            r
-        }
-    suspend fun reconcile() = command { s, n, z -> TrainingEngine.reconcile(s, n, z, …).asOutcome() }
-}
-```
+UI (через ViewModel) и alarm-приёмник получают через DI один экземпляр `TrainingController` и отправляют команды на общий однопоточный `Executor`. Каждая команда целиком выполняется в очереди писателя.
 
-Alarm-приёмник и UI вызывают один и тот же `TrainingController`; гонки исключены Mutex'ом.
+1. Загрузить актуальное состояние и факты лога. Прочитать время и пояс через `TimeSource`.
+2. Выполнить reconcile и запрошенное действие. Сохранить изменения, которые вывел reconcile, даже если после дедлайна само действие вернуло `SessionNotRunning`.
+3. При изменениях одной транзакцией записать состояние, отчёты и дополнения к логу. После успешной записи уведомить наблюдателей и опубликовать события. При повторном reconcile с тем же результатом запись пропускается.
+4. Вернуть вызывающему результат через Java API, например `CompletionStage<Outcome<T>>`. ViewModel передаёт новое состояние на главный поток.
+
+Java-порт наблюдения возвращает подписку с методом снятия. Наблюдатель состояния получает текущий снимок при подписке, затем зафиксированные обновления по порядку. Разовые события получают только активные подписчики.
 
 ## 6. Контроллеры (публичная поверхность домена для View)
 
 | Контроллер | Команды / потоки |
 |---|---|
-| `ProgramController` | `programs: Flow<List<ProgramSummary>>`, `load(id)`, `save(draft)` (валидация, запрет при активной), `createDraft()`, операции над `ProgramDraft` — чистые функции в `domain.engine` |
+| `ProgramController` | подписка на список `ProgramSummary`, `load(id)`, `save(draft)` (валидация, запрет при активной), `createDraft()`, операции над `ProgramDraft` — чистые функции в `domain.engine` |
 | `TrainingController` | `state`, `startProgram`, `stopProgram`, `startWorkout`, `checkExercise`, `finishWorkout`, `decideCycle`, `markReportViewed`, `reconcile`, `nextTransitionAt` |
-| `CoachController` | `currentLine: StateFlow<CoachLine?>`, `coaches`, `selectedCoach`, `select(id)`, `dismissLine()`, `onAppEntered()`, подписка на события домена |
-| `ProfileController` | `profile: Flow<Profile>`, `update(...)` |
-| `RecordsController` | `records: Flow<…>`, `save/delete` |
+| `CoachController` | подписка на текущую реплику, `coaches`, `selectedCoach`, `select(id)`, `dismissLine()`, `onAppEntered()`, подписка на события домена |
+| `ProfileController` | подписка на `Profile`, `update(...)` |
+| `RecordsController` | подписка на список рекордов, `save/delete` |
 | `SettingsController` | `pushEnabled`, `setPushEnabled` |
 
 Ошибки — типизированные `DomainError` (sealed), а не исключения: `ActiveProgramExists`, `ProgramNotEditable`, `ValidationFailed(List<ValidationIssue>)`, `NotToday`, `SessionNotRunning`, `AlreadyChecked`, `NoActiveProgram`, … ViewModel мапит их в текст/эффект.
 
 ## 7. Персистентность (`:infra`)
 
-Порты в `:domain`: `ProgramRepository`, `TrainingStateStore`, `WorkoutLogRepository`, `CoachMemoryStore`, `ProfileRepository`, `RecordsRepository`, `SettingsRepository`. Реализации — Room/DataStore.
+Порты в `:domain`: `ProgramRepository`, `TrainingStateStore`, `WorkoutLogRepository`, `CoachMemoryStore`, `ProfileRepository`, `RecordsRepository`, `SettingsRepository`. Реализации — Room/SharedPreferences.
 
 - **Программы** (редактируемый каталог): таблицы `program`, `program_day` (`kind`, позиция, name, duration_min, autostart_min_of_day), `exercise` (`type`-дискриминатор + nullable-колонки параметров, позиция).
-- **Прогресс запуска** (`TrainingState`): одна строка `training_state(id=1, run_json, schema_version)`; `run` сериализуется DTO (kotlinx.serialization), **не** доменными классами: переименование доменного класса не должно ломать сохранённые данные. Таблица `report`. Снапшот программы лежит внутри `run_json`.
+- **Прогресс запуска** (`TrainingState`): одна строка `training_state(id=1, run_json, schema_version)`; Java-маппер в `:infra` сохраняет `run` через DTO и `org.json` с явными ключами. Формат сохраняет совместимость при переименовании доменных классов. Таблица `report`. Снапшот программы лежит внутри `run_json`.
 - **Лог**: `workout_log` (скаляры + `exercises_json`). Append-only.
 - **Тренер**: `coach_memory` (последняя реплика, служебные отметки правил).
 - **Профиль, рекорды**: Room (`profile` — одна строка; `personal_record` + `record_param`).
-- **Настройки** (`pushEnabled`, `selectedCoachId`): DataStore Preferences.
+- **Настройки** (`pushEnabled`, `selectedCoachId`): SharedPreferences.
 - `TrainingStateStore.commit(state, logAppends)` — одна `@Transaction`: обновляет `training_state`, `report`, добавляет в `workout_log`.
 - Room: `exportSchema = true`, схемы в репозитории (`app/schemas` или `infra/schemas`), миграции с тестами. `fallbackToDestructiveMigration` запрещён. Даты — ISO-8601 строки/epoch millis; время суток — минуты от полуночи.
 - Round-trip тест на каждый маппер DTO ↔ домен.
@@ -243,20 +182,29 @@ Alarm-приёмник и UI вызывают один и тот же `TrainingC
 
 ### 8.1 Триггеры reconcile
 
-Reconcile вызывается: при `ON_START` приложения; при старте процесса (`Application.onCreate` — не блокируя UI); по alarm-приёмнику; по `BOOT_COMPLETED`, `TIME_SET`, `TIMEZONE_CHANGED`, `DATE_CHANGED`; в foreground — один отложенный вызов на момент `nextTransitionAt`. Опроса раз в секунду для логики **нет**. Тик раз в секунду — только для отрисовки обратного отсчёта на видимом экране (`TickerFlow`, считает `deadlineAt − now` локально).
+Reconcile вызывается: при `ON_START` приложения; при старте процесса (`Application.onCreate` — не блокируя UI); по alarm-приёмнику; по `BOOT_COMPLETED`, `TIME_SET`, `TIMEZONE_CHANGED`, `DATE_CHANGED`; в foreground — один отложенный вызов на момент `nextTransitionAt`. Опроса раз в секунду для логики **нет**. Тик раз в секунду — только для отрисовки обратного отсчёта на видимом экране (обновление через Handler главного потока, расчёт `deadlineAt − now` локально, снятие callback при остановке экрана).
 
 ### 8.2 Уведомления
 
-```kotlin
-// :domain
-data class PlannedNotification(val id: Int, val kind: NotificationKind, val at: Instant)
-object NotificationPlanner {
-    fun plan(state: TrainingState, settings: Settings, now: Instant, zone: ZoneId): List<PlannedNotification>
-    fun shouldShow(kind: NotificationKind, stateAtFire: TrainingState, appInForeground: Boolean, settings: Settings): Boolean
+```java
+record PlannedNotification(int id, NotificationKind kind, Instant at) {}
+
+interface NotificationPlanner {
+    List<PlannedNotification> plan(TrainingState state, Settings settings, Instant now, ZoneId zone);
+    boolean shouldShow(NotificationKind kind, TrainingState stateAtFire,
+                       boolean appInForeground, Settings settings);
 }
-interface ReminderScheduler { fun replaceAll(plan: List<PlannedNotification>) }   // порт
-interface NotificationTextSource { fun text(kind: NotificationKind): String }       // шов: позже можно подключить банки фраз тренера
+
+interface ReminderScheduler {
+    void replaceAll(List<PlannedNotification> plan);
+}
+
+interface NotificationTextSource {
+    String text(NotificationKind kind);
+}
 ```
+
+`ReminderScheduler` и `NotificationTextSource` — порты. Источник текстов допускает подключение банков фраз тренера.
 
 - План: `DAILY_REMINDER` на 12:00 для будущих/текущего рабочих слотов в пределах текущего цикла (горизонт ≤ 7 суток); `AUTOSTART_LATE` в `autoStartAt` слотов с `autoStartEnabled`. Ничего на 00:00.
 - `shouldShow` решает **в момент срабатывания** после `reconcile`: напоминание 12:00 — только если слот сегодня рабочий и `NotStarted`; «опоздание» — только если сессия `Running/AUTO` и приложение не на экране; всё — только если `pushEnabled`.
@@ -265,27 +213,27 @@ interface NotificationTextSource { fun text(kind: NotificationKind): String }   
 
 ### 8.3 Присутствие
 
-Порт `AppPresence { val isForeground: Boolean }` (реализация на `ProcessLifecycleOwner`).
+Порт `AppPresence` с методом `boolean isForeground()` (реализация на `ProcessLifecycleOwner`).
 
 ## 9. Слой представления (`:app`)
 
 ### 9.1 Контракт ViewModel
 
-```kotlin
-abstract class ScreenViewModel<S, I, E>(initial: S) : ViewModel() {
-    val state: StateFlow<S>            // единственный источник отрисовки
-    abstract fun onIntent(intent: I)   // единственный вход
-    val effects: Flow<E>               // разовые события: навигация, snackbar
+```java
+abstract class ScreenViewModel<S, I> extends ViewModel {
+    abstract LiveData<S> state();
+    abstract void onIntent(I intent);
 }
 ```
 
-Composable экрана: `@Composable fun XScreen(state: XUiState, onIntent: (XIntent) -> Unit)` — **stateless**; отдельная обёртка `XRoute()` получает ViewModel и вызывает `XScreen`. У каждого `XScreen` есть `@Preview` с фейковым `UiState` (это же основа для быстрой правки под новый UI).
+Fragment подписывается на состояние через `getViewLifecycleOwner()`, передаёт `UiState` в `render` и направляет действия из View Binding во ViewModel. При уничтожении представления освобождает binding. Разовые эффекты (переход, snackbar) доставляются один раз. Отчёты остаются в очереди §9.3 до подтверждения. XML-разметку каждого экрана можно просмотреть в Layout Editor с демонстрационными значениями через атрибуты `tools:`.
+
 
 `XUiState` — только данные для отрисовки (строки уже локализованы маппером или `@StringRes` + аргументы; цвета/иконки — через enum'ы презентации). `XUiMapper` — чистые функции Model → UiState, покрываются JVM-тестами.
 
 ### 9.2 Навигация
 
-Single-Activity, Navigation Compose, типобезопасные маршруты. Нижняя панель из 4 вкладок с **раздельными back stack**. Графы:
+Одна Activity с `NavHostFragment`, XML-графами, типизированными аргументами переходов и `BottomNavigationView`. Нижняя панель из 4 вкладок с **раздельными back stack**. Графы:
 
 - **Главная**: `Home` → `Programs` → `ProgramEditor` → `DayEditor`; `Home` → `Workout`.
 - **Прогресс**: `Progress` (заглушка).
@@ -296,11 +244,11 @@ Single-Activity, Navigation Compose, типобезопасные маршрут
 
 ### 9.3 `ModalHost` (очередь модалок)
 
-В корне `MainScaffold` стоит `ModalHost`, который показывает **одну** модалку за раз из упорядоченной очереди. Источники: (а) `TrainingController.state.reports` (непросмотренные отчёты; порядок D-13; показывать только после того как HOME отрисован); (б) локальные запросы экранов. Закрытие отчёта → `markReportViewed` (для `Report.Cycle` закрытие только через `decideCycle`). Так итоги работают одинаково при ручном завершении, автозакрытии в фоне и холодном старте.
+В корне Activity находится `ModalHost`, который показывает **одну** модалку за раз из упорядоченной очереди. Источники: (а) `TrainingController.state.reports` (непросмотренные отчёты; порядок D-13; показывать только после того как HOME отрисован); (б) локальные запросы экранов. Закрытие отчёта → `markReportViewed` (для `Report.Cycle` закрытие только через `decideCycle`). Так итоги работают одинаково при ручном завершении, автозакрытии в фоне и холодном старте.
 
 ### 9.4 Тема и строки
 
-Тема и токены — в `ui.theme` (единое место для смены внешнего вида под новый UI). Строки — только `res/values/strings.xml`. Иконки в макете — эмодзи-заглушки; временно использовать Material Icons, пометить `TODO(ui)`.
+Тема и токены — в XML-ресурсах `res/values/` (единое место для смены внешнего вида под новый UI). Строки — только `res/values/strings.xml`. Иконки в макете — эмодзи-заглушки; временно использовать векторные drawable с иконками Material, пометить `TODO(ui)`.
 
 ## 10. Подсистема тренера (`domain.coach`)
 
@@ -314,45 +262,15 @@ DomainEvent ─► CoachEvent ─► Rules ─► LineIntent[] ─► Arbiter �
                          CoachContext (read-only факты)        PhraseBank(coachId, key)
 ```
 
-```kotlin
-sealed interface CoachEvent {
-    data class AppEntered(val at: Instant) : CoachEvent
-    data class ReportPresented(val report: Report) : CoachEvent      // реплика привязана к показу отчёта (D-14)
-    data class SessionClosed(val sessionId: …) : CoachEvent          // аннулирует отложенные мотивации
-    data class Tick(val at: Instant) : CoachEvent                    // только пока экран виден и идёт сессия
-}
-
-data class CoachContext(
-    val now: Instant, val today: LocalDate, val run: ProgramRun?,
-    val todaySlot: DaySlot?, val memory: CoachMemory,
-    val log: LogFacts,                 // например: fullCompletionsOn(date), lastEntries(n)
-    val coach: CoachDefinition,
-)
-
-interface CoachRule {
-    val id: RuleId
-    fun evaluate(event: CoachEvent, ctx: CoachContext): LineIntent?    // чистая функция
-}
-
-data class LineIntent(
-    val key: PhraseKey,                // что сказать: AutoStartGreeting, RestDayGreeting, DayCompleted, DayIncomplete, DaySkipped, CycleFullSuccess, …
-    val variant: Set<PhraseTag> = emptySet(),   // SAME_DAY_REPEAT, SOFT, … — уточняют выбор фразы
-    val priority: Priority,            // SYSTEM > RESULT > MOTIVATION
-    val suppresses: Set<RuleId> = emptySet(),
-    val deliverAt: Instant? = null,    // отложенные (мотивация)
-)
-
-class CoachArbiter       // по приоритету выбирает победителя, применяет suppresses и правило 10 минут тишины для MOTIVATION
-interface PhraseBank { fun phrases(coachId: CoachId, key: PhraseKey, tags: Set<PhraseTag>): List<Phrase> }
-interface PhrasePicker { fun pick(candidates: List<Phrase>): Phrase }   // инъекция Random → детерминируемые тесты
-
-data class CoachDefinition(val id: CoachId, val displayName: String, val characterTitle: String, val bio: String,
-                           val previewPhrase: String, val avatarAsset: String,
-                           val extraRules: List<RuleId> = emptyList())    // персонаж-специфичные правила
-class CoachRegistry(rules: Map<RuleId, CoachRule>, coaches: List<CoachDefinition>) {
-    fun rulesFor(coach: CoachId): List<CoachRule>   // общие + extraRules
-}
-```
+| Тип | Контракт |
+|---|---|
+| `CoachEvent` | Варианты — `AppEntered(at)`, `ReportPresented(report)` (D-14), `SessionClosed(sessionId)` для отмены отложенной мотивации и `Tick(at)` для видимого экрана активной сессии. |
+| `CoachContext` | Текущие время и дата, активный запуск и сегодняшний слот (если есть), память тренера, `LogFacts` с историей и числом полных завершений за дату, выбранный `CoachDefinition`. |
+| `CoachRule` | Методы `RuleId id()` и `Optional<LineIntent> evaluate(CoachEvent event, CoachContext context)`. Вычисление по входным данным без побочных эффектов. |
+| `LineIntent` | Ключ фразы, множество тегов (включая `SAME_DAY_REPEAT`, `SOFT`), приоритет, множество подавляемых правил и время отложенной доставки (если нужно). По умолчанию оба множества пусты. |
+| `CoachArbiter` | Выбирает победителя по приоритету SYSTEM > RESULT > MOTIVATION, учитывает подавление и десять минут тишины. |
+| `PhraseBank`, `PhrasePicker` | Банк выдаёт список кандидатов по тренеру, ключу и тегам. Селектор выбирает реплику, получает `Random` через конструктор для детерминированных тестов. |
+| `CoachDefinition`, `CoachRegistry` | Описание содержит идентификатор, имя, характер, био, демо-фразу, путь аватара и список дополнительных правил (по умолчанию пуст). Реестр собирает общие правила и `extraRules` выбранного тренера по идентификаторам. |
 
 ### 10.2 Правила v1 (реализовать ровно эти)
 
@@ -370,11 +288,11 @@ class CoachRegistry(rules: Map<RuleId, CoachRule>, coaches: List<CoachDefinition
 
 ### 10.4 Показ
 
-`CoachController.currentLine: StateFlow<CoachLine?>`. Время жизни/сброс — D-15. UI-компонент `CoachBar` (аватар + облачко) просто отображает `CoachLine?`. Размещение — D-26.
+Контроллер сообщает подписчикам текущую реплику или её отсутствие. Время жизни/сброс — D-15. UI-компонент `CoachBar` (аватар + облачко) отображает полученную реплику, при её отсутствии скрывает облачко. Размещение — D-26.
 
 ## 11. DI и структура пакетов
 
-Hilt-модули в `:app` (`di/`): `DomainModule` (контроллеры, движок, реестр тренера), `InfraModule` (Room, репозитории, планировщик, `TimeSource`, `AppPresence`). `:domain` не использует аннотации Hilt (конструкторная инъекция вручную в `@Provides`).
+Hilt и Room используют процессоры аннотаций Java (`annotationProcessor`). Hilt-модули в `:app` (`di/`): `DomainModule` (контроллеры, движок, реестр тренера), `InfraModule` (Room, репозитории, планировщик, `TimeSource`, `AppPresence`). `:domain` не использует аннотации Hilt (конструкторная инъекция вручную в `@Provides`).
 
 ```
 :domain  app.trackfit.domain
@@ -382,7 +300,7 @@ Hilt-модули в `:app` (`di/`): `DomainModule` (контроллеры, д�
 :infra   app.trackfit.infra
    db/ (entities, dao, migrations) dto/ mapping/ prefs/ notifications/ alarms/ assets/ time/
 :app     app.trackfit.app
-   di/ navigation/ ui/{theme,components,home,programs,editor,workout,coach,profile,records,settings,progress,modal}/ 
+   di/ navigation/ ui/{components,home,programs,editor,workout,coach,profile,records,settings,progress,modal}/
    triggers/ (ForegroundTriggers, receivers регистрируются в манифесте)
 ```
 
@@ -430,16 +348,17 @@ Hilt-модули в `:app` (`di/`): `DomainModule` (контроллеры, д�
 
 **`:infra`** (Robolectric/in-memory Room): round-trip мапперов, транзакционность `commit`, миграции, `NotificationPlanner`→`ReminderScheduler` (через фейк).
 
-**`:app`**: тесты `UiMapper` и ViewModel (с фейковыми портами/контроллерами, Turbine). Compose UI-тесты — по минимуму (по желанию агента на ключевых модалках); `@Preview` обязательны.
+**`:app`**: Java-тесты `UiMapper` и ViewModel с фейковыми портами и контроллерами, наблюдателем LiveData и управляемым исполнителем. Для ключевых модальных окон можно добавить Espresso-тесты. Для каждого экрана доступен предпросмотр XML в Layout Editor.
 
 ## 15. Автоматические архитектурные ограничения (`checkArchitecture`)
 
-Gradle-задача (в корневом `build.gradle.kts` или `buildSrc`/convention-плагин), входит в гейт. Проверки сканированием исходников:
+Gradle-задача (в корневом `build.gradle` или `buildSrc`/convention-плагин), входит в гейт. Проверки сканированием исходников:
 
-1. В `domain/src/**` нет импортов `android.`, `androidx.`, `dagger.`, `hilt.`, `org.jetbrains.compose`.
+1. В `domain/src/**` нет импортов `android.`, `androidx.`, `dagger.`, `hilt.`.
 2. В `domain/src/main/**` нет вызовов `Instant.now(`, `LocalDate.now(`, `LocalDateTime.now(`, `LocalTime.now(`, `System.currentTimeMillis(`, `ZoneId.systemDefault(` (кроме файла с реализацией `TimeSource`, если она окажется в домене — она должна быть в `:infra`).
-3. В `app/src/main/**/ui/**` нет импортов `app.trackfit.domain.engine`, `app.trackfit.domain.controller`, `app.trackfit.domain.ports`, `app.trackfit.infra`. Composable видят только `UiState`/`UiIntent`/примитивы и модельные типы, разрешённые явным allow-list'ом (`docs`‑комментарий в задаче).
-4. В `app/src/main/**/*.kt` нет строковых литералов с кириллицей (кроме `@Preview`-данных в файлах `*Preview*.kt`).
+3. В `app/src/main/**/ui/**` нет импортов `app.trackfit.domain.engine`, `app.trackfit.domain.controller`, `app.trackfit.domain.ports`, `app.trackfit.infra`. View и Fragment видят только `UiState`/`UiIntent`/примитивы и модельные типы, разрешённые явным allow-list'ом (`docs`‑комментарий в задаче).
+4. В `app/src/main/**/*.java` нет строковых литералов с кириллицей. В пользовательских атрибутах XML-разметки и меню текст и описания иконок ссылаются на `@string/…` (значения `tools:` служат только для предпросмотра).
 5. В `:infra` нет импортов `app.trackfit.app`.
+6. Прикладные и тестовые исходники всех трёх модулей пишутся на Java. Задача обнаруживает файлы `*.kt` под `app/src`, `domain/src` и `infra/src`.
 
 Нарушение = ошибка сборки. Исключения — только через явный allow-list в самой задаче с комментарием `// D-xx`.

@@ -1,9 +1,38 @@
 plugins {
     id 'java-library'
+    id 'jacoco'
 }
 
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+dependencies {
+    testImplementation(libs.junit)
+}
+
+jacoco {
+    toolVersion = libs.versions.jacoco.get()
+}
+
+tasks.named('jacocoTestCoverageVerification') {
+    dependsOn tasks.named('test')
+    violationRules {
+        rule {
+            includes = ['app.trackfit.domain.engine.ProgramDraft',
+                        'app.trackfit.domain.engine.ProgramValidator',
+                        'app.trackfit.domain.engine.ExerciseSpecs*',
+                        'app.trackfit.domain.model.Program',
+                        'app.trackfit.domain.model.CycleDay*',
+                        'app.trackfit.domain.model.Exercise*']
+            element = 'CLASS'
+            limit {
+                counter = 'BRANCH'
+                value = 'COVEREDRATIO'
+                minimum = 0.90
+            }
+        }
     }
 }

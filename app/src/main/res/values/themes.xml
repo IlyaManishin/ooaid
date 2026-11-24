@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.TrackFit" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">#17684D</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorPrimaryContainer">#D9F3E8</item>
+        <item name="colorOnPrimaryContainer">#0F392B</item>
+        <item name="colorSecondaryContainer">#DDEFE6</item>
+        <item name="colorOnSecondaryContainer">#0F392B</item>
+        <item name="colorSurfaceContainer">#EEF5F2</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>

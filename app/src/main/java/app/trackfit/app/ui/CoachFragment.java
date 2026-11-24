@@ -41,7 +41,7 @@ public final class CoachFragment extends Fragment {
                         if (nav.getCurrentDestination() != null && nav.getCurrentDestination().getId() == R.id.coach_screen) {
                             nav.navigate(R.id.coach_card_screen, args);
                         }
-                    });
+                    }).setIconResource(R.drawable.ic_tab_coach);
                     text(content, card.character(), true);
                     text(content, card.preview(), false);
                 }
@@ -73,10 +73,11 @@ public final class CoachFragment extends Fragment {
         parent.addView(view);
     }
 
-    private void action(LinearLayout parent, String label, Runnable action) {
+    private MaterialButton action(LinearLayout parent, String label, Runnable action) {
         MaterialButton button = new MaterialButton(requireContext());
         button.setText(label);
         button.setOnClickListener(view -> action.run());
         parent.addView(button);
+        return button;
     }
 }

@@ -3,6 +3,14 @@ plugins {
     alias(libs.plugins.hilt)
 }
 
+def releaseCredentials = [
+    path: providers.environmentVariable('TRACKFIT_KEYSTORE_PATH'),
+    store: providers.environmentVariable('TRACKFIT_STORE_PASSWORD'),
+    alias: providers.environmentVariable('TRACKFIT_KEY_ALIAS'),
+    key: providers.environmentVariable('TRACKFIT_KEY_PASSWORD'),
+]
+def hasReleaseCredentials = releaseCredentials.values().every { it.isPresent() }
+
 android {
     enableKotlin = false
     namespace = "app.trackfit.app"
@@ -30,7 +38,26 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    signingConfigs {
+        if (hasReleaseCredentials) {
+            production {
+                storeFile = file(releaseCredentials.path.get())
+                storePassword = releaseCredentials.store.get()
+                keyAlias = releaseCredentials.alias.get()
+                keyPassword = releaseCredentials.key.get()
+            }
+        }
+    }
+
     buildTypes {
+        release {
+            minifyEnabled = true
+            shrinkResources = true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            if (hasReleaseCredentials) {
+                signingConfig = signingConfigs.production
+            }
+        }
         debug {
             buildConfigField "boolean", "SEED_EXAMPLES",
                     (providers.gradleProperty("trackfit.seedExamples").orElse("false").get() == "true").toString()

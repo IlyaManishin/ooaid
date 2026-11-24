@@ -20,6 +20,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public final class AlarmScheduler implements ReminderScheduler {
+    public static final String ACTION_ALARM = "app.trackfit.action.ALARM";
     private static final String TRANSITION = "transition";
     private static final String KIND = "kind";
     private static final String DATE = "date";
@@ -100,7 +101,7 @@ public final class AlarmScheduler implements ReminderScheduler {
     }
 
     private Intent intent(String id) {
-        return new Intent(context, receiver).setData(new Uri.Builder().scheme("trackfit").authority("alarm")
+        return new Intent(context, receiver).setAction(ACTION_ALARM).setData(new Uri.Builder().scheme("trackfit").authority("alarm")
                 .appendPath(id).build());
     }
 }

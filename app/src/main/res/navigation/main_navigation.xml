@@ -8,12 +8,34 @@
         app:startDestination="@id/home_screen">
         <fragment
             android:id="@+id/home_screen"
-            android:name="app.trackfit.app.ui.TabFragment"
+            android:name="app.trackfit.app.ui.TrainingFragment"
             android:label="@string/tab_home">
-            <argument
-                android:name="title"
-                android:defaultValue="@string/tab_home"
-                app:argType="reference" />
+            <argument android:name="page" android:defaultValue="home" app:argType="string" />
+        </fragment>
+        <fragment
+            android:id="@+id/programs_screen"
+            android:name="app.trackfit.app.ui.TrainingFragment"
+            android:label="@string/programs_title">
+            <argument android:name="page" android:defaultValue="programs" app:argType="string" />
+        </fragment>
+        <fragment
+            android:id="@+id/program_editor_screen"
+            android:name="app.trackfit.app.ui.TrainingFragment"
+            android:label="@string/programs_title">
+            <argument android:name="page" android:defaultValue="program_editor" app:argType="string" />
+        </fragment>
+        <fragment
+            android:id="@+id/day_editor_screen"
+            android:name="app.trackfit.app.ui.TrainingFragment"
+            android:label="@string/day_settings">
+            <argument android:name="page" android:defaultValue="day_editor" app:argType="string" />
+            <argument android:name="dayIndex" app:argType="integer" />
+        </fragment>
+        <fragment
+            android:id="@+id/workout_screen"
+            android:name="app.trackfit.app.ui.TrainingFragment"
+            android:label="@string/day_work">
+            <argument android:name="page" android:defaultValue="workout" app:argType="string" />
         </fragment>
     </navigation>
     <navigation

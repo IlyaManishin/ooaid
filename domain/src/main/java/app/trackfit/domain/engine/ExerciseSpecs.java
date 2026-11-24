@@ -19,7 +19,7 @@ public final class ExerciseSpecs {
         return Specs.valueOf(type.name()).spec;
     }
 
-    static Object value(Exercise exercise, Field field) {
+    public static Object value(Exercise exercise, Field field) {
         return switch (field) {
             case NAME -> exercise.name();
             case NOTE -> exercise.note();
